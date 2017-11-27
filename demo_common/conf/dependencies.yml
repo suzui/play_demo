@@ -1,0 +1,4 @@
+self: play -> demo_common 0.1
+
+require:
+    - play
