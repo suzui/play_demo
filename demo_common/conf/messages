@@ -1,5 +1,3 @@
-# Default demo_common messages
 # You can specialize this file for each language.
-# For exemple, for french create a messages.fr file
-
-#demo_common.name=demo_common
+# For example, for French create a messages.fr file
+#

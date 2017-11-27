@@ -19,20 +19,20 @@ repositories:
     - playCustomModules:
         # 注意，type是local代表，仓库在本地文件
         type: local
-        # ${application.path}代表项目露肩，或者使用${play.path}代表play的安装路径
+        # ${application.path}代表项目路径，或者使用${play.path}代表play的安装路径
         artifact: ${application.path}/../[module]
         contains:
-        # 这个名字和上面本地依赖时的名字想对应
+        # 这个名字和上面本地依赖时的名字相对应
             - customerModules -> *
 repositories:
     # 本地模块
     - playBaseModules:
         # 注意，type是local代表，仓库在本地文件
         type: local
-        # ${application.path}代表项目露肩，或者使用${play.path}代表play的安装路径
+        # ${application.path}代表项目路径，或者使用${play.path}代表play的安装路径
         artifact: ${application.path}/../../[module]
         contains:
-        # 这个名字和上面本地依赖时的名字想对应
+        # 这个名字和上面本地依赖时的名字相对应
             - baseModules -> *
 
 #repositories:
