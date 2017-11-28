@@ -1,18 +1,15 @@
 # BASIC CONF
-application.name=play_demo_single
+application.name=play_demo
 application.mode=prod
 application.secret=apiPHvMRftaQhKKNnZ8yyjTyoQFVboXdLFjL4DFvR91Zniq3CSKMeDgBHzPMKMkt
 application.log=INFO
 application.log.path=/log4j.properties
 application.log.system.out=on
 application.log.custom.out=off
-application.baseUrl=http://play_demo_single.cn
+application.baseUrl=http://play_demo.cn
 application.langs=zh,en
-
-module.bespin=${play.path}/modules/bespin
-module.crud=${play.path}/modules/crud
-module.common=../demo_common
-module.base=../../play_base
+#module.base=${play.path}/modules/play_base
+#module.common=../demo_common
 
 http.path=/
 http.port=9000
@@ -24,7 +21,7 @@ date.format=yyyy-MM-dd HH:mm
 attachments.path=data/attachments
 XForwardedSupport=127.0.0.1,10.0.0.25,0:0:0:0:0:0:0:1
 
-db.url=jdbc:mysql://127.0.0.1:3306/play_demo_single?useUnicode=true&characterEncoding=utf8
+db.url=jdbc:mysql://127.0.0.1:3306/play_demo?useUnicode=true&characterEncoding=utf8
 db.user=root
 db.pass=123456
 db.driver=com.mysql.jdbc.Driver
@@ -42,7 +39,7 @@ hibernate.cache.region.factory_class=org.hibernate.cache.ehcache.SingletonEhCach
 hibernate.cache.use_second_level_cache=true
 
 %test.http.port=9001
-%test.db.url=jdbc:mysql://127.0.0.1:3306/play_demo_single_test?useUnicode=true&characterEncoding=utf8
+%test.db.url=jdbc:mysql://127.0.0.1:3306/play_demo_test?useUnicode=true&characterEncoding=utf8
 %test.db.user=root
 %test.db.pass=123456
 %test.jpa.ddl=create-drop

@@ -1,46 +1,28 @@
-# Application dependencies 
+# Application dependencies
 require:
     - play
     # 默认引用play 1.x 仓库中的模块
-    #- play -> bespin 1.0.1
     #- play -> crud
+    # 基础公共模块
+    - baseModules -> play_base 0.1
+    # 项目公共模块
+    - customerModules -> demo_common 0.1
     # 引用maven仓库的模块
     - com.fasterxml.jackson.core -> jackson-databind 2.9.2
     - com.qiniu -> qiniu-java-sdk 7.2.4
     - org.apache.poi -> poi 3.16
     - org.apache.poi -> poi-ooxml 3.16
-    # 项目自定义的模块，模块的内容从本地项目仓库中找
-    - customerModules -> demo_common 0.1
-    # 项目基础的模块，模块的内容从本地基础仓库中找
-    - baseModules -> play_base 0.1
 
 repositories:
-    # 本地模块
-    - playCustomModules:
-        # 注意，type是local代表，仓库在本地文件
-        type: local
-        # ${application.path}代表项目路径，或者使用${play.path}代表play的安装路径
-        artifact: ${application.path}/../[module]
-        contains:
-        # 这个名字和上面本地依赖时的名字相对应
-            - customerModules -> *
-repositories:
-    # 本地模块
     - playBaseModules:
-        # 注意，type是local代表，仓库在本地文件
         type: local
-        # ${application.path}代表项目路径，或者使用${play.path}代表play的安装路径
-        artifact: ${application.path}/../../[module]
+        artifact: ${play.path}/modules/[module]
         contains:
-        # 这个名字和上面本地依赖时的名字相对应
             - baseModules -> *
 
-#repositories:
-    # 自定义maven  或ivysettings.xml中配置后 项目中不需要另行配置
-    #- nexus:
-        #type: iBiblio
-        #root: "http://maven.local.com/nexus/content/groups/public/"
-        #contains:
-            #- com.* -> *
-            #- cn.* -> *
-            #- org.* -> *
+repositories:
+    - playCustomModules:
+        type: local
+        artifact: ${application.path}/../[module]
+        contains:
+            - customerModules -> *
