@@ -27,6 +27,7 @@ tmp/*
 
 # play compile
 /precompiled
+commands.pyc
 
 # play test result
 test-result
