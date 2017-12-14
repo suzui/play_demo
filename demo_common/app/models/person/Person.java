@@ -52,7 +52,7 @@ public class Person extends BasePerson {
     }
     
     public static void initAdmin() {
-        if (!fetchAll().isEmpty()) {
+        if (fetchAll().isEmpty()) {
             Person person = new Person();
             person.name = "管理员";
             person.username = "admin";
