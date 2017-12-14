@@ -47,7 +47,7 @@ public class Person extends BasePerson {
         person.username = StringUtils.isNotBlank(phone) ? phone : email;
         person.phone = phone;
         person.email = email;
-        person.password = password;
+        person.password = StringUtils.isBlank(password) ? CodeUtils.md5(RandomStringUtils.random(6)) : password;
         return person.save();
     }
     
@@ -64,7 +64,7 @@ public class Person extends BasePerson {
     
     public void editPassword(String password) {
         this.password = password;
-        this.save();
+        this.save();..
     }
     
     public void editPhone(String phone) {
@@ -128,22 +128,6 @@ public class Person extends BasePerson {
     
     public void del() {
         this.logicDelete();
-    }
-    
-    public static Person findByID(Long id) {
-        return Person.find(defaultSql("id=?"), id).first();
-    }
-    
-    public static Person findByUsername(String username) {
-        return Person.find(defaultSql("username=?"), username).first();
-    }
-    
-    public static Person findByPhone(String phone) {
-        return Person.find(defaultSql("phone=?"), phone).first();
-    }
-    
-    public static Person findByEmail(String email) {
-        return Person.find(defaultSql("email=?"), email).first();
     }
     
     public static List<Person> fetchByIds(List<Long> ids) {

@@ -26,8 +26,6 @@ public class PersonVO extends OneData {
     public String intro;
     @DataField(name = "性别")
     public Integer sex;
-    @DataField(name = "类型", enable = false)
-    public Integer type;
     @DataField(name = "token")
     public String accesstoken;
     @JsonInclude(Include.NON_NULL)
@@ -54,7 +52,6 @@ public class PersonVO extends OneData {
         this.avatar = person.avatar;
         this.intro = person.intro;
         this.sex = person.sex.code();
-        this.type = person.type.code();
         this.firstLoginTime = person.firstLoginTime;
         this.lastLoginTime = person.lastLoginTime;
         this.loginAmount = person.loginAmount;
