@@ -64,7 +64,7 @@ public class Person extends BasePerson {
     
     public void editPassword(String password) {
         this.password = password;
-        this.save();..
+        this.save();
     }
     
     public void editPhone(String phone) {
@@ -123,11 +123,23 @@ public class Person extends BasePerson {
     }
     
     public boolean isAdmin() {
-        return this.type != null && this.type == PersonType.NORMAL;
+        return this.type != null && this.type == PersonType.ADMIN;
     }
     
     public void del() {
         this.logicDelete();
+    }
+    
+    public static Person findByUsername(String username) {
+        return Person.find(defaultSql("username=?"), username).first();
+    }
+    
+    public static Person findByPhone(String phone) {
+        return Person.find(defaultSql("phone=?"), phone).first();
+    }
+    
+    public static Person findByEmail(String email) {
+        return Person.find(defaultSql("email=?"), email).first();
     }
     
     public static List<Person> fetchByIds(List<Long> ids) {
