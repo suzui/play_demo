@@ -3,7 +3,7 @@ package vos;
 import annotations.DataField;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import models.person.AccessToken;
+import models.token.AccessToken;
 import models.person.Person;
 
 public class PersonVO extends OneData {
@@ -26,6 +26,8 @@ public class PersonVO extends OneData {
     public String intro;
     @DataField(name = "性别")
     public Integer sex;
+    @DataField(name = "类型", enable = false)
+    public Integer type;
     @DataField(name = "token")
     public String accesstoken;
     @JsonInclude(Include.NON_NULL)
@@ -43,7 +45,6 @@ public class PersonVO extends OneData {
     }
     
     public PersonVO(Person person) {
-        this.id = person.id;
         this.personId = person.id;
         this.username = person.username;
         this.phone = person.phone;
@@ -53,13 +54,14 @@ public class PersonVO extends OneData {
         this.avatar = person.avatar;
         this.intro = person.intro;
         this.sex = person.sex.code();
+        this.type = person.type.code();
         this.firstLoginTime = person.firstLoginTime;
         this.lastLoginTime = person.lastLoginTime;
         this.loginAmount = person.loginAmount;
     }
     
     public PersonVO(AccessToken accessToken) {
-        this(accessToken.person);
+        this((Person) accessToken.person);
         this.accesstoken = accessToken.accesstoken;
     }
     

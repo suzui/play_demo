@@ -1,17 +1,13 @@
 package models.person;
 
+import enums.PersonType;
 import enums.Sex;
-import models.BaseModel;
-import models.auth.AuthPerson;
+import models.token.BasePerson;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
-import play.data.validation.MaxSize;
-import play.data.validation.MinSize;
-import play.data.validation.Required;
 import utils.CodeUtils;
 import vos.PersonVO;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -20,31 +16,19 @@ import java.util.Collections;
 import java.util.List;
 
 @Entity
-public class Person extends BaseModel {
-    @Required
-    @MinSize(2)
-    @MaxSize(10)
-    public String username;
-    public String phone;
-    public String email;
-    public String password;
-    public String number;
-    public String name;
-    public String avatar;
-    @Column(length = 1000)
-    public String intro;
+public class Person extends BasePerson {
+    
     @Enumerated(EnumType.STRING)
     public Sex sex = Sex.NOPOINT;
-    public Long firstLoginTime;
-    public Long lastLoginTime;
-    public Integer loginAmount;
+    @Enumerated(EnumType.STRING)
+    public PersonType type = PersonType.NORMAL;
     
     public static Person add(PersonVO personVO) {
         Person person = new Person();
         person.username = personVO.username;
         person.email = personVO.email;
         person.phone = personVO.phone;
-        person.password = personVO.password.length() < 32 ? CodeUtils.md5(personVO.password) : personVO.password;
+        person.password = personVO.password;
         person.edit(personVO);
         return person;
     }
@@ -65,6 +49,17 @@ public class Person extends BaseModel {
         person.email = email;
         person.password = password;
         return person.save();
+    }
+    
+    public static void initAdmin() {
+        if (!fetchAll().isEmpty()) {
+            Person person = new Person();
+            person.name = "管理员";
+            person.username = "admin";
+            person.password = CodeUtils.md5("123456");
+            person.type = PersonType.ADMIN;
+            person.save();
+        }
     }
     
     public void editPassword(String password) {
@@ -119,46 +114,23 @@ public class Person extends BaseModel {
         this.save();
     }
     
-    
-    public static boolean isPhoneLegal(String phone) {
-        String regExp = "^((13[0-9])|(15[0-9])|(18[0-9])|(17[0-9]))\\d{8}$";
-        return StringUtils.isNotBlank(phone) && phone.matches(regExp);
-    }
-    
     public static boolean isPhoneAvailable(String phone) {
         return Person.findByPhone(phone) == null;
-    }
-    
-    public static boolean isEmailLegal(String email) {
-        String regExp = "[a-zA-Z0-9._%-]+@[a-zA-Z0-9]+(.[a-zA-Z]{2,4}){1,4}";
-        return StringUtils.isNotBlank(email) && email.matches(regExp);
     }
     
     public static boolean isEmailAvailable(String email) {
         return Person.findByEmail(email) == null;
     }
     
-    public static boolean isPasswordLegal(String password) {
-        return StringUtils.isNotBlank(password) && password.length() >= 6;
-    }
-    
-    public boolean isPasswordRight(String password) {
-        return StringUtils.equalsIgnoreCase(password, this.password);
-    }
-    
     public boolean isAdmin() {
-        return this instanceof Admin;
-    }
-    
-    public boolean hasAccess() {
-        return this.isAdmin() || !AuthPerson.fetchAuthByPerson(this).isEmpty();
+        return this.type != null && this.type == PersonType.NORMAL;
     }
     
     public void del() {
         this.logicDelete();
     }
     
-    public static Person findByID(long id) {
+    public static Person findByID(Long id) {
         return Person.find(defaultSql("id=?"), id).first();
     }
     

@@ -8,4 +8,8 @@ public class Application extends BaseController {
     public static void index() {
         renderHtml("start...");
     }
+    
+    public static void test() {
+        renderJSON("test");
+    }
 }

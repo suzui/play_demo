@@ -13,7 +13,7 @@ import vos.*;
 public class Application extends ApiController {
     @Transactional(readOnly = true)
     public static void index() {
-        renderHtml("user api...");
+        renderHtml("user back...");
     }
     
     @ActionMethod(name = "版本号详情", clazz = VersionVO.class)

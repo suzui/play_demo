@@ -1,5 +1,7 @@
 # BASE
 *		/                                       	Application.index
+*		/test                                       Application.test
+
 
 # ADMIN 管理端
 *		/admin										admin.Application.index

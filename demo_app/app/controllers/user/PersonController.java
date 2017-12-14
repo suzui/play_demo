@@ -11,7 +11,7 @@ import annotations.ParamField;
 import binders.PasswordBinder;
 import enums.CaptchaType;
 import enums.Sex;
-import models.person.AccessToken;
+import models.token.AccessToken;
 import models.person.Person;
 import play.Logger;
 import play.cache.Cache;
