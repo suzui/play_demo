@@ -19,9 +19,9 @@ public enum CaptchaType implements BaseEnum {
     }
     
     public static CaptchaType convert(int code) {
-        for (CaptchaType captchaType : CaptchaType.values()) {
-            if (captchaType.code == code) {
-                return captchaType;
+        for (CaptchaType type : CaptchaType.values()) {
+            if (type.code == code) {
+                return type;
             }
         }
         return null;

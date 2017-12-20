@@ -17,9 +17,9 @@ public enum PersonType implements BaseEnum {
     }
     
     public static PersonType convert(int code) {
-        for (PersonType captchaType : PersonType.values()) {
-            if (captchaType.code == code) {
-                return captchaType;
+        for (PersonType type : PersonType.values()) {
+            if (type.code == code) {
+                return type;
             }
         }
         return null;
