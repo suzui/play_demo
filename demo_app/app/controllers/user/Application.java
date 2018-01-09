@@ -13,7 +13,7 @@ import vos.*;
 public class Application extends ApiController {
     @Transactional(readOnly = true)
     public static void index() {
-        renderHtml("user back...");
+        renderHtml("user...");
     }
     
     @ActionMethod(name = "版本号详情", clazz = VersionVO.class)
@@ -23,11 +23,11 @@ public class Application extends ApiController {
     
     @ActionMethod(name = "配置参数", clazz = ConfigVO.class)
     public static void configData() {
-        ConfigVO configData = new ConfigVO();
-        renderJSON(Result.succeed(configData));
+        ConfigVO configVO = new ConfigVO();
+        renderJSON(Result.succeed(configVO));
     }
     
-    @ActionMethod(name = "增量数据", clazz = ConfigVO.class)
+    @ActionMethod(name = "增量数据", clazz = IncrementData.class)
     public static void incrementData() {
         IncrementData incrementData = new IncrementData();
         renderJSON(Result.succeed(incrementData));

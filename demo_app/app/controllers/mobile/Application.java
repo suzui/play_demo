@@ -6,7 +6,7 @@ public class Application extends ApiController {
     
     @Transactional(readOnly = true)
     public static void index() {
-        renderHtml("mobile back...");
+        renderHtml("mobile...");
     }
     
     

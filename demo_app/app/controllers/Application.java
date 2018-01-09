@@ -1,5 +1,7 @@
 package controllers;
 
+import jobs.ScheduleJob;
+import play.cache.Cache;
 import play.db.jpa.NoTransaction;
 
 public class Application extends BaseController {

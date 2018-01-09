@@ -85,7 +85,7 @@ public class PersonController extends ApiController {
             if (captchaType == CaptchaType.EMAIL && person != null) {
                 renderJSON(Result.failed(StatusCode.PERSON_EMAIL_EXIST));
             }
-            Mails.captcha(email,captcha);
+            Mails.captcha(email, captcha);
             Logger.info("[captcha] %s,%s,%s", type, email, captcha);
             Cache.set(captchaType.key(email), captcha, "10mn");
         }
@@ -158,7 +158,7 @@ public class PersonController extends ApiController {
     
     @ActionMethod(name = "忘记密码", clazz = PersonVO.class)
     public static void forgetPassword(@ParamField(name = "用户名") String username,
-                                      @ParamField(name = "密码", required = false) @As(binder = PasswordBinder.class) String password,
+                                      @ParamField(name = "密码") @As(binder = PasswordBinder.class) String password,
                                       @ParamField(name = "验证码") String captcha) {
         if (!CaptchaType.PASSWORD.validate(username, captcha)) {
             renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
