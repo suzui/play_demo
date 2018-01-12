@@ -57,3 +57,4 @@ mail.debug=true
 qiniu.accessKey=ak
 qiniu.secretKey=sk
 qiniu.bucket=bucket
+qiniu.domain=http://domain.com
