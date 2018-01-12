@@ -12,6 +12,8 @@ require:
     - com.qiniu -> qiniu-java-sdk 7.2.4
     - org.apache.poi -> poi 3.16
     - org.apache.poi -> poi-ooxml 3.16
+    - com.google.zxing -> core 3.3.1
+    - com.google.zxing -> javase 3.3.1
 
 repositories:
     - playBaseModules:

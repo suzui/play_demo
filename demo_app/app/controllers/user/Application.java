@@ -48,13 +48,11 @@ public class Application extends ApiController {
     
     @ActionMethod(name = "七牛token", clazz = QiniuVO.class)
     public static void qiniuUptoken() {
-        String upToken = (String) Cache.get("qiniuUptoken");
-        renderJSON(Result.succeed(new QiniuVO(upToken)));
+        renderJSON(Result.succeed(new QiniuVO()));
     }
     
     public static void qiniuUptokenSimple() {
-        String upToken = (String) Cache.get("qiniuUptoken");
-        renderJSON(new QiniuVO(upToken));
+        renderJSON(new QiniuVO());
     }
     
 }
