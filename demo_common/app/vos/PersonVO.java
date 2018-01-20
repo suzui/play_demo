@@ -8,7 +8,7 @@ import models.person.Person;
 
 public class PersonVO extends OneData {
     
-    @DataField(name = "用户id", enable = false)
+    @DataField(name = "用户id")
     public Long personId;
     @DataField(name = "用户名")
     public String username;
@@ -26,7 +26,7 @@ public class PersonVO extends OneData {
     public String intro;
     @DataField(name = "性别")
     public Integer sex;
-    @DataField(name = "token")
+    @DataField(name = "token", enable = false)
     public String accesstoken;
     @JsonInclude(Include.NON_NULL)
     @DataField(name = "密码", enable = false)
