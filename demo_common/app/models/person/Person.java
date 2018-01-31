@@ -157,7 +157,7 @@ public class Person extends BasePerson {
         Object[] data = data(personVO);
         List<String> hqls = (List<String>) data[0];
         List<Object> params = (List<Object>) data[1];
-        return Person.find(defaultSql(StringUtils.join(hqls, " and ")) + personVO.condition(), params.toArray())
+        return Person.find(defaultSql(StringUtils.join(hqls, " and ")) + personVO.condition, params.toArray())
                 .fetch(personVO.page, personVO.size);
     }
     
