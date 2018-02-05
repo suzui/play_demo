@@ -40,7 +40,7 @@ accesstoken 用户凭证,登录成功后后台生成返回给客户端
 * [版本信息](/admin/version?doc)
 * [配置参数](/admin/configData?doc)
 * [地区参数](/admin/areaData?doc)
-* [增量数据](/admin/incrementVO?doc)
+* [增量数据](/admin/incrementData?doc)
 * [七牛token](/admin/qiniu/uptoken?doc)
 
 ##### 管理员模块
@@ -55,7 +55,7 @@ accesstoken 用户凭证,登录成功后后台生成返回给客户端
 * [版本信息](/user/version?doc)
 * [配置参数](/user/configData?doc)
 * [地区参数](/user/areaData?doc)
-* [增量数据](/user/incrementVO?doc)
+* [增量数据](/user/incrementData?doc)
 * [七牛token](/user/qiniu/uptoken?doc)
 
 ##### 用户模块
