@@ -6,7 +6,6 @@ import enums.AppType;
 import enums.ClientType;
 import models.area.Area;
 import org.apache.commons.lang.StringUtils;
-import play.cache.Cache;
 import play.db.jpa.Transactional;
 import vos.*;
 
@@ -27,10 +26,10 @@ public class Application extends ApiController {
         renderJSON(Result.succeed(configVO));
     }
     
-    @ActionMethod(name = "增量数据", clazz = IncrementData.class)
+    @ActionMethod(name = "增量数据", clazz = IncrementVO.class)
     public static void incrementData() {
-        IncrementData incrementData = new IncrementData();
-        renderJSON(Result.succeed(incrementData));
+        IncrementVO incrementVO = new IncrementVO();
+        renderJSON(Result.succeed(incrementVO));
     }
     
     @ActionMethod(name = "地区数据", clazz = AreaVO.class)

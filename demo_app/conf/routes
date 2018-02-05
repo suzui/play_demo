@@ -7,7 +7,7 @@
 *		/admin										admin.Application.index
 *		/admin/version								admin.Application.version
 *		/admin/configData							admin.Application.configData
-*		/admin/incrementData						admin.Application.incrementData
+*		/admin/incrementVO						admin.Application.incrementVO
 *		/admin/areaData							    admin.Application.areaData
 *		/admin/qiniu/uptoken						admin.Application.qiniuUptoken
 *		/admin/qiniu/uptoken/simple					admin.Application.qiniuUptokenSimple
@@ -19,7 +19,7 @@
 *		/user										user.Application.index
 *		/user/version								user.Application.version
 *		/user/configData							user.Application.configData
-*		/user/incrementData							user.Application.incrementData
+*		/user/incrementVO							user.Application.incrementVO
 *		/user/areaData							    user.Application.areaData
 *		/user/qiniu/uptoken							user.Application.qiniuUptoken
 *		/user/qiniu/uptoken/simple					user.Application.qiniuUptokenSimple
