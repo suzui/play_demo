@@ -11,10 +11,6 @@ public class FreshQiniuTokenJob extends Job {
     
     @Override
     public void doJob() throws Exception {
-        initQiniu();
-    }
-    
-    private void initQiniu() {
         QiniuUtils.initUpToken();
     }
     
