@@ -15,7 +15,7 @@ public class FreshQiniuTokenJob extends Job {
     }
     
     private void initQiniu() {
-        QiniuUtils.upToken();
+        QiniuUtils.initUpToken();
     }
     
 }
