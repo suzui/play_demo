@@ -9,6 +9,7 @@ public class QiniuVO extends OneData {
     public String uptoken;
     
     public QiniuVO() {
+        super(0l);
         this.uptoken = QiniuUtils.upToken();
     }
     
