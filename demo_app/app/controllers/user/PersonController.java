@@ -210,12 +210,10 @@ public class PersonController extends ApiController {
         renderJSON(Result.succeed(new PersonVO(accessToken)));
     }
     
-    @ActionMethod(name = "信息编辑")
-    public static void edit(@ParamField(name = "名字") String name, @ParamField(name = "头像") String avatar,
-                            @ParamField(name = "简介") String intro, @ParamField(name = "性别") Integer sex,
-                            @ParamField(name = "修改字段", demo = "name,avatar") @As(",") List<String> colunms) {
+    @ActionMethod(name = "信息编辑", param = "name,avatar,sex,birthday")
+    public static void edit(PersonVO vo) {
         Person person = getPersonByToken();
-        person.editInfo(name, avatar, intro, Sex.convert(sex), colunms);
+        person.edit(vo);
         renderJSON(Result.succeed());
     }
     
