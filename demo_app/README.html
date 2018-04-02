@@ -328,7 +328,7 @@ kbd {
 
 <body>
 
-<h1 id="toc_0">play_demo_single</h1>
+<h1 id="toc_0">play_demo</h1>
 
 <hr>
 
@@ -365,6 +365,7 @@ accesstoken 用户凭证,登录成功后后台生成返回给客户端</code></p
 <li>时间类型全部使用<code>Long</code>型(既<code>1970-01-01 00:00:00</code>到现在的时间戳)<br/></li>
 <li>布尔类型全部使用<code>int</code>型(<code>0</code>表示<code>false</code><code>1</code>表示<code>true</code>)<br/></li>
 <li>价格金额全部使用<code>int</code>型(单位精确到分)<br/></li>
+<li>二维码统一格式{&quot;type&quot;:101,&quot;data&quot;:&quot;二维码数据&quot;,&quot;addition&quot;:&quot;附加数据&quot;}</li>
 </ul>
 </blockquote>
 
@@ -394,7 +395,7 @@ accesstoken 用户凭证,登录成功后后台生成返回给客户端</code></p
 
 <h2 id="toc_8"></h2>
 
-<h4 id="toc_9">用户端</h4>
+<h4 id="toc_9">用户WEB端</h4>
 
 <h6 id="toc_10">基础模块</h6>
 
@@ -424,7 +425,33 @@ accesstoken 用户凭证,登录成功后后台生成返回给客户端</code></p
 
 <h2 id="toc_12"></h2>
 
-<h4 id="toc_13">移动端</h4>
+<h4 id="toc_13">用户移动端</h4>
+
+<h6 id="toc_14">基础模块</h6>
+
+<ul>
+<li><a href="/user/mobile/version?doc">版本信息</a></li>
+<li><a href="/user/mobile/configData?doc">配置参数</a></li>
+<li><a href="/user/mobile/areaData?doc">地区参数</a></li>
+<li><a href="/user/mobile/incrementData?doc">增量数据</a></li>
+<li><a href="/user/mobile/qiniu/uptoken?doc">七牛token</a></li>
+</ul>
+
+<h5 id="toc_15">用户模块</h5>
+
+<ul>
+<li><a href="/user/mobile/person/captcha?doc">验证码获取</a></li>
+<li><a href="/user/mobile/person/regist?doc">用户注册</a></li>
+<li><a href="/user/mobile/person/login?doc">用户登录</a></li>
+<li><a href="/user/mobile/person/logout?doc">用户登出</a></li>
+<li><a href="/user/mobile/person/info?doc">用户详情</a></li>
+<li><a href="/user/mobile/person/edit?doc">信息编辑</a></li>
+<li><a href="/user/mobile/person/phone/bind?doc">绑定手机</a></li>
+<li><a href="/user/mobile/person/email/bind?doc">绑定邮箱</a></li>
+<li><a href="/user/mobile/person/password/forget?doc">忘记密码</a></li>
+<li><a href="/user/mobile/person/password/validate?doc">验证密码</a></li>
+<li><a href="/user/mobile/person/password/reset?doc">重置密码</a></li>
+</ul>
 
 
 

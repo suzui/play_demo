@@ -1,4 +1,4 @@
-# play_demo_single
+# play_demo
 ---
 ### 名称说明
 ```
@@ -49,7 +49,7 @@ accesstoken 用户凭证,登录成功后后台生成返回给客户端
 * [管理员详情](/admin/admin/info?doc)
 
 --
-#### 用户端
+#### 用户WEB端
 
 ###### 基础模块
 * [版本信息](/user/version?doc)
@@ -72,5 +72,24 @@ accesstoken 用户凭证,登录成功后后台生成返回给客户端
 * [重置密码](/user/person/password/reset?doc)
 
 --
-#### 移动端
+#### 用户移动端
 
+###### 基础模块
+* [版本信息](/user/mobile/version?doc)
+* [配置参数](/user/mobile/configData?doc)
+* [地区参数](/user/mobile/areaData?doc)
+* [增量数据](/user/mobile/incrementData?doc)
+* [七牛token](/user/mobile/qiniu/uptoken?doc)
+
+##### 用户模块
+* [验证码获取](/user/mobile/person/captcha?doc)
+* [用户注册](/user/mobile/person/regist?doc)
+* [用户登录](/user/mobile/person/login?doc)
+* [用户登出](/user/mobile/person/logout?doc)
+* [用户详情](/user/mobile/person/info?doc)
+* [信息编辑](/user/mobile/person/edit?doc)
+* [绑定手机](/user/mobile/person/phone/bind?doc)
+* [绑定邮箱](/user/mobile/person/email/bind?doc)
+* [忘记密码](/user/mobile/person/password/forget?doc)
+* [验证密码](/user/mobile/person/password/validate?doc)
+* [重置密码](/user/mobile/person/password/reset?doc)
