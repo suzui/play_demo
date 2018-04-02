@@ -2,7 +2,6 @@
 *		/                                       	Application.index
 *		/test                                       Application.test
 
-
 # ADMIN 管理端
 *		/admin										admin.Application.index
 *		/admin/version								admin.Application.version
@@ -15,7 +14,7 @@
 *		/admin/admin/logout							admin.AdminController.logout
 *		/admin/admin/info							admin.AdminController.info
 
-# USER 用户端
+# USER 用户WEB端
 *		/user										user.Application.index
 *		/user/version								user.Application.version
 *		/user/configData							user.Application.configData
@@ -35,8 +34,25 @@
 *		/user/person/password/validate				user.PersonController.validatePassword
 *		/user/person/password/reset					user.PersonController.resetPassword
 
-# MOBILE 移动端
-*		/mobile										mobile.Application.index
+# USER.MOBILE 用户移动端
+*		/user/mobile							    user.mobile.Application.index
+*		/user/mobile							    user.mobile.Application.index
+*		/user/mobile/version						user.mobile.Application.version
+*		/user/mobile/configData						user.mobile.Application.configData
+*		/user/mobile/incrementData					user.mobile.Application.incrementData
+*		/user/mobile/areaData					    user.mobile.Application.areaData
+*		/user/mobile/qiniu/uptoken					user.mobile.Application.qiniuUptoken
+*		/user/mobile/person/captcha					user.mobile.PersonController.captcha
+*		/user/mobile/person/regist					user.mobile.PersonController.regist
+*		/user/mobile/person/login					user.mobile.PersonController.login
+*		/user/mobile/person/logout					user.mobile.PersonController.logout
+*		/user/mobile/person/info					user.mobile.PersonController.info
+*		/user/mobile/person/edit					user.mobile.PersonController.edit
+*		/user/mobile/person/phone/bind				user.mobile.PersonController.bindPhone
+*		/user/mobile/person/email/bind				user.mobile.PersonController.bindEmail
+*		/user/mobile/person/password/forget			user.mobile.PersonController.forgetPassword
+*		/user/mobile/person/password/validate		user.mobile.PersonController.validatePassword
+*		/user/mobile/person/password/reset			user.mobile.PersonController.resetPassword
 
 # BACK 后台开发
 *     	/back                       				module:play_base
