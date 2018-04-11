@@ -26,6 +26,12 @@ public class Application extends ApiController {
         renderJSON(Result.succeed(new VersionVO(AppType.USER, ClientType.convert(clientType))));
     }
     
+    @ActionMethod(name = "客户端下载")
+    public static void download(@ParamField(name = "客户端类型") Integer clientType) {
+        VersionVO versionVO = new VersionVO(AppType.USER, ClientType.convert(clientType));
+        redirect(versionVO.downloadUrl);
+    }
+    
     @ActionMethod(name = "配置参数", clazz = ConfigVO.class)
     public static void configData() {
         ConfigVO configVO = new ConfigVO();

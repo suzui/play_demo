@@ -76,6 +76,7 @@ accesstoken 用户凭证,登录成功后后台生成返回给客户端
 
 ###### 基础模块
 * [版本信息](/user/mobile/version?doc)
+* [版本下载](/user/mobile/download?doc)
 * [配置参数](/user/mobile/configData?doc)
 * [地区参数](/user/mobile/areaData?doc)
 * [增量数据](/user/mobile/incrementData?doc)

@@ -37,6 +37,7 @@
 # USER.MOBILE 用户移动端
 *		/user/mobile							    user.mobile.Application.index
 *		/user/mobile/version						user.mobile.Application.version
+*		/user/mobile/download/{clientType}			user.mobile.Application.download
 *		/user/mobile/configData						user.mobile.Application.configData
 *		/user/mobile/incrementData					user.mobile.Application.incrementData
 *		/user/mobile/areaData					    user.mobile.Application.areaData
