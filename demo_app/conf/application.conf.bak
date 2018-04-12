@@ -11,6 +11,8 @@ application.langs=zh,en
 #module.base=${play.path}/modules/play_base
 #module.common=../demo_common
 
+@include.sso=sso.conf
+
 http.path=/
 http.port=9000
 jpda.port=8000

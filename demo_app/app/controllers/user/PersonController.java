@@ -1,18 +1,14 @@
 package controllers.user;
 
-import java.util.List;
-
-import notifiers.Mails;
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.StringUtils;
-
 import annotations.ActionMethod;
 import annotations.ParamField;
 import binders.PasswordBinder;
 import enums.CaptchaType;
-import enums.Sex;
-import models.token.AccessToken;
 import models.person.Person;
+import models.token.AccessToken;
+import notifiers.Mails;
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.cache.Cache;
 import play.data.binding.As;
@@ -173,7 +169,7 @@ public class PersonController extends ApiController {
             }
             person.editPassword(password);
         }
-        AccessToken accessToken = AccessToken.findByPerson(person);
+        AccessToken accessToken = AccessToken.add(person);
         renderJSON(Result.succeed(new PersonVO(accessToken)));
     }
     
@@ -205,9 +201,7 @@ public class PersonController extends ApiController {
     
     @ActionMethod(name = "用户详情", clazz = PersonVO.class)
     public static void info() {
-        Person person = getPersonByToken();
-        AccessToken accessToken = AccessToken.findByPerson(person);
-        renderJSON(Result.succeed(new PersonVO(accessToken)));
+        renderJSON(Result.succeed(new PersonVO(getAccessTokenByToken())));
     }
     
     @ActionMethod(name = "信息编辑", param = "-name,-avatar,-sex,-birthday")

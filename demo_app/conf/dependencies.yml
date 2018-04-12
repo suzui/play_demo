@@ -14,7 +14,12 @@ require:
     - org.apache.poi -> poi-ooxml 3.16
     - com.google.zxing -> core 3.3.1
     - com.google.zxing -> javase 3.3.1
-
+    - com.github.qcloudsms -> qcloudsms 1.0.2
+    - org.json -> json 20180130
+    - org.apache.httpcomponents -> httpclient 4.5.3
+    - org.apache.httpcomponents -> httpmime 4.5.3
+    - commons-codec -> commons-codec 1.11
+    - com.belerweb -> pinyin4j 2.5.0
 repositories:
     - playBaseModules:
         type: local

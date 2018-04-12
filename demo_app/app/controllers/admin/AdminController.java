@@ -3,8 +3,8 @@ package controllers.admin;
 import annotations.ActionMethod;
 import annotations.ParamField;
 import binders.PasswordBinder;
-import models.token.AccessToken;
 import models.person.Person;
+import models.token.AccessToken;
 import play.data.binding.As;
 import vos.PersonVO;
 import vos.Result;
@@ -36,9 +36,7 @@ public class AdminController extends ApiController {
     
     @ActionMethod(name = "管理员详情", clazz = PersonVO.class)
     public static void info() {
-        Person person = getPersonByToken();
-        AccessToken accessToken = AccessToken.findByPerson(person);
-        renderJSON(Result.succeed(new PersonVO(accessToken)));
+        renderJSON(Result.succeed(new PersonVO(getAccessTokenByToken())));
     }
     
 }

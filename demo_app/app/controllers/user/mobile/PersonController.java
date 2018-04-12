@@ -169,7 +169,7 @@ public class PersonController extends ApiController {
             }
             person.editPassword(password);
         }
-        AccessToken accessToken = AccessToken.findByPerson(person);
+        AccessToken accessToken = AccessToken.add(person);
         renderJSON(Result.succeed(new PersonVO(accessToken)));
     }
     
@@ -201,9 +201,7 @@ public class PersonController extends ApiController {
     
     @ActionMethod(name = "用户详情", clazz = PersonVO.class)
     public static void info() {
-        Person person = getPersonByToken();
-        AccessToken accessToken = AccessToken.findByPerson(person);
-        renderJSON(Result.succeed(new PersonVO(accessToken)));
+        renderJSON(Result.succeed(new PersonVO(getAccessTokenByToken())));
     }
     
     @ActionMethod(name = "信息编辑", param = "-name,-avatar,-sex,-birthday")
