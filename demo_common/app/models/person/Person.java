@@ -9,8 +9,6 @@ import utils.CodeUtils;
 import vos.PersonVO;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,17 +16,13 @@ import java.util.List;
 @Entity
 public class Person extends BasePerson {
     
-    @Enumerated(EnumType.STRING)
-    public Sex sex = Sex.NOPOINT;
-    @Enumerated(EnumType.STRING)
-    public PersonType type = PersonType.NORMAL;
-    
     public static Person add(PersonVO personVO) {
         Person person = new Person();
         person.username = personVO.username;
         person.email = personVO.email;
         person.phone = personVO.phone;
         person.password = personVO.password;
+        person.type = PersonType.NORMAL;
         person.edit(personVO);
         return person;
     }
