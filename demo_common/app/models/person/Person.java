@@ -2,6 +2,7 @@ package models.person;
 
 import enums.PersonType;
 import enums.Sex;
+import models.organize.Organize;
 import models.token.BasePerson;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -141,6 +142,10 @@ public class Person extends BasePerson {
             return Collections.EMPTY_LIST;
         }
         return Person.find(defaultSql("id in (:ids)")).bind("ids", ids.toArray()).fetch();
+    }
+    
+    public static List<Person> fetchByOrganize(Organize organize) {
+        return Person.find(defaultSql("organize=?"), organize).fetch();
     }
     
     public static List<Person> fetchAll() {
