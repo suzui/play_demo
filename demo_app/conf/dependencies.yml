@@ -7,6 +7,7 @@ require:
     - baseModules -> play_base 0.1
     # 项目公共模块
     - customerModules -> demo_common 0.1
+    - customerModules -> demo_job 0.1
     # 引用maven仓库的模块
     - com.fasterxml.jackson.core -> jackson-databind 2.9.2
     - com.qiniu -> qiniu-java-sdk 7.2.4

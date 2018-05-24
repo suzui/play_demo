@@ -1,0 +1,4 @@
+self: play -> demo_job 0.1
+
+require:
+    - play
