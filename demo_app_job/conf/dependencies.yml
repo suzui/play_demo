@@ -1,4 +1,36 @@
 # Application dependencies
-
 require:
     - play
+    # 默认引用play 1.x 仓库中的模块
+    #- play -> crud
+    # 基础公共模块
+    - baseModules -> play_base 0.1
+    # 项目公共模块
+    - customerModules -> demo_common 0.1
+    - customerModules -> demo_job 0.1
+    # 引用maven仓库的模块
+    - com.fasterxml.jackson.core -> jackson-databind 2.9.2
+    - com.qiniu -> qiniu-java-sdk 7.2.4
+    - org.apache.poi -> poi 3.16
+    - org.apache.poi -> poi-ooxml 3.16
+    - com.google.zxing -> core 3.3.1
+    - com.google.zxing -> javase 3.3.1
+    - com.github.qcloudsms -> qcloudsms 1.0.2
+    - org.json -> json 20180130
+    - org.apache.httpcomponents -> httpclient 4.5.3
+    - org.apache.httpcomponents -> httpmime 4.5.3
+    - commons-codec -> commons-codec 1.11
+    - com.belerweb -> pinyin4j 2.5.0
+repositories:
+    - playBaseModules:
+        type: local
+        artifact: ${play.path}/modules/[module]
+        contains:
+            - baseModules -> *
+
+repositories:
+    - playCustomModules:
+        type: local
+        artifact: ${application.path}/../[module]
+        contains:
+            - customerModules -> *

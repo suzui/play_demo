@@ -1,11 +1,10 @@
 # BASIC CONF
 application.name=play_demo_job
-application.mode=dev
+application.mode=prod
 application.secret=apiPHvMRftaQhKKNnZ8yyjTyoQFVboXdLFjL4DFvR91Zniq3CSKMeDgBHzPMKMkt
 application.log=INFO
 application.log.path=/log4j.properties
 application.log.system.out=on
-application.log.custom.out=off
 application.baseUrl=http://play_demo.cn
 application.langs=zh,en
 #module.base=${play.path}/modules/play_base
@@ -15,7 +14,7 @@ http.path=/
 http.port=9001
 jpda.port=8000
 play.jobs.pool=10
-play.pool=10
+play.pool=30
 java.source=1.8
 date.format=yyyy-MM-dd HH:mm
 attachments.path=data/attachments
