@@ -11,7 +11,7 @@ application.langs=zh,en
 #module.base=${play.path}/modules/play_base
 #module.common=../demo_common
 
-@include.sso=sso.conf
+@include.base=base.conf
 
 http.path=/
 http.port=9000
