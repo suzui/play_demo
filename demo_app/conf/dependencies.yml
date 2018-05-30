@@ -3,6 +3,9 @@ require:
     - play
     # 默认引用play 1.x 仓库中的模块
     #- play -> crud
+    #- play -> redis 0.3
+    #- play -> spring 1.0.3
+    #- play -> mongo 1.3
     # 基础公共模块
     - baseModules -> play_base 0.1
     # 项目公共模块
