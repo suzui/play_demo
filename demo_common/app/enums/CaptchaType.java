@@ -3,7 +3,7 @@ package enums;
 import annotations.EnumClass;
 import interfaces.BaseEnum;
 import org.apache.commons.lang.StringUtils;
-import play.cache.Cache;
+import utils.CacheUtils;
 
 @EnumClass(name = "验证码类型")
 public enum CaptchaType implements BaseEnum {
@@ -45,11 +45,11 @@ public enum CaptchaType implements BaseEnum {
     
     public boolean validate(String key, String captcha) {
         String _key = key(key);
-        String cachecaptcha = (String) Cache.get(_key);
+        String cachecaptcha = (String) CacheUtils.get(_key);
         if (!StringUtils.equals(cachecaptcha, captcha)) {
             return false;
         }
-        Cache.delete(_key);
+        CacheUtils.delete(_key);
         return true;
     }
     

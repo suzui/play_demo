@@ -2,8 +2,6 @@ package enums;
 
 import annotations.EnumClass;
 import interfaces.BaseEnum;
-import org.apache.commons.lang.StringUtils;
-import play.cache.Cache;
 
 @EnumClass(name = "用户类型")
 public enum PersonType implements BaseEnum {

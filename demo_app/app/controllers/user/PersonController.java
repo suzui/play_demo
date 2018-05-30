@@ -10,8 +10,8 @@ import notifiers.Mails;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
-import play.cache.Cache;
 import play.data.binding.As;
+import utils.CacheUtils;
 import utils.SMSUtils;
 import vos.PersonVO;
 import vos.Result;
@@ -60,7 +60,7 @@ public class PersonController extends ApiController {
             }
             Logger.info("[captcha] %s,%s,%s,%s", type, phone, captcha);
             SMSUtils.send(captchaType, captcha, phone);
-            Cache.set(captchaType.key(phone), captcha, "10mn");
+            CacheUtils.set(captchaType.key(phone), captcha, "10mn");
         } else {
             if (!Person.isEmailLegal(email)) {
                 renderJSON(Result.failed(StatusCode.PERSON_EMAIL_UNVALID));
@@ -83,7 +83,7 @@ public class PersonController extends ApiController {
             }
             Mails.captcha(email, captcha);
             Logger.info("[captcha] %s,%s,%s", type, email, captcha);
-            Cache.set(captchaType.key(email), captcha, "10mn");
+            CacheUtils.set(captchaType.key(email), captcha, "10mn");
         }
         renderJSON(Result.succeed(captcha));
     }
