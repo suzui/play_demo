@@ -3,11 +3,10 @@ package jobs;
 import models.area.Area;
 import org.hibernate.Session;
 import play.db.jpa.JPA;
-import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 
 @OnApplicationStart(async = true)
-public class InitAreaJob extends Job {
+public class InitAreaJob extends BaseJob {
     
     @Override
     public void doJob() throws Exception {
