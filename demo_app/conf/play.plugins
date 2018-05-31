@@ -1,1 +1,3 @@
-700:plugins.SchedulePlugin
+1000:plugins.SchedulePlugin
+1001:plugins.S1Plugin
+1002:plugins.S2Plugin

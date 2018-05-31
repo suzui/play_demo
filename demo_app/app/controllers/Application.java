@@ -1,5 +1,6 @@
 package controllers;
 
+import play.Play;
 import play.db.jpa.NoTransaction;
 
 public class Application extends BaseController {
