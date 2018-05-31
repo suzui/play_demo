@@ -1,6 +1,6 @@
 package controllers;
 
-import play.Play;
+import models.person.Person;
 import play.db.jpa.NoTransaction;
 
 public class Application extends BaseController {
@@ -11,6 +11,8 @@ public class Application extends BaseController {
     }
     
     public static void test() {
+        Person person = Person.findByID(0l);
+        long id = person.id;
         renderJSON("test");
     }
 }
