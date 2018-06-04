@@ -54,6 +54,9 @@
 *		/user/mobile/person/password/validate		user.mobile.PersonController.validatePassword
 *		/user/mobile/person/password/reset			user.mobile.PersonController.resetPassword
 
+# USER.H5 用户h5端
+*		/user/h5							        user.h5.Application.index
+
 # BACK 后台开发
 *     	/back                       				module:play_base
 
