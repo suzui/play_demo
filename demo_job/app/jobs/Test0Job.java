@@ -8,6 +8,6 @@ public class Test0Job extends BaseJob {
     @Override
     public void doJob() throws Exception {
         super.doJob();
-        System.err.println("test0...");
+        //System.err.println("test0...");
     }
 }
