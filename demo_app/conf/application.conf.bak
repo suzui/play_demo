@@ -1,5 +1,6 @@
 # BASIC CONF
 application.name=play_demo
+application.mode=prod
 application.secret=apiPHvMRftaQhKKNnZ8yyjTyoQFVboXdLFjL4DFvR91Zniq3CSKMeDgBHzPMKMkt
 application.log=INFO
 application.log.path=/log4j.properties
