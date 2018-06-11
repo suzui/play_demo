@@ -5,13 +5,10 @@ application.secret=apiPHvMRftaQhKKNnZ8yyjTyoQFVboXdLFjL4DFvR91Zniq3CSKMeDgBHzPMK
 application.log=INFO
 application.log.path=/log4j.properties
 application.log.system.out=on
-application.baseUrl=http://play_demo.cn
 application.langs=zh,en
-#module.base=${play.path}/modules/play_base
-#module.common=../demo_common
 
 http.path=/
-http.port=9001
+http.port=9000
 jpda.port=8000
 play.jobs.pool=10
 play.pool=30
@@ -20,7 +17,7 @@ date.format=yyyy-MM-dd HH:mm
 attachments.path=data/attachments
 XForwardedSupport=127.0.0.1,10.0.0.25,0:0:0:0:0:0:0:1
 
-db.url=jdbc:mysql://127.0.0.1:3306/play_demo?useUnicode=true&characterEncoding=utf8
+db.url=jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=utf8
 db.user=root
 db.pass=123456
 db.driver=com.mysql.jdbc.Driver
@@ -38,22 +35,11 @@ hibernate.cache.region.factory_class=org.hibernate.cache.ehcache.SingletonEhCach
 hibernate.cache.use_second_level_cache=true
 
 %test.http.port=9001
-%test.db.url=jdbc:mysql://127.0.0.1:3306/play_demo_test?useUnicode=true&characterEncoding=utf8
+%test.db.url=jdbc:mysql://127.0.0.1:3306/demo_test?useUnicode=true&characterEncoding=utf8
 %test.db.user=root
 %test.db.pass=123456
 %test.jpa.ddl=create-drop
 %test.db=mem
 
-#mail.smtp=mock
-mail.smtp.host=hwhzsmtp.qiye.163.com
-mail.smtp.port=994
-mail.smtp.user=email
-mail.smtp.pass=password
-mail.sender.address=email
-mail.smtp.channel=ssl
-mail.debug=true
-
-qiniu.accessKey=ak
-qiniu.secretKey=sk
-qiniu.bucket=bucket
-qiniu.domain=http://domain.com
+@include.base=base.conf
+@include.common=common.conf
