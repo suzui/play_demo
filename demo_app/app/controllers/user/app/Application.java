@@ -1,4 +1,4 @@
-package controllers.user.mobile;
+package controllers.user.app;
 
 import annotations.ActionMethod;
 import annotations.ParamField;
@@ -18,7 +18,7 @@ public class Application extends ApiController {
     
     @Transactional(readOnly = true)
     public static void index() {
-        renderHtml("mobile...");
+        renderHtml("app...");
     }
     
     @ActionMethod(name = "版本号详情", clazz = VersionVO.class)

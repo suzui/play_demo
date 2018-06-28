@@ -34,7 +34,7 @@
 *		/user/person/password/validate				user.PersonController.validatePassword
 *		/user/person/password/reset					user.PersonController.resetPassword
 
-# USER.MOBILE 用户移动端
+# USER.APP 用户移动端
 *		/user/app							        user.app.Application.index
 *		/user/app/version						    user.app.Application.version
 *		/user/app/download/{clientType}			    user.app.Application.download

@@ -1,4 +1,4 @@
-package controllers.user.mobile;
+package controllers.user.app;
 
 import annotations.ActionMethod;
 import annotations.ParamField;

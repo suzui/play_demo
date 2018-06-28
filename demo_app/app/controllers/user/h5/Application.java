@@ -1,6 +1,6 @@
 package controllers.user.h5;
 
-import controllers.user.mobile.ApiController;
+import controllers.user.app.ApiController;
 import play.db.jpa.Transactional;
 
 public class Application extends ApiController {
