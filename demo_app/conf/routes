@@ -35,24 +35,24 @@
 *		/user/person/password/reset					user.PersonController.resetPassword
 
 # USER.MOBILE 用户移动端
-*		/user/mobile							    user.mobile.Application.index
-*		/user/mobile/version						user.mobile.Application.version
-*		/user/mobile/download/{clientType}			user.mobile.Application.download
-*		/user/mobile/configData						user.mobile.Application.configData
-*		/user/mobile/incrementData					user.mobile.Application.incrementData
-*		/user/mobile/areaData					    user.mobile.Application.areaData
-*		/user/mobile/qiniu/uptoken					user.mobile.Application.qiniuUptoken
-*		/user/mobile/person/captcha					user.mobile.PersonController.captcha
-*		/user/mobile/person/regist					user.mobile.PersonController.regist
-*		/user/mobile/person/login					user.mobile.PersonController.login
-*		/user/mobile/person/logout					user.mobile.PersonController.logout
-*		/user/mobile/person/info					user.mobile.PersonController.info
-*		/user/mobile/person/edit					user.mobile.PersonController.edit
-*		/user/mobile/person/phone/bind				user.mobile.PersonController.bindPhone
-*		/user/mobile/person/email/bind				user.mobile.PersonController.bindEmail
-*		/user/mobile/person/password/forget			user.mobile.PersonController.forgetPassword
-*		/user/mobile/person/password/validate		user.mobile.PersonController.validatePassword
-*		/user/mobile/person/password/reset			user.mobile.PersonController.resetPassword
+*		/user/app							        user.app.Application.index
+*		/user/app/version						    user.app.Application.version
+*		/user/app/download/{clientType}			    user.app.Application.download
+*		/user/app/configData						user.app.Application.configData
+*		/user/app/incrementData					    user.app.Application.incrementData
+*		/user/app/areaData					        user.app.Application.areaData
+*		/user/app/qiniu/uptoken					    user.app.Application.qiniuUptoken
+*		/user/app/person/captcha					user.app.PersonController.captcha
+*		/user/app/person/regist					    user.app.PersonController.regist
+*		/user/app/person/login					    user.app.PersonController.login
+*		/user/app/person/logout					    user.app.PersonController.logout
+*		/user/app/person/info					    user.app.PersonController.info
+*		/user/app/person/edit					    user.app.PersonController.edit
+*		/user/app/person/phone/bind				    user.app.PersonController.bindPhone
+*		/user/app/person/email/bind				    user.app.PersonController.bindEmail
+*		/user/app/person/password/forget			user.app.PersonController.forgetPassword
+*		/user/app/person/password/validate		    user.app.PersonController.validatePassword
+*		/user/app/person/password/reset			    user.app.PersonController.resetPassword
 
 # USER.H5 用户h5端
 *		/user/h5							        user.h5.Application.index
@@ -63,6 +63,10 @@
 # STATIC
 GET     /favicon.ico                            	404
 GET		/readme                     				staticFile:README.html
+GET		/api/admin                     				staticFile:documentation/api/admin.html
+GET		/api/user                     				staticFile:documentation/api/user.html
+GET		/api/userapp                    			staticFile:documentation/api/userapp.html
+GET		/api/userh5                   			    staticFile:documentation/api/userh5.html
 GET     /tmp/                                   	staticDir:tmp
 
 # ALL

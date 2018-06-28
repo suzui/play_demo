@@ -4,7 +4,6 @@ import enums.ProStatus;
 import models.back.Pro;
 import play.db.jpa.NoTransaction;
 
-import java.io.File;
 import java.util.List;
 
 public class Application extends BaseController {
@@ -17,13 +16,13 @@ public class Application extends BaseController {
     public static void test() {
         List<Pro> pros = Pro.fetchAll();
         pros.stream().filter(p -> p.location.contains("app")).forEach(p -> {
-            if ( p.check().read.contains("java")) {
+            if (p.check().read.contains("java")) {
                 p.status(ProStatus.NORMAL);
             } else {
                 p.status(ProStatus.STOP);
             }
         });
-        
         renderJSON("test");
     }
+    
 }

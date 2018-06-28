@@ -5,7 +5,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>README</title>
+<title>userapp</title>
 
 
 <style type="text/css">
@@ -328,56 +328,36 @@ kbd {
 
 <body>
 
-<h1 id="toc_0">play_demo</h1>
+<h4 id="toc_0">用户移动端</h4>
 
-<hr>
+<h2 id="toc_1"></h2>
 
-<h3 id="toc_1">名称说明</h3>
+<h6 id="toc_2">基础模块</h6>
 
-<div><pre><code class="language-none">appversion  app版本号,初始为0.0.1
-apptype     app类型 用户端:101 管理端:102 
-osversion   运行系统版本(WEB端为浏览器版本)
-clienttype  客户端类型 WEB:100 IOS:101 ANDROID:102
-devicetoken 设备唯一标识
-randomseed  随机种子,客户端每次POST请求需生成一个对应的16位随机字符串,后台保留10分钟,用于判断重复提交
-accesstoken 用户凭证,登录成功后后台生成返回给客户端</code></pre></div>
-
-<blockquote>
-<p>以上参数均带在http请求的header内,key均小写</p>
-</blockquote>
-
-<h3 id="toc_2">统一返回格式说明</h3>
-
-<div><pre><code class="language-none">{
-&quot;status&quot;:&quot;succ&quot;,//succ成功,fail异常
-&quot;code&quot;:20000,//状态码
-&quot;message&quot;:&quot;请求成功&quot;,//状态码对应提示语
-&quot;systemTime&quot;:1500000000000,//服务器当前时间戳
-&quot;data&quot;:{}//业务数据块
-}</code></pre></div>
-
-<blockquote>
 <ul>
-<li>内部开发环境地址 <code>http(s)://dev.api.demo.com</code> </li>
-<li>对外测试环境地址 <code>http(s)://test.api.demo.com</code></li>
-<li>正式生产环境地址 <code>http(s)://(www.)api.demo.com</code></li>
-<li>请求协议为<code>http</code>,编码<code>utf8</code>,类型<code>post</code><br/></li>
-<li>时间类型全部使用<code>Long</code>型(既<code>1970-01-01 00:00:00</code>到现在的时间戳)<br/></li>
-<li>布尔类型全部使用<code>int</code>型(<code>0</code>表示<code>false</code><code>1</code>表示<code>true</code>)<br/></li>
-<li>价格金额全部使用<code>int</code>型(单位精确到分)<br/></li>
-<li>二维码统一格式{&quot;type&quot;:101,&quot;data&quot;:&quot;二维码数据&quot;,&quot;addition&quot;:&quot;附加数据&quot;}</li>
+<li><a href="/user/app/version?doc">版本信息</a></li>
+<li><a href="/user/app/download?doc">版本下载</a></li>
+<li><a href="/user/app/configData?doc">配置参数</a></li>
+<li><a href="/user/app/areaData?doc">地区参数</a></li>
+<li><a href="/user/app/incrementData?doc">增量数据</a></li>
+<li><a href="/user/app/qiniu/uptoken?doc">七牛token</a></li>
 </ul>
-</blockquote>
 
-<h3 id="toc_3">接口模块</h3>
+<h5 id="toc_3">用户模块</h5>
 
-<h4 id="toc_4"><a href="/api/admin">管理端</a></h4>
-
-<h4 id="toc_5"><a href="/api/user">用户WEB端</a></h4>
-
-<h4 id="toc_6"><a href="/api/userapp">用户移动端</a></h4>
-
-<h4 id="toc_7"><a href="/api/userh5">用户h5端</a></h4>
+<ul>
+<li><a href="/user/app/person/captcha?doc">验证码获取</a></li>
+<li><a href="/user/app/person/regist?doc">用户注册</a></li>
+<li><a href="/user/app/person/login?doc">用户登录</a></li>
+<li><a href="/user/app/person/logout?doc">用户登出</a></li>
+<li><a href="/user/app/person/info?doc">用户详情</a></li>
+<li><a href="/user/app/person/edit?doc">信息编辑</a></li>
+<li><a href="/user/app/person/phone/bind?doc">绑定手机</a></li>
+<li><a href="/user/app/person/email/bind?doc">绑定邮箱</a></li>
+<li><a href="/user/app/person/password/forget?doc">忘记密码</a></li>
+<li><a href="/user/app/person/password/validate?doc">验证密码</a></li>
+<li><a href="/user/app/person/password/reset?doc">重置密码</a></li>
+</ul>
 
 
 

@@ -31,66 +31,12 @@ accesstoken 用户凭证,登录成功后后台生成返回给客户端
 >+ 价格金额全部使用`int`型(单位精确到分)<br/>
 >+ 二维码统一格式{"type":101,"data":"二维码数据","addition":"附加数据"}
 
-### 接口列表
+### 接口模块
 
---
-### 管理端 
+#### [管理端](/api/admin) 
 
-###### 基础模块
-* [版本信息](/admin/version?doc)
-* [配置参数](/admin/configData?doc)
-* [地区参数](/admin/areaData?doc)
-* [增量数据](/admin/incrementData?doc)
-* [七牛token](/admin/qiniu/uptoken?doc)
+#### [用户WEB端](/api/user)
 
-##### 管理员模块
-* [管理员登录](/admin/admin/login?doc)
-* [管理员登出](/admin/admin/logout?doc)
-* [管理员详情](/admin/admin/info?doc)
+#### [用户移动端](/api/userapp)
 
---
-#### 用户WEB端
-
-###### 基础模块
-* [版本信息](/user/version?doc)
-* [配置参数](/user/configData?doc)
-* [地区参数](/user/areaData?doc)
-* [增量数据](/user/incrementData?doc)
-* [七牛token](/user/qiniu/uptoken?doc)
-
-##### 用户模块
-* [验证码获取](/user/person/captcha?doc)
-* [用户注册](/user/person/regist?doc)
-* [用户登录](/user/person/login?doc)
-* [用户登出](/user/person/logout?doc)
-* [用户详情](/user/person/info?doc)
-* [信息编辑](/user/person/edit?doc)
-* [绑定手机](/user/person/phone/bind?doc)
-* [绑定邮箱](/user/person/email/bind?doc)
-* [忘记密码](/user/person/password/forget?doc)
-* [验证密码](/user/person/password/validate?doc)
-* [重置密码](/user/person/password/reset?doc)
-
---
-#### 用户移动端
-
-###### 基础模块
-* [版本信息](/user/mobile/version?doc)
-* [版本下载](/user/mobile/download?doc)
-* [配置参数](/user/mobile/configData?doc)
-* [地区参数](/user/mobile/areaData?doc)
-* [增量数据](/user/mobile/incrementData?doc)
-* [七牛token](/user/mobile/qiniu/uptoken?doc)
-
-##### 用户模块
-* [验证码获取](/user/mobile/person/captcha?doc)
-* [用户注册](/user/mobile/person/regist?doc)
-* [用户登录](/user/mobile/person/login?doc)
-* [用户登出](/user/mobile/person/logout?doc)
-* [用户详情](/user/mobile/person/info?doc)
-* [信息编辑](/user/mobile/person/edit?doc)
-* [绑定手机](/user/mobile/person/phone/bind?doc)
-* [绑定邮箱](/user/mobile/person/email/bind?doc)
-* [忘记密码](/user/mobile/person/password/forget?doc)
-* [验证密码](/user/mobile/person/password/validate?doc)
-* [重置密码](/user/mobile/person/password/reset?doc)
+#### [用户h5端](/api/userh5)
