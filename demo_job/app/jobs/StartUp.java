@@ -31,8 +31,6 @@ public class StartUp extends Job {
         Session s = (Session) em.getDelegate();
         if (!s.getTransaction().isActive())
             s.getTransaction().begin();
-        em.createNativeQuery("update person set type ='ADMIN' where type is null and username='admin' and dtype='Person'").executeUpdate();
-        em.createNativeQuery("update person set type ='NORMAL' where type is NULL and dtype='Person'").executeUpdate();
         s.getTransaction().commit();
     }
 }
