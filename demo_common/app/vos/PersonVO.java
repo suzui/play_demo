@@ -3,6 +3,8 @@ package vos;
 import annotations.DataField;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import enums.PersonType;
+import enums.Sex;
 import models.person.Person;
 import models.token.AccessToken;
 
@@ -24,20 +26,20 @@ public class PersonVO extends OneData {
     public String avatar;
     @DataField(name = "简介")
     public String intro;
-    @DataField(name = "性别")
+    @DataField(name = "性别", enums = Sex.class)
     public Integer sex;
-    @DataField(name = "类别")
+    @DataField(name = "类别", enums = PersonType.class)
     public Integer type;
-    @DataField(name = "token", enable = false)
+    @DataField(name = "token")
     public String accesstoken;
     @JsonInclude(Include.NON_NULL)
-    @DataField(name = "密码", enable = false)
+    @DataField(name = "密码")
     public String password;
-    @DataField(name = "首次登录时间", enable = false)
+    @DataField(name = "首次登录时间")
     public Long firstLoginTime;
-    @DataField(name = "最后登录时间", enable = false)
+    @DataField(name = "最后登录时间")
     public Long lastLoginTime;
-    @DataField(name = "登录次数", enable = false)
+    @DataField(name = "登录次数")
     public Integer loginAmount;
     
     

@@ -14,7 +14,6 @@ import java.util.List;
 @Entity
 public class Relation extends BaseRelation {
     
-    
     public static Relation add(Organize organize, Person person) {
         if (organize == null || person == null) {
             return null;

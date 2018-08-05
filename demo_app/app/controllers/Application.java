@@ -1,10 +1,10 @@
 package controllers;
 
-import enums.ProStatus;
-import models.back.Pro;
+import annotations.ActionMethod;
+import models.BaseModel;
+import models.person.Person;
 import play.db.jpa.NoTransaction;
-
-import java.util.List;
+import vos.PersonVO;
 
 public class Application extends BaseController {
     
@@ -13,15 +13,9 @@ public class Application extends BaseController {
         renderHtml("start...");
     }
     
-    public static void test() {
-        List<Pro> pros = Pro.fetchAll();
-        pros.stream().filter(p -> p.location.contains("app")).forEach(p -> {
-            if (p.check().read.contains("java")) {
-                p.status(ProStatus.NORMAL);
-            } else {
-                p.status(ProStatus.STOP);
-            }
-        });
+    @ActionMethod(name = "测试", param = "personId,name,type", clazz=PersonVO.class)
+    public static void test(PersonVO vo) {
+        
         renderJSON("test");
     }
     
