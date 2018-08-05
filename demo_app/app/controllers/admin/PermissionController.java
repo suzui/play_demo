@@ -2,7 +2,7 @@ package controllers.admin;
 
 import annotations.ActionMethod;
 import models.access.Permission;
-import models.access.BasePermissionAccess;
+import models.access.PermissionAccess;
 import models.access.PermissionPerson;
 import models.person.Person;
 import vos.AccessVO;
@@ -29,7 +29,7 @@ public class PermissionController extends ApiController {
         Person admin = getPersonByToken();
         Permission permission = Permission.findByID(vo.permissionId);
         PermissionVO permissionVO = new PermissionVO(permission);
-        permissionVO.permissionAccesses(BasePermissionAccess.fetchByPermission(permission));
+        permissionVO.permissionAccesses(PermissionAccess.fetchByPermission(permission));
         permissionVO.permissionPersons(PermissionPerson.fetchByPermission(permission));
         renderJSON(Result.succeed(permissionVO));
     }

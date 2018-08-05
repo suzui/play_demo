@@ -4,7 +4,7 @@ import annotations.DataField;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import models.access.Access;
 import models.access.Permission;
-import models.access.BasePermissionAccess;
+import models.access.PermissionAccess;
 import models.access.PermissionPerson;
 import models.person.Person;
 
@@ -17,6 +17,8 @@ public class PermissionVO extends OneData {
     public Long permissionId;
     @DataField(name = "权限组名称")
     public String name;
+    @DataField(name = "机构id")
+    public Long organizeId;
     @DataField(name = "权限列表")
     public List<AccessVO> accesses;
     @DataField(name = "成员列表")
@@ -30,16 +32,19 @@ public class PermissionVO extends OneData {
     public List<Long> personIds;
     
     public PermissionVO() {
-    
+        this.condition = " order by id";
     }
     
     public PermissionVO(Permission permission) {
         this.permissionId = permission.id;
         this.name = permission.name;
+        if (permission.organize != null) {
+            this.organizeId = permission.organize.id;
+        }
     }
     
-    public PermissionVO permissionAccesses(List<BasePermissionAccess> permissionAccesses) {
-        this.accesses = permissionAccesses.stream().map(pa -> new AccessVO(pa.access)).collect(Collectors.toList());
+    public PermissionVO permissionAccesses(List<PermissionAccess> permissionAccesses) {
+        this.accesses = permissionAccesses.stream().map(pa -> new AccessVO(pa.access())).collect(Collectors.toList());
         return this;
     }
     
@@ -49,7 +54,7 @@ public class PermissionVO extends OneData {
     }
     
     public PermissionVO permissionPersons(List<PermissionPerson> permissionPersons) {
-        this.persons = permissionPersons.stream().map(pp -> new PersonVO(pp.person)).collect(Collectors.toList());
+        this.persons = permissionPersons.stream().map(pp -> new PersonVO(pp.person())).collect(Collectors.toList());
         return this;
     }
     

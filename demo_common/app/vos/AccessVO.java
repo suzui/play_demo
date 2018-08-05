@@ -43,9 +43,8 @@ public class AccessVO extends OneData {
     }
     
     public static List<AccessVO> list() {
-        List<Access> accesses = Access.fetchAll();
         Map<String, AccessVO> map = new LinkedHashMap<>();
-        accesses.forEach(a -> map.put(a.code, new AccessVO(a)));
+        Access.fetchAll().forEach(a -> map.put(a.code, new AccessVO((Access) a)));
         map.values().forEach(accessVO -> {
             if (accessVO.parentCode != null) {
                 if (map.get(accessVO.parentCode).children == null) {

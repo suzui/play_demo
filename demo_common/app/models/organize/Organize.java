@@ -1,10 +1,7 @@
 package models.organize;
 
-import models.BaseModel;
-import models.area.Area;
 import models.person.Person;
 import models.token.BaseOrganize;
-import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import vos.OrganizeVO;
 
@@ -43,7 +40,6 @@ public class Organize extends BaseOrganize {
     public Organize parent() {
         return (Organize) this.parent;
     }
-    
     
     
     public void move(Organize pre, Organize next) {
