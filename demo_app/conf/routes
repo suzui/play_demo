@@ -13,6 +13,12 @@
 *		/admin/admin/login							admin.AdminController.login
 *		/admin/admin/logout							admin.AdminController.logout
 *		/admin/admin/info							admin.AdminController.info
+*		/admin/permission/list					    admin.PermissionController.permissionList
+*		/admin/permission/info					    admin.PermissionController.permissionInfo
+*		/admin/permission/add					    admin.PermissionController.permissionAdd
+*		/admin/permission/edit					    admin.PermissionController.permissionEdit
+*		/admin/permission/delete				    admin.PermissionController.permissionDelete
+*		/admin/permission/access/list				admin.PermissionController.accessList
 
 # USER 用户WEB端
 *		/user										user.Application.index
