@@ -19,6 +19,11 @@
 *		/admin/permission/edit					    admin.PermissionController.permissionEdit
 *		/admin/permission/delete				    admin.PermissionController.permissionDelete
 *		/admin/permission/access/list				admin.PermissionController.accessList
+*		/admin/crowd/list					        admin.CrowdController.crowdList
+*		/admin/crowd/info					        admin.CrowdController.crowdInfo
+*		/admin/crowd/add					        admin.CrowdController.crowdAdd
+*		/admin/crowd/edit					        admin.CrowdController.crowdEdit
+*		/admin/crowd/delete				            admin.CrowdController.crowdDelete
 
 # USER 用户WEB端
 *		/user										user.Application.index

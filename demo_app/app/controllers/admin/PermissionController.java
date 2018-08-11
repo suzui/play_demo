@@ -1,7 +1,6 @@
 package controllers.admin;
 
 import annotations.ActionMethod;
-import models.access.Authorization;
 import models.access.Permission;
 import models.person.Person;
 import vos.AccessVO;
@@ -32,14 +31,14 @@ public class PermissionController extends ApiController {
         renderJSON(Result.succeed(permissionVO));
     }
     
-    @ActionMethod(name = "权限组新增", param = "name,accessIds,personIds", clazz = PermissionVO.class)
+    @ActionMethod(name = "权限组新增", param = "name,accessIds", clazz = PermissionVO.class)
     public static void permissionAdd(PermissionVO vo) {
         Person admin = getPersonByToken();
         Permission permission = Permission.add(vo);
         renderJSON(Result.succeed(new PermissionVO(permission)));
     }
     
-    @ActionMethod(name = "权限组编辑", param = "permissionId,-name,-accessIds,-personIds")
+    @ActionMethod(name = "权限组编辑", param = "permissionId,-name,-accessIds")
     public static void permissionEdit(PermissionVO vo) {
         Person admin = getPersonByToken();
         Permission permission = Permission.findByID(vo.permissionId);
