@@ -1,7 +1,6 @@
 package models.access;
 
 import models.organize.Organize;
-import models.person.Person;
 import org.apache.commons.lang.StringUtils;
 import vos.PermissionVO;
 
@@ -22,37 +21,12 @@ public class Permission extends BasePermission {
     
     public void edit(PermissionVO permissionVO) {
         this.name = permissionVO.name != null ? permissionVO.name : name;
+        this.accessIds = permissionVO.accessIds != null ? StringUtils.join(permissionVO.accessIds, ",") : accessIds;
         this.save();
-        if (permissionVO.accessIds != null) {
-            List<Access> accesses = Access.fetchByIds(permissionVO.accessIds);
-            List<PermissionAccess> permissionAccesses = PermissionAccess.fetchByPermission(this);
-            accesses.forEach(a -> PermissionAccess.add(this, a));
-            permissionAccesses.forEach(pa -> {
-                if (!accesses.contains(pa.access)) {
-                    pa.del();
-                }
-            });
-        }
-        if (permissionVO.personIds != null) {
-            List<Person> persons = Person.fetchByIds(permissionVO.personIds);
-            List<PermissionPerson> permissionPersons = PermissionPerson.fetchByPermission(this);
-            persons.forEach(p -> PermissionPerson.add(this, p));
-            permissionPersons.forEach(pp -> {
-                if (!persons.contains(pp.person)) {
-                    pp.del();
-                }
-            });
-        }
-    }
-    
-    public Organize organize() {
-        return (Organize) this.organize;
     }
     
     public void del() {
-        PermissionAccess.fetchByPermission(this).forEach(pa -> pa.del());
-        PermissionPerson.fetchByPermission(this).forEach(pp -> pp.del());
-        this.logicDelete();
+        super.del();
     }
     
     public static List<Permission> fetchByIds(List<Long> ids) {

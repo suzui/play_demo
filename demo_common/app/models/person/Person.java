@@ -6,12 +6,12 @@ import models.organize.Organize;
 import models.token.BasePerson;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
+import utils.BaseUtils;
 import utils.CodeUtils;
 import vos.PersonVO;
 
 import javax.persistence.Entity;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -51,8 +51,9 @@ public class Person extends BasePerson {
             Person person = new Person();
             person.name = "管理员";
             person.username = "admin";
-            person.password = CodeUtils.md5("123456");
+            person.password = BaseUtils.initPassword();
             person.type = PersonType.ADMIN;
+            person.origin = true;
             person.save();
         }
     }
@@ -137,12 +138,6 @@ public class Person extends BasePerson {
         return Person.find(defaultSql("email=?"), email).first();
     }
     
-    public static List<Person> fetchByIds(List<Long> ids) {
-        if (ids == null || ids.isEmpty()) {
-            return Collections.EMPTY_LIST;
-        }
-        return Person.find(defaultSql("id in (:ids)")).bind("ids", ids.toArray()).fetch();
-    }
     
     public static List<Person> fetchByOrganize(Organize organize) {
         return Person.find(defaultSql("organize=?"), organize).fetch();

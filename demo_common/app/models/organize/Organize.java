@@ -7,7 +7,6 @@ import vos.OrganizeVO;
 
 import javax.persistence.Entity;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -87,39 +86,8 @@ public class Organize extends BaseOrganize {
         return Organize.find(defaultSql("id =?"), id).first();
     }
     
-    public static Organize findBySourceAndName(Organize source, String name) {
-        return Organize.find(defaultSql("organize=? and name = ?"), source, name).first();
-    }
-    
-    public static List<Organize> fetchBySupervisor(Person supervisor) {
-        if (supervisor == null) return Collections.EMPTY_LIST;
-        return Organize.find(defaultSql("supervisor = ? and organize.id = ?"), supervisor, getSource()).fetch();
-    }
-    
-    public static List<Organize> fetchByIds(List<Long> ids) {
-        if (ids == null || ids.isEmpty()) {
-            return Collections.EMPTY_LIST;
-        }
-        return Organize.find(defaultSql("id in (:ids)")).bind("ids", ids.toArray()).fetch();
-    }
-    
     public static List<Organize> fetchAll() {
         return Organize.find(defaultSql()).fetch();
-    }
-    
-    public List<Organize> children() {
-        OrganizeVO organizeVO = new OrganizeVO();
-        organizeVO.parentId = this.id;
-        organizeVO.condition("order by rank");
-        return Organize.fetch(organizeVO);
-    }
-    
-    public static List<Organize> fetchBySource() {
-        return Organize.find(defaultSql("organize.id=? order by rank"), getSource()).fetch();
-    }
-    
-    public static List<Organize> fetchUpdate(Long updateTime, List<Long> organizeIds) {
-        return Organize.find("updateTime>? and organize.id in (:organizeIds) order by updateTime", updateTime).bind("organizeIds", organizeIds.toArray()).fetch();
     }
     
     public static List<Organize> fetch(OrganizeVO organizeVO) {

@@ -3,10 +3,9 @@ package vos;
 import annotations.DataField;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import models.access.Access;
+import models.access.Authorization;
 import models.access.Permission;
-import models.access.PermissionAccess;
-import models.access.PermissionPerson;
-import models.person.Person;
+import utils.BaseUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,17 +18,15 @@ public class PermissionVO extends OneData {
     public String name;
     @DataField(name = "机构id")
     public Long organizeId;
-    @DataField(name = "权限列表")
-    public List<AccessVO> accesses;
-    @DataField(name = "成员列表")
-    public List<PersonVO> persons;
-    
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     @DataField(name = "权限ids", demo = "[1,2,3]")
     public List<Long> accessIds;
+    
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @DataField(name = "成员ids", demo = "[1,2,3]")
-    public List<Long> personIds;
+    @DataField(name = "权限列表")
+    public List<AccessVO> accesses;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @DataField(name = "成员列表")
+    public List<PersonVO> persons;
     
     public PermissionVO() {
         this.condition = " order by id";
@@ -41,11 +38,7 @@ public class PermissionVO extends OneData {
         if (permission.organize != null) {
             this.organizeId = permission.organize.id;
         }
-    }
-    
-    public PermissionVO permissionAccesses(List<PermissionAccess> permissionAccesses) {
-        this.accesses = permissionAccesses.stream().map(pa -> new AccessVO(pa.access())).collect(Collectors.toList());
-        return this;
+        this.accessIds = BaseUtils.idsToList(permission.accessIds);
     }
     
     public PermissionVO accesses(List<Access> accesses) {
@@ -53,14 +46,10 @@ public class PermissionVO extends OneData {
         return this;
     }
     
-    public PermissionVO permissionPersons(List<PermissionPerson> permissionPersons) {
-        this.persons = permissionPersons.stream().map(pp -> new PersonVO(pp.person())).collect(Collectors.toList());
+    public PermissionVO persons(List<Authorization> authorizations) {
+        this.persons = authorizations.stream().map(a -> new PersonVO(a.person())).collect(Collectors.toList());
         return this;
     }
     
-    public PermissionVO persons(List<Person> persons) {
-        this.persons = persons.stream().map(p -> new PersonVO(p)).collect(Collectors.toList());
-        return this;
-    }
     
 }

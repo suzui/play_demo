@@ -55,11 +55,6 @@ public class Relation extends BaseRelation {
         this.save();
     }
     
-    public Double initRank() {
-        Double rank = Relation.find(defaultSql("select max(rank) from Relation where organize.id=?"), this.organize.id).first();
-        return rank == null ? 0 : rank + 1;
-    }
-    
     public void del() {
         this.logicDelete();
     }
@@ -77,14 +72,6 @@ public class Relation extends BaseRelation {
     
     public static List<Relation> fetchAll() {
         return Relation.find(defaultSql()).fetch();
-    }
-    
-    public static Relation findByOrganizeAndPerson(Organize organize, Person person) {
-        return Relation.find(defaultSql("organize=? and person=?"), organize, person).first();
-    }
-    
-    public static List<Relation> fetchByOrganize(Organize organize) {
-        return Relation.find(defaultSql("organize=?"), organize).fetch();
     }
     
     public static List<Relation> fetch(PersonVO personVO) {
