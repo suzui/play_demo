@@ -17,7 +17,7 @@ public class PersonTest extends BaseModelTest {
     
     @Test
     public void testFind() {
-        Person person = Person.findByPhone("123456789", PersonType.NORMAL);
+        Person person = Person.findByPhone("123456789", PersonType.ADMIN);
         assertNotNull(person);
     }
     
