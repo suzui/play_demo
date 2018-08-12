@@ -7,6 +7,7 @@ import enums.PersonType;
 import enums.Sex;
 import models.access.Access;
 import models.access.Authorization;
+import models.access.Role;
 import models.organize.Organize;
 import models.person.Person;
 import models.token.AccessToken;
@@ -53,6 +54,8 @@ public class PersonVO extends OneData {
     public List<String> accessCodes;
     @DataField(name = "权限列表")
     public List<AccessVO> access;
+    @DataField(name = "角色列表")
+    public List<RoleVO> roles;
     @DataField(name = "授权列表")
     public List<AuthorizationVO> authorizations;
     
@@ -79,8 +82,10 @@ public class PersonVO extends OneData {
         this((Person) accessToken.person);
         this.accesstoken = accessToken.accesstoken;
         List<Access> access = accessToken.person.isAdmin() ? accessToken.person.access() : accessToken.person.access(Organize.findByID(BaseUtils.getOrganize()));
+        List<Role> roles = accessToken.person.isAdmin() ? accessToken.person.roles() : accessToken.person.roles(Organize.findByID(BaseUtils.getOrganize()));
         this.accessCodes = access.stream().map(a -> a.code).collect(Collectors.toList());
         this.access = access.stream().map(a -> new AccessVO(a)).collect(Collectors.toList());
+        this.roles = roles.stream().map(r -> new RoleVO(r)).collect(Collectors.toList());
     }
     
     public PersonVO authorizations(List<Authorization> authorizations) {
