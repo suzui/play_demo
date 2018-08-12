@@ -5,9 +5,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import enums.PersonType;
 import enums.Sex;
+import models.access.Access;
 import models.access.Authorization;
+import models.organize.Organize;
 import models.person.Person;
 import models.token.AccessToken;
+import utils.BaseUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,6 +52,9 @@ public class PersonVO extends OneData {
     @DataField(name = "授权列表")
     public List<AuthorizationVO> authorizations;
     
+    @DataField(name = "权限列表")
+    public List<AccessVO> access;
+    
     public PersonVO() {
     }
     
@@ -71,6 +77,8 @@ public class PersonVO extends OneData {
     public PersonVO(AccessToken accessToken) {
         this((Person) accessToken.person);
         this.accesstoken = accessToken.accesstoken;
+        List<Access> access = accessToken.person.isAdmin() ? accessToken.person.access() : accessToken.person.access(Organize.findByID(BaseUtils.getOrganize()));
+        this.access = access.stream().map(a -> new AccessVO(a)).collect(Collectors.toList());
     }
     
     public PersonVO authorizations(List<Authorization> authorizations) {
