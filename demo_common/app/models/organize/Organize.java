@@ -1,5 +1,6 @@
 package models.organize;
 
+import enums.OrganizeType;
 import models.person.Person;
 import models.token.BaseOrganize;
 import org.apache.commons.lang.StringUtils;
@@ -36,41 +37,12 @@ public class Organize extends BaseOrganize {
         this.save();
     }
     
-    public Organize parent() {
-        return (Organize) this.parent;
-    }
-    
-    
-    public void move(Organize pre, Organize next) {
-        if (pre == null || next == null) {
-            if (pre == null) {
-                this.rank = next.rank - 1;
-            } else {
-                this.rank = pre.rank + 1;
-            }
-        } else {
-            this.rank = (pre.rank + next.rank) / 2;
-        }
-        this.save();
-    }
-    
-    
-    public Double initRank() {
-        Double rank = Organize.find(defaultSql("select max(rank) from Organize where parent.id=?"), this.id).first();
-        return rank == null ? 0 : rank + 1;
+    public boolean isOrganize() {
+        return OrganizeType.ORGANIZE == this.type;
     }
     
     public boolean isRoot() {
-        return this.parent == null && this.id.equals(this.source().id);
-    }
-    
-    public Organize source() {
-        return (Organize) this.organize;
-    }
-    
-    public void source(Organize source) {
-        this.organize = source;
-        this.save();
+        return OrganizeType.ORGANIZE == this.type && this.parent == null;
     }
     
     public void del() {
@@ -80,14 +52,6 @@ public class Organize extends BaseOrganize {
         Relation.fetchByOrganize(this).forEach(r -> r.del());
         this.children().forEach(o -> o.del());
         this.logicDelete();
-    }
-    
-    public static Organize findByID(Long id) {
-        return Organize.find(defaultSql("id =?"), id).first();
-    }
-    
-    public static List<Organize> fetchAll() {
-        return Organize.find(defaultSql()).fetch();
     }
     
     public static List<Organize> fetch(OrganizeVO organizeVO) {
