@@ -49,11 +49,12 @@ public class PersonVO extends OneData {
     @DataField(name = "登录次数")
     public Integer loginAmount;
     
-    @DataField(name = "授权列表")
-    public List<AuthorizationVO> authorizations;
-    
+    @DataField(name = "权限code列表")
+    public List<String> accessCodes;
     @DataField(name = "权限列表")
     public List<AccessVO> access;
+    @DataField(name = "授权列表")
+    public List<AuthorizationVO> authorizations;
     
     public PersonVO() {
     }
@@ -78,6 +79,7 @@ public class PersonVO extends OneData {
         this((Person) accessToken.person);
         this.accesstoken = accessToken.accesstoken;
         List<Access> access = accessToken.person.isAdmin() ? accessToken.person.access() : accessToken.person.access(Organize.findByID(BaseUtils.getOrganize()));
+        this.accessCodes = access.stream().map(a -> a.code).collect(Collectors.toList());
         this.access = access.stream().map(a -> new AccessVO(a)).collect(Collectors.toList());
     }
     

@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 
 public class CrowdVO extends OneData {
     
-    @DataField(name = "范围组id")
+    @DataField(name = "范围id")
     public Long crowdId;
-    @DataField(name = "范围组名称")
+    @DataField(name = "范围名称")
     public String name;
     @DataField(name = "机构id")
     public Long organizeId;

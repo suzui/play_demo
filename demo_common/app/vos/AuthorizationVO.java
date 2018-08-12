@@ -7,13 +7,13 @@ public class AuthorizationVO extends OneData {
     
     @DataField(name = "授权id")
     public Long authorizationId;
-    @DataField(name = "权限组id")
-    public Long permissionId;
-    @DataField(name = "权限组名称")
-    public String permissionName;
-    @DataField(name = "范围组id")
+    @DataField(name = "角色id")
+    public Long roleId;
+    @DataField(name = "角色名称")
+    public String roleName;
+    @DataField(name = "范围id")
     public Long crowdId;
-    @DataField(name = "范围组名称")
+    @DataField(name = "范围名称")
     public String crowdName;
     
     public AuthorizationVO() {
@@ -23,9 +23,9 @@ public class AuthorizationVO extends OneData {
     public AuthorizationVO(Authorization authorization) {
         super(authorization.id);
         this.authorizationId = authorization.id;
-        if (authorization.permission != null) {
-            this.permissionId = authorization.permission.id;
-            this.permissionName = authorization.permission.name;
+        if (authorization.role != null) {
+            this.roleId = authorization.role.id;
+            this.roleName = authorization.role.name;
         }
         if (authorization.crowd != null) {
             this.crowdId = authorization.crowd.id;

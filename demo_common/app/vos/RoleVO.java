@@ -4,17 +4,17 @@ import annotations.DataField;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import models.access.Access;
 import models.access.Authorization;
-import models.access.Permission;
+import models.access.Role;
 import utils.BaseUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PermissionVO extends OneData {
+public class RoleVO extends OneData {
     
-    @DataField(name = "权限组id")
-    public Long permissionId;
-    @DataField(name = "权限组名称")
+    @DataField(name = "角色id")
+    public Long roleId;
+    @DataField(name = "角色名称")
     public String name;
     @DataField(name = "机构id")
     public Long organizeId;
@@ -25,28 +25,28 @@ public class PermissionVO extends OneData {
     @DataField(name = "权限列表")
     public List<AccessVO> accesses;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @DataField(name = "成员列表")
+    @DataField(name = "人员列表")
     public List<PersonVO> persons;
     
-    public PermissionVO() {
+    public RoleVO() {
         this.condition = " order by id";
     }
     
-    public PermissionVO(Permission permission) {
-        this.permissionId = permission.id;
-        this.name = permission.name;
-        if (permission.organize != null) {
-            this.organizeId = permission.organize.id;
+    public RoleVO(Role role) {
+        this.roleId = role.id;
+        this.name = role.name;
+        if (role.organize != null) {
+            this.organizeId = role.organize.id;
         }
-        this.accessIds = BaseUtils.idsToList(permission.accessIds);
+        this.accessIds = BaseUtils.idsToList(role.accessIds);
     }
     
-    public PermissionVO accesses(List<Access> accesses) {
+    public RoleVO accesses(List<Access> accesses) {
         this.accesses = accesses.stream().map(a -> new AccessVO(a)).collect(Collectors.toList());
         return this;
     }
     
-    public PermissionVO persons(List<Authorization> authorizations) {
+    public RoleVO persons(List<Authorization> authorizations) {
         this.persons = authorizations.stream().map(a -> new PersonVO(a.person())).collect(Collectors.toList());
         return this;
     }
