@@ -1,6 +1,7 @@
 package vos;
 
 import annotations.DataField;
+import enums.AccessType;
 import models.access.Access;
 
 import java.util.ArrayList;
@@ -42,9 +43,9 @@ public class AccessVO extends OneData {
         this.children = accesss.stream().map(a -> new AccessVO(a)).collect(Collectors.toList());
     }
     
-    public static List<AccessVO> list() {
+    public static List<AccessVO> list(AccessType type) {
         Map<String, AccessVO> map = new LinkedHashMap<>();
-        List<Access> access = Access.fetchAll();
+        List<Access> access = Access.fetchByType(type);
         access.forEach(a -> map.put(a.code, new AccessVO(a)));
         map.values().forEach(accessVO -> {
             if (accessVO.parentCode != null) {

@@ -1,7 +1,6 @@
 package vos;
 
 import annotations.DataField;
-import models.BaseModel;
 import models.organize.Organize;
 
 import java.util.ArrayList;
@@ -52,9 +51,10 @@ public class OrganizeVO extends OneData {
         this.children = children.stream().map(o -> new OrganizeVO(o)).collect(Collectors.toList());
     }
     
-    public static OrganizeVO tree() {
+    public static OrganizeVO tree(Organize root) {
         Map<Long, OrganizeVO> map = new LinkedHashMap<>();
-        for (Organize organize : Organize.fetchBySource()) {
+        List<Organize> organizes = Organize.fetchByRoot(root);
+        for (Organize organize : organizes) {
             map.put(organize.id, new OrganizeVO(organize));
         }
         for (OrganizeVO organizeVO : map.values()) {
@@ -67,7 +67,7 @@ public class OrganizeVO extends OneData {
             }
             map.get(organizeVO.parent.organizeId).children.add(organizeVO);
         }
-        return map.get(BaseModel.getSource());
+        return map.get(root.id);
     }
     
     

@@ -2,7 +2,6 @@ package models.person;
 
 import enums.PersonType;
 import enums.Sex;
-import models.organize.Organize;
 import models.token.BasePerson;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -110,41 +109,8 @@ public class Person extends BasePerson {
         this.save();
     }
     
-    public static boolean isPhoneAvailable(String phone) {
-        return Person.findByPhone(phone) == null;
-    }
-    
-    public static boolean isEmailAvailable(String email) {
-        return Person.findByEmail(email) == null;
-    }
-    
-    public boolean isAdmin() {
-        return this.type != null && this.type == PersonType.ADMIN;
-    }
-    
     public void del() {
-        this.logicDelete();
-    }
-    
-    public static Person findByUsername(String username) {
-        return Person.find(defaultSql("username=?"), username).first();
-    }
-    
-    public static Person findByPhone(String phone) {
-        return Person.find(defaultSql("phone=?"), phone).first();
-    }
-    
-    public static Person findByEmail(String email) {
-        return Person.find(defaultSql("email=?"), email).first();
-    }
-    
-    
-    public static List<Person> fetchByOrganize(Organize organize) {
-        return Person.find(defaultSql("organize=?"), organize).fetch();
-    }
-    
-    public static List<Person> fetchAll() {
-        return Person.find(defaultSql()).fetch();
+        super.del();
     }
     
     public static List<Person> fetch(PersonVO personVO) {

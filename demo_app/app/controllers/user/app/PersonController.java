@@ -4,6 +4,7 @@ import annotations.ActionMethod;
 import annotations.ParamField;
 import binders.PasswordBinder;
 import enums.CaptchaType;
+import enums.PersonType;
 import models.person.Person;
 import models.token.AccessToken;
 import notifiers.Mails;
@@ -44,7 +45,7 @@ public class PersonController extends ApiController {
             if (captchaType == CaptchaType.EMAIL) {
                 renderJSON(Result.failed());
             }
-            Person person = Person.findByPhone(phone);
+            Person person = Person.findByPhone(phone, PersonType.NORMAL);
             
             if (captchaType == CaptchaType.REGIST && person != null) {
                 renderJSON(Result.failed(StatusCode.PERSON_PHONE_EXIST));
@@ -68,7 +69,7 @@ public class PersonController extends ApiController {
             if (captchaType == CaptchaType.PHONE) {
                 renderJSON(Result.failed());
             }
-            Person person = Person.findByEmail(email);
+            Person person = Person.findByEmail(email, PersonType.NORMAL);
             if (captchaType == CaptchaType.REGIST && person != null) {
                 renderJSON(Result.failed(StatusCode.PERSON_EMAIL_EXIST));
             }
@@ -107,7 +108,7 @@ public class PersonController extends ApiController {
             if (!CaptchaType.REGIST.validate(phone, captcha)) {
                 renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
             }
-            person = Person.findByPhone(phone);
+            person = Person.findByPhone(phone, PersonType.NORMAL);
             if (person != null) {
                 renderJSON(Result.failed(StatusCode.PERSON_PHONE_EXIST));
             }
@@ -115,7 +116,7 @@ public class PersonController extends ApiController {
             if (!CaptchaType.REGIST.validate(email, captcha)) {
                 renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
             }
-            person = Person.findByEmail(email);
+            person = Person.findByEmail(email, PersonType.NORMAL);
             if (person != null) {
                 renderJSON(Result.failed(StatusCode.PERSON_EMAIL_EXIST));
             }
@@ -132,7 +133,7 @@ public class PersonController extends ApiController {
     public static void login(@ParamField(name = "用户名") String username,
                              @ParamField(name = "密码", required = false) @As(binder = PasswordBinder.class) String password,
                              @ParamField(name = "验证码", required = false) String captcha) {
-        Person person = Person.findByUsername(username);
+        Person person = Person.findByUsername(username, PersonType.NORMAL);
         if (StringUtils.isNotBlank(captcha)) {
             if (!CaptchaType.LOGIN.validate(username, captcha)) {
                 renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
@@ -159,7 +160,7 @@ public class PersonController extends ApiController {
         if (!CaptchaType.PASSWORD.validate(username, captcha)) {
             renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
         }
-        Person person = Person.findByUsername(username);
+        Person person = Person.findByUsername(username, PersonType.NORMAL);
         if (person == null) {
             renderJSON(Result.failed(StatusCode.PERSON_ACCOUNT_NOTEXIST));
         }
@@ -178,7 +179,7 @@ public class PersonController extends ApiController {
         if (!CaptchaType.PHONE.validate(phone, captcha)) {
             renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
         }
-        if (!Person.isPhoneAvailable(phone)) {
+        if (!Person.isPhoneAvailable(phone, PersonType.NORMAL)) {
             renderJSON(Result.failed(StatusCode.PERSON_PHONE_EXIST));
         }
         Person person = getPersonByToken();
@@ -191,7 +192,7 @@ public class PersonController extends ApiController {
         if (!CaptchaType.EMAIL.validate(email, captcha)) {
             renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
         }
-        if (!Person.isEmailAvailable(email)) {
+        if (!Person.isEmailAvailable(email, PersonType.NORMAL)) {
             renderJSON(Result.failed(StatusCode.PERSON_PHONE_EXIST));
         }
         Person person = getPersonByToken();

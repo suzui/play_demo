@@ -1,6 +1,7 @@
 package controllers.admin;
 
 import annotations.ActionMethod;
+import enums.AccessType;
 import models.access.Permission;
 import models.person.Person;
 import vos.AccessVO;
@@ -57,7 +58,7 @@ public class PermissionController extends ApiController {
     @ActionMethod(name = "权限列表", clazz = {PageData.class, AccessVO.class})
     public static void accessList() {
         Person admin = getPersonByToken();
-        renderJSON(Result.succeed(new PageData(AccessVO.list())));
+        renderJSON(Result.succeed(new PageData(AccessVO.list(AccessType.ADMIN))));
     }
     
 }
