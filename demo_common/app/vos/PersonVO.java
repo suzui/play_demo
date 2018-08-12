@@ -54,6 +54,8 @@ public class PersonVO extends OneData {
     public List<String> accessCodes;
     @DataField(name = "权限列表")
     public List<AccessVO> access;
+    @DataField(name = "角色ids")
+    public List<Long> roleIds;
     @DataField(name = "角色列表")
     public List<RoleVO> roles;
     @DataField(name = "授权列表")
@@ -85,6 +87,7 @@ public class PersonVO extends OneData {
         List<Role> roles = accessToken.person.isAdmin() ? accessToken.person.roles() : accessToken.person.roles(Organize.findByID(BaseUtils.getOrganize()));
         this.accessCodes = access.stream().map(a -> a.code).collect(Collectors.toList());
         this.access = access.stream().map(a -> new AccessVO(a)).collect(Collectors.toList());
+        this.roleIds = roles.stream().map(r -> r.id).collect(Collectors.toList());
         this.roles = roles.stream().map(r -> new RoleVO(r)).collect(Collectors.toList());
     }
     

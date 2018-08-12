@@ -6,7 +6,6 @@ import vos.RoleVO;
 
 import javax.persistence.Entity;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -27,21 +26,6 @@ public class Role extends BaseRole {
     
     public void del() {
         super.del();
-    }
-    
-    public static List<Role> fetchByIds(List<Long> ids) {
-        if (ids == null || ids.isEmpty()) {
-            return Collections.EMPTY_LIST;
-        }
-        return Role.find(defaultSql("id in (:ids)")).bind("ids", ids.toArray()).fetch();
-    }
-    
-    public static List<Role> fetchByOrganize(Organize organize) {
-        return Role.find(defaultSql("organize = ?"), organize).fetch();
-    }
-    
-    public static List<Role> fetchAll() {
-        return Role.find(defaultSql()).fetch();
     }
     
     public static List<Role> fetch(RoleVO roleVO) {
