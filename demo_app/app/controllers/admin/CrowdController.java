@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class CrowdController extends ApiController {
     
-    @ActionMethod(name = "范围组列表", param = "page,size", clazz = {PageData.class, CrowdVO.class})
+    @ActionMethod(name = "范围列表", param = "page,size", clazz = {PageData.class, CrowdVO.class})
     public static void crowdList(CrowdVO vo) {
         Person admin = getPersonByToken();
         int total = Crowd.count(vo);
@@ -21,7 +21,7 @@ public class CrowdController extends ApiController {
         renderJSON(Result.succeed(new PageData(vo.page, vo.size, total, crowdVOs)));
     }
     
-    @ActionMethod(name = "范围组详情", param = "crowdId", clazz = CrowdVO.class)
+    @ActionMethod(name = "范围详情", param = "crowdId", clazz = CrowdVO.class)
     public static void crowdInfo(CrowdVO vo) {
         Person admin = getPersonByToken();
         Crowd crowd = Crowd.findByID(vo.crowdId);
@@ -30,14 +30,14 @@ public class CrowdController extends ApiController {
         renderJSON(Result.succeed(crowdVO));
     }
     
-    @ActionMethod(name = "范围组新增", param = "name,organizeIds", clazz = CrowdVO.class)
+    @ActionMethod(name = "范围新增", param = "name,organizeIds", clazz = CrowdVO.class)
     public static void crowdAdd(CrowdVO vo) {
         Person admin = getPersonByToken();
         Crowd crowd = Crowd.add(vo);
         renderJSON(Result.succeed(new CrowdVO(crowd)));
     }
     
-    @ActionMethod(name = "范围组编辑", param = "crowdId,-name,-organizeIds")
+    @ActionMethod(name = "范围编辑", param = "crowdId,-name,-organizeIds")
     public static void crowdEdit(CrowdVO vo) {
         Person admin = getPersonByToken();
         Crowd crowd = Crowd.findByID(vo.crowdId);
@@ -45,7 +45,7 @@ public class CrowdController extends ApiController {
         renderJSON(Result.succeed(new CrowdVO(crowd)));
     }
     
-    @ActionMethod(name = "范围组删除", param = "crowdId")
+    @ActionMethod(name = "范围删除", param = "crowdId")
     public static void crowdDelete(CrowdVO vo) {
         Person admin = getPersonByToken();
         Crowd crowd = Crowd.findByID(vo.crowdId);
