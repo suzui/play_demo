@@ -5,8 +5,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import enums.PersonType;
 import enums.Sex;
+import models.access.Authorization;
 import models.person.Person;
 import models.token.AccessToken;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class PersonVO extends OneData {
     
@@ -42,6 +46,8 @@ public class PersonVO extends OneData {
     @DataField(name = "登录次数")
     public Integer loginAmount;
     
+    @DataField(name = "授权列表")
+    public List<AuthorizationVO> authorizations;
     
     public PersonVO() {
     }
@@ -65,6 +71,11 @@ public class PersonVO extends OneData {
     public PersonVO(AccessToken accessToken) {
         this((Person) accessToken.person);
         this.accesstoken = accessToken.accesstoken;
+    }
+    
+    public PersonVO authorizations(List<Authorization> authorizations) {
+        this.authorizations = authorizations.stream().map(a -> new AuthorizationVO(a)).collect(Collectors.toList());
+        return this;
     }
     
 }
