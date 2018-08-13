@@ -81,10 +81,11 @@ public class PersonVO extends OneData {
     }
     
     public PersonVO(AccessToken accessToken) {
-        this((Person) accessToken.person);
+        this(accessToken.person());
+        Person person = accessToken.person();
         this.accesstoken = accessToken.accesstoken;
-        List<Access> access = accessToken.person.isAdmin() ? accessToken.person.access() : accessToken.person.access(Organize.findByID(BaseUtils.getOrganize()));
-        List<Role> roles = accessToken.person.isAdmin() ? accessToken.person.roles() : accessToken.person.roles(Organize.findByID(BaseUtils.getOrganize()));
+        List<Access> access = person.isAdmin() ? person.access() : person.access(Organize.findByID(BaseUtils.getOrganize()));
+        List<Role> roles = person.isAdmin() ? person.roles() : person.roles(Organize.findByID(BaseUtils.getOrganize()));
         this.accessCodes = access.stream().map(a -> a.code).collect(Collectors.toList());
         this.access = access.stream().map(a -> new AccessVO(a)).collect(Collectors.toList());
         this.roleIds = roles.stream().map(r -> r.id).collect(Collectors.toList());

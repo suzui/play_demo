@@ -22,7 +22,7 @@ public class StartUp extends Job {
         if (!s.getTransaction().isActive()) {
             s.getTransaction().begin();
         }
-        Person.initAdmin();
+        //Person.initAdmin();
         s.getTransaction().commit();
     }
     
