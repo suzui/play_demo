@@ -58,7 +58,7 @@ public class RoleController extends ApiController {
     @ActionMethod(name = "权限列表", clazz = {PageData.class, AccessVO.class})
     public static void accessList() {
         Person admin = getPersonByToken();
-        renderJSON(Result.succeed(new PageData(AccessVO.list(AccessType.ADMIN))));
+        renderJSON(Result.succeed(new PageData(AccessVO.list(AccessType.BOS))));
     }
     
 }

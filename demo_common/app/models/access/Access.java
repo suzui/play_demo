@@ -30,9 +30,9 @@ public class Access extends BaseAccess {
             }
             String[] array = StringUtils.split(access, ",");
             if (array.length == 2) {
-                add(array[0], array[1], null, AccessType.ADMIN);
+                add(array[0], array[1], null, AccessType.BOS);
             } else if (array.length == 3) {
-                add(array[0], array[1], array[2], AccessType.ADMIN);
+                add(array[0], array[1], array[2], AccessType.BOS);
             }
         }
     }
