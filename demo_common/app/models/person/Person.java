@@ -109,6 +109,10 @@ public class Person extends BasePerson {
         this.save();
     }
     
+    public boolean isAdmin() {
+        return PersonType.ADMIN == this.type;
+    }
+    
     public void del() {
         super.del();
     }

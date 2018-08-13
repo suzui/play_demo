@@ -37,14 +37,6 @@ public class Organize extends BaseOrganize {
         this.save();
     }
     
-    public boolean isOrganize() {
-        return OrganizeType.ORGANIZE == this.type;
-    }
-    
-    public boolean isRoot() {
-        return OrganizeType.ORGANIZE == this.type && this.parent == null;
-    }
-    
     public void del() {
         if (this.parent == null) {
             Person.fetchByOrganize(this).forEach(p -> p.del());
