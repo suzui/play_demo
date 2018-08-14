@@ -34,27 +34,6 @@ public class Relation extends BaseRelation {
         return this.save();
     }
     
-    public Organize organize() {
-        return (Organize) this.organize;
-    }
-    
-    public Person person() {
-        return (Person) this.person;
-    }
-    
-    public void move(Relation pre, Relation next) {
-        if (pre == null || next == null) {
-            if (pre == null) {
-                this.rank = next.rank - 1;
-            } else {
-                this.rank = pre.rank + 1;
-            }
-        } else {
-            this.rank = (pre.rank + next.rank) / 2;
-        }
-        this.save();
-    }
-    
     public void del() {
         this.logicDelete();
     }
