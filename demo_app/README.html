@@ -356,6 +356,17 @@ accesstoken 用户凭证,登录成功后后台生成返回给客户端</code></p
 &quot;data&quot;:{}//业务数据块
 }</code></pre></div>
 
+<h3 id="toc_3">统一校验逻辑说明</h3>
+
+<div><pre><code class="language-none">validation  校验标识,接口参数里标注时,此接口需走校验逻辑,校验时validation不传,校验成功后重新发起请求,validation传1
+校验失败状态码:40005,校验失败返回data格式如下:
+{
+&quot;type&quot;:101,//提示类型
+&quot;title&quot;:&quot;标题&quot;,
+&quot;content&quot;:&quot;内容&quot;,
+&quot;buttons&quot;:[&quot;取消&quot;,&quot;确认&quot;]//按钮列表
+}</code></pre></div>
+
 <blockquote>
 <ul>
 <li>内部开发环境地址 <code>http(s)://dev.api.demo.com</code> </li>
@@ -369,15 +380,15 @@ accesstoken 用户凭证,登录成功后后台生成返回给客户端</code></p
 </ul>
 </blockquote>
 
-<h3 id="toc_3">接口模块</h3>
+<h3 id="toc_4">接口模块</h3>
 
-<h4 id="toc_4"><a href="/readme/admin">管理端</a></h4>
+<h4 id="toc_5"><a href="/readme/admin">管理端</a></h4>
 
-<h4 id="toc_5"><a href="/readme/user">用户WEB端</a></h4>
+<h4 id="toc_6"><a href="/readme/user">用户WEB端</a></h4>
 
-<h4 id="toc_6"><a href="/readme/userapp">用户移动端</a></h4>
+<h4 id="toc_7"><a href="/readme/userapp">用户移动端</a></h4>
 
-<h4 id="toc_7"><a href="/readme/userh5">用户h5端</a></h4>
+<h4 id="toc_8"><a href="/readme/userh5">用户h5端</a></h4>
 
 
 

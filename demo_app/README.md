@@ -22,6 +22,19 @@ accesstoken 用户凭证,登录成功后后台生成返回给客户端
 "data":{}//业务数据块
 }
 ```
+
+### 统一校验逻辑说明
+```
+validation  校验标识,接口参数里标注时,此接口需走校验逻辑,校验时validation不传,校验成功后重新发起请求,validation传1
+校验失败状态码:40005,校验失败返回data格式如下:
+{
+"type":101,//提示类型
+"title":"标题",
+"content":"内容",
+"buttons":["取消","确认"]//按钮列表
+}
+```
+
 >+ 内部开发环境地址 `http(s)://dev.api.demo.com` 
 >+ 对外测试环境地址 `http(s)://test.api.demo.com`
 >+ 正式生产环境地址 `http(s)://(www.)api.demo.com`
