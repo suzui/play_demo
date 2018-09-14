@@ -74,10 +74,10 @@
 # STATIC
 GET     /favicon.ico                            	404
 GET		/readme                     				staticFile:README.html
-GET		/api/admin                     				staticFile:documentation/api/admin.html
-GET		/api/user                     				staticFile:documentation/api/user.html
-GET		/api/userapp                    			staticFile:documentation/api/userapp.html
-GET		/api/userh5                   			    staticFile:documentation/api/userh5.html
+GET		/readme/admin                     			staticFile:documentation/api/admin.html
+GET		/readme/user                     			staticFile:documentation/api/user.html
+GET		/readme/userapp                    			staticFile:documentation/api/userapp.html
+GET		/readme/userh5                   			staticFile:documentation/api/userh5.html
 GET     /tmp/                                   	staticDir:tmp
 
 # ALL

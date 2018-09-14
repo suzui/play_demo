@@ -33,10 +33,10 @@ accesstoken 用户凭证,登录成功后后台生成返回给客户端
 
 ### 接口模块
 
-#### [管理端](/api/admin) 
+#### [管理端](/readme/admin) 
 
-#### [用户WEB端](/api/user)
+#### [用户WEB端](/readme/user)
 
-#### [用户移动端](/api/userapp)
+#### [用户移动端](/readme/userapp)
 
-#### [用户h5端](/api/userh5)
+#### [用户h5端](/readme/userh5)
