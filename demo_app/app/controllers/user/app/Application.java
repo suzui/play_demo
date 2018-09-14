@@ -3,7 +3,6 @@ package controllers.user.app;
 import annotations.ActionMethod;
 import annotations.ParamField;
 import enums.AppType;
-import enums.ClientType;
 import models.area.Area;
 import models.person.Person;
 import models.token.AccessToken;
@@ -23,12 +22,12 @@ public class Application extends ApiController {
     
     @ActionMethod(name = "版本号详情", clazz = VersionVO.class)
     public static void version(@ParamField(name = "客户端类型") Integer clientType) {
-        renderJSON(Result.succeed(new VersionVO(AppType.USER, ClientType.convert(clientType))));
+        renderJSON(Result.succeed(new VersionVO(AppType.USER.code(), clientType).needUpdate()));
     }
     
     @ActionMethod(name = "客户端下载")
     public static void download(@ParamField(name = "客户端类型") Integer clientType) {
-        VersionVO versionVO = new VersionVO(AppType.USER, ClientType.convert(clientType));
+        VersionVO versionVO = new VersionVO(AppType.USER.code(), clientType);
         redirect(versionVO.downloadUrl);
     }
     

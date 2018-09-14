@@ -17,7 +17,7 @@ public class Application extends ApiController {
     
     @ActionMethod(name = "版本号详情", clazz = VersionVO.class)
     public static void version(@ParamField(name = "客户端类型") Integer clientType) {
-        renderJSON(Result.succeed(new VersionVO(AppType.USER, ClientType.convert(clientType))));
+        renderJSON(Result.succeed(new VersionVO(AppType.USER, ClientType.convert(clientType)).needUpdate()));
     }
     
     @ActionMethod(name = "配置参数", clazz = ConfigVO.class)
