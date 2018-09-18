@@ -35,7 +35,7 @@ validation:
 "cancelType":101,//取消按钮行为 关闭弹窗:101 重新请求:102 链接跳转:103 返回上级:104
 "submitText":"确认按钮文案",
 "submitType":101,//确认按钮行为 关闭弹窗:101 重新请求:102 链接跳转:103 返回上级:104
-"type":101//弹窗类型 Dialog:101 Toast:102
+"type":101//弹窗类型 Hidden:100 Dialog:101 Toast:102
 }
 ```
 >+ 异常时返回`validation`信息,用于提醒及后续行为
