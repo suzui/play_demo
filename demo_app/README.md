@@ -6,6 +6,7 @@ appversion  app版本号,初始为0.0.1
 apptype     app类型 用户端:101 管理端:102 
 osversion   运行系统版本(WEB端为浏览器版本)
 clienttype  客户端类型 WEB:100 IOS:101 ANDROID:102
+deviceinfo  设备型号信息
 devicetoken 设备唯一标识
 randomseed  随机种子,客户端每次POST请求生成一个对应的16位随机字符串,后台保留10分钟,用于判断重复提交
 accesstoken 用户凭证,登录成功后后台生成返回给客户端
