@@ -3,7 +3,6 @@ package controllers;
 import annotations.ActionMethod;
 import play.Play;
 import play.db.jpa.NoTransaction;
-import utils.BaseUtils;
 import vos.PersonVO;
 
 public class Application extends BaseController {
@@ -16,11 +15,17 @@ public class Application extends BaseController {
     
     @ActionMethod(name = "测试", clazz = PersonVO.class)
     public static void test(PersonVO vo) {
-        String a = BaseUtils.property("a");
-        String b = BaseUtils.property("b");
-        System.err.println(a);
-        System.err.println(b);
+        vo.size = 100;
+        System.err.println(vo.size);
+        t(vo);
+        System.err.println(vo.size);
         renderJSON("test");
     }
+    
+    private static void t(PersonVO vo) {
+        vo.size = 101;
+    }
+    
+    
     
 }

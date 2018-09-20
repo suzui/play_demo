@@ -59,7 +59,7 @@ public class PersonController extends ApiController {
             if (captchaType == CaptchaType.PHONE && person != null) {
                 renderJSON(Result.failed(StatusCode.PERSON_PHONE_EXIST));
             }
-            Logger.info("[captcha] %s,%s,%s,%s", type, phone, captcha);
+            Logger.info("[captcha] %s,%s,%s", type, phone, captcha);
             SMSUtils.send(captchaType, captcha, phone);
             CacheUtils.set(captchaType.key(phone), captcha, "10mn");
         } else {
