@@ -1,13 +1,10 @@
 
 package utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.sun.corba.se.impl.encoding.MarshalInputStream;
 import play.libs.WS;
 import play.libs.WS.HttpResponse;
 
-import java.io.IOException;
 import java.util.List;
 
 public class AmapUtils {
