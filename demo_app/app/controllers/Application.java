@@ -3,10 +3,9 @@ package controllers;
 import annotations.ActionMethod;
 import play.Play;
 import play.db.jpa.NoTransaction;
+import utils.DateUtils;
 import utils.HolidayUtils;
 import vos.PersonVO;
-
-import java.util.Date;
 
 public class Application extends BaseController {
     
@@ -18,11 +17,8 @@ public class Application extends BaseController {
     
     @ActionMethod(name = "测试", clazz = PersonVO.class)
     public static void test(PersonVO vo) {
-        HolidayUtils.yearMonth(new Date());
         renderJSON("test");
     }
-    
-    
     
     
 }
