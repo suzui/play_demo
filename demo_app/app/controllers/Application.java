@@ -11,7 +11,7 @@ public class Application extends BaseController {
         renderHtml("start...");
     }
     
-    @ActionMethod(name = "测试", param = "rolees", clazz = PersonVO.class)
+    @ActionMethod(name = "测试", clazz = PersonVO.class)
     public static void test(PersonVO vo) {
         renderJSON("test");
     }

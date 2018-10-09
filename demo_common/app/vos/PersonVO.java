@@ -50,10 +50,6 @@ public class PersonVO extends OneData {
     @DataField(name = "登录次数")
     public Integer loginAmount;
     
-    @DataField(name = "角色")
-    public RoleVO role;
-    @DataField(name = "角色")
-    public String rolees;
     @DataField(name = "权限code列表")
     public List<String> accessCodes;
     @DataField(name = "权限列表")
