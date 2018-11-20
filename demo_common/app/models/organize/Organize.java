@@ -1,6 +1,5 @@
 package models.organize;
 
-import enums.OrganizeType;
 import models.person.Person;
 import models.token.BaseOrganize;
 import org.apache.commons.lang.StringUtils;

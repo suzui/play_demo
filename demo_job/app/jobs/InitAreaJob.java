@@ -10,7 +10,7 @@ public class InitAreaJob extends BaseJob {
     
     @Override
     public void doJob() throws Exception {
-        initArea();
+        //initArea();
     }
     
     private static void initArea() {
