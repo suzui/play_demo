@@ -39,7 +39,7 @@ public class PersonController extends ApiController {
         renderJSON(Result.succeed());
     }
     
-    @ActionMethod(name = "管理员列表", param = "page,size", clazz = {PageData.class, PersonVO.class})
+    @ActionMethod(name = "管理员列表", param = "page,size,-name,-phone", clazz = {PageData.class, PersonVO.class})
     public static void list(PersonVO vo) {
         int total = Person.count(vo);
         List<Person> persons = Person.fetch(vo);

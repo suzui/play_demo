@@ -150,6 +150,14 @@ public class Person extends BasePerson {
             hqls.add("concat_ws(',',name,phone,email) like ?");
             params.add("%" + vo.search + "%");
         }
+        if (StringUtils.isNotBlank(vo.name)) {
+            hqls.add("name like ?");
+            params.add("%" + vo.name + "%");
+        }
+        if (StringUtils.isNotBlank(vo.phone)) {
+            hqls.add("phone like ?");
+            params.add("%" + vo.phone + "%");
+        }
         return new Object[]{hqls, params};
     }
 }
