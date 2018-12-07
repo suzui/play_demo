@@ -17,7 +17,7 @@ public class Organize extends BaseOrganize {
         organize.name = "机构";
         organize.rank = 0d;
         organize.save();
-        organize.organize = organize;
+        organize.root = organize;
         return organize.save();
     }
     
@@ -25,7 +25,7 @@ public class Organize extends BaseOrganize {
         Organize organize = new Organize();
         organize.parent = Organize.findByID(organizeVO.parentId);
         organize.rank = organize.parent().initRank();
-        organize.organize = Organize.findByID(getSource());
+        organize.root = Organize.findByID(getRoot());
         organize.edit(organizeVO);
         return organize;
     }
@@ -71,8 +71,10 @@ public class Organize extends BaseOrganize {
             hqls.add("parent.id=?");
             params.add(organizeVO.parentId);
         }
-        hqls.add("organize.id=?");
-        params.add(getSource());
+        if (organizeVO.rootId != null) {
+            hqls.add("root.id=?");
+            params.add(organizeVO.rootId);
+        }
         return new Object[]{hqls, params};
     }
 }

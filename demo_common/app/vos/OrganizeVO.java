@@ -19,6 +19,8 @@ public class OrganizeVO extends OneData {
     public String logo;
     @DataField(name = "上级组织id")
     public Long parentId;
+    @DataField(name = "根组织id")
+    public Long rootId;
     @DataField(name = "排序")
     public Double rank;
     @DataField(name = "组织类型")
