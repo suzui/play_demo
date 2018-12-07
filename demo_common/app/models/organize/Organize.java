@@ -21,18 +21,18 @@ public class Organize extends BaseOrganize {
         return organize.save();
     }
     
-    public static Organize add(OrganizeVO organizeVO) {
+    public static Organize add(OrganizeVO vo) {
         Organize organize = new Organize();
-        organize.parent = Organize.findByID(organizeVO.parentId);
+        organize.parent = Organize.findByID(vo.parentId);
         organize.rank = organize.parent().initRank();
         organize.root = Organize.findByID(getRoot());
-        organize.edit(organizeVO);
+        organize.edit(vo);
         return organize;
     }
     
-    public void edit(OrganizeVO organizeVO) {
-        this.name = organizeVO.name != null ? organizeVO.name : name;
-        this.logo = organizeVO.logo != null ? organizeVO.logo : logo;
+    public void edit(OrganizeVO vo) {
+        this.name = vo.name != null ? vo.name : name;
+        this.logo = vo.logo != null ? vo.logo : logo;
         this.save();
     }
     
@@ -45,35 +45,35 @@ public class Organize extends BaseOrganize {
         this.logicDelete();
     }
     
-    public static List<Organize> fetch(OrganizeVO organizeVO) {
-        Object[] data = data(organizeVO);
+    public static List<Organize> fetch(OrganizeVO vo) {
+        Object[] data = data(vo);
         List<String> hqls = (List<String>) data[0];
         List<Object> params = (List<Object>) data[1];
-        return Organize.find(defaultSql(StringUtils.join(hqls, " and ")) + organizeVO.condition, params.toArray())
-                .fetch(organizeVO.page, organizeVO.size);
+        return Organize.find(defaultSql(StringUtils.join(hqls, " and ")) + vo.condition, params.toArray())
+                .fetch(vo.page, vo.size);
     }
     
-    public static int count(OrganizeVO organizeVO) {
-        Object[] data = data(organizeVO);
+    public static int count(OrganizeVO vo) {
+        Object[] data = data(vo);
         List<String> hqls = (List<String>) data[0];
         List<Object> params = (List<Object>) data[1];
         return (int) Organize.count(defaultSql(StringUtils.join(hqls, " and ")), params.toArray());
     }
     
-    private static Object[] data(OrganizeVO organizeVO) {
+    private static Object[] data(OrganizeVO vo) {
         List<String> hqls = new ArrayList<>();
         List<Object> params = new ArrayList<>();
-        if (StringUtils.isNotBlank(organizeVO.name)) {
+        if (StringUtils.isNotBlank(vo.name)) {
             hqls.add("name like ?");
-            params.add("%" + organizeVO.name + "%");
+            params.add("%" + vo.name + "%");
         }
-        if (organizeVO.parentId != null) {
+        if (vo.parentId != null) {
             hqls.add("parent.id=?");
-            params.add(organizeVO.parentId);
+            params.add(vo.parentId);
         }
-        if (organizeVO.rootId != null) {
+        if (vo.rootId != null) {
             hqls.add("root.id=?");
-            params.add(organizeVO.rootId);
+            params.add(vo.rootId);
         }
         return new Object[]{hqls, params};
     }

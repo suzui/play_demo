@@ -43,7 +43,7 @@ public class PersonController extends ApiController {
     public static void list(PersonVO vo) {
         int total = Person.count(vo);
         List<Person> persons = Person.fetch(vo);
-        List<PersonVO> personVOs = persons.stream().map(o -> new PersonVO(o)).collect(Collectors.toList());
+        List<PersonVO> personVOs = persons.stream().map(p -> new PersonVO(p)).collect(Collectors.toList());
         renderJSON(Result.succeed(new PageData(vo.page, vo.size, total, personVOs)));
     }
     
