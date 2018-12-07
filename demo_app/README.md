@@ -57,7 +57,7 @@ validation:
 
 ### 接口模块
 
-#### [管理端WEB端](/readme/admin) 
+#### [管理WEB端](/readme/admin) 
 
 #### [机构WEB端](/readme/user)
 
