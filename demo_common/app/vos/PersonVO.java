@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import enums.PersonType;
 import enums.Sex;
 import models.access.Access;
-import models.access.Authorization;
 import models.access.Role;
 import models.organize.Organize;
 import models.person.Person;
@@ -84,16 +83,16 @@ public class PersonVO extends OneData {
         this(accessToken.person());
         Person person = accessToken.person();
         this.accesstoken = accessToken.accesstoken;
-        List<Access> access = person.isAdmin() ? person.access() : person.access(Organize.findByID(BaseUtils.getOrganize()));
-        List<Role> roles = person.isAdmin() ? person.roles() : person.roles(Organize.findByID(BaseUtils.getOrganize()));
+        List<Access> access = person.isAdmin() ? person.access() : person.access(Organize.findByID(BaseUtils.getRoot()));
+        List<Role> roles = person.isAdmin() ? person.roles() : person.roles(Organize.findByID(BaseUtils.getRoot()));
         this.accessCodes = access.stream().map(a -> a.code).collect(Collectors.toList());
         this.access = access.stream().map(a -> new AccessVO(a)).collect(Collectors.toList());
         this.roleIds = roles.stream().map(r -> r.id).collect(Collectors.toList());
         this.roles = roles.stream().map(r -> new RoleVO(r)).collect(Collectors.toList());
     }
     
-    public PersonVO authorizations(List<Authorization> authorizations) {
-        this.authorizations = authorizations.stream().map(a -> new AuthorizationVO(a)).collect(Collectors.toList());
+    public PersonVO roles(List<Role> roles) {
+        this.roles = roles.stream().map(r -> new RoleVO(r)).collect(Collectors.toList());
         return this;
     }
     

@@ -10,20 +10,11 @@
 *		/admin/areaData							    admin.Application.areaData
 *		/admin/qiniu/uptoken						admin.Application.qiniuUptoken
 *		/admin/qiniu/uptoken/simple					admin.Application.qiniuUptokenSimple
-*		/admin/admin/login							admin.AdminController.login
-*		/admin/admin/logout							admin.AdminController.logout
-*		/admin/admin/info							admin.AdminController.info
-*		/admin/role/list					        admin.RoleController.roleList
-*		/admin/role/info					        admin.RoleController.roleInfo
-*		/admin/role/add					            admin.RoleController.roleAdd
-*		/admin/role/edit					        admin.RoleController.roleEdit
-*		/admin/role/delete				            admin.RoleController.roleDelete
+*		/admin/person/{action}						admin.PersonController.{action}
 *		/admin/role/access/list				        admin.RoleController.accessList
-*		/admin/crowd/list					        admin.CrowdController.crowdList
-*		/admin/crowd/info					        admin.CrowdController.crowdInfo
-*		/admin/crowd/add					        admin.CrowdController.crowdAdd
-*		/admin/crowd/edit					        admin.CrowdController.crowdEdit
-*		/admin/crowd/delete				            admin.CrowdController.crowdDelete
+*		/admin/role/{action}					    admin.RoleController.{action}
+*		/admin/crowd/{action}					    admin.CrowdController.{action}
+*		/admin/organize/{action}					admin.OrganizeController.{action}
 
 # USER 用户WEB端
 *		/user										user.Application.index
@@ -33,17 +24,13 @@
 *		/user/areaData							    user.Application.areaData
 *		/user/qiniu/uptoken							user.Application.qiniuUptoken
 *		/user/qiniu/uptoken/simple					user.Application.qiniuUptokenSimple
-*		/user/person/captcha						user.PersonController.captcha
-*		/user/person/regist							user.PersonController.regist
-*		/user/person/login							user.PersonController.login
-*		/user/person/logout							user.PersonController.logout
-*		/user/person/info							user.PersonController.info
-*		/user/person/edit							user.PersonController.edit
 *		/user/person/phone/bind						user.PersonController.bindPhone
 *		/user/person/email/bind						user.PersonController.bindEmail
 *		/user/person/password/forget				user.PersonController.forgetPassword
 *		/user/person/password/validate				user.PersonController.validatePassword
 *		/user/person/password/reset					user.PersonController.resetPassword
+*		/user/person/{action}						user.PersonController.{action}
+
 
 # USER.APP 用户移动端
 *		/user/app							        user.app.Application.index
@@ -53,17 +40,14 @@
 *		/user/app/incrementData					    user.app.Application.incrementData
 *		/user/app/areaData					        user.app.Application.areaData
 *		/user/app/qiniu/uptoken					    user.app.Application.qiniuUptoken
-*		/user/app/person/captcha					user.app.PersonController.captcha
 *		/user/app/person/regist					    user.app.PersonController.regist
-*		/user/app/person/login					    user.app.PersonController.login
-*		/user/app/person/logout					    user.app.PersonController.logout
-*		/user/app/person/info					    user.app.PersonController.info
-*		/user/app/person/edit					    user.app.PersonController.edit
 *		/user/app/person/phone/bind				    user.app.PersonController.bindPhone
 *		/user/app/person/email/bind				    user.app.PersonController.bindEmail
 *		/user/app/person/password/forget			user.app.PersonController.forgetPassword
 *		/user/app/person/password/validate		    user.app.PersonController.validatePassword
 *		/user/app/person/password/reset			    user.app.PersonController.resetPassword
+*		/user/app/person/{action}					user.app.PersonController.{action}
+
 
 # USER.H5 用户h5端
 *		/user/h5							        user.h5.Application.index

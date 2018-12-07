@@ -19,15 +19,20 @@ public class OrganizeVO extends OneData {
     public String logo;
     @DataField(name = "上级组织id")
     public Long parentId;
+    @DataField(name = "排序")
+    public Double rank;
     @DataField(name = "组织类型")
     public Integer type;
     
-    @DataField(name = "上级组织", enable = false)
+    @DataField(name = "负责人名称")
+    public String personName;
+    @DataField(name = "负责人手机号")
+    public String personPhone;
+    
+    @DataField(name = "上级组织")
     public OrganizeVO parent;
-    @DataField(name = "下级组织", enable = false)
+    @DataField(name = "下级组织")
     public List<OrganizeVO> children;
-    @DataField(name = "排序", enable = false)
-    public Double rank;
     
     public OrganizeVO() {
         this.condition = " order by rank ";

@@ -2,7 +2,10 @@ package models.person;
 
 import enums.PersonType;
 import enums.Sex;
+import models.access.Authorization;
+import models.access.Role;
 import models.area.Area;
+import models.organize.Organize;
 import models.token.BasePerson;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -22,14 +25,14 @@ public class Person extends BasePerson {
     public Area area;
     
     
-    public static Person add(PersonVO personVO) {
+    public static Person add(PersonVO vo) {
         Person person = new Person();
-        person.username = personVO.username;
-        person.email = personVO.email;
-        person.phone = personVO.phone;
-        person.password = personVO.password;
+        person.username = vo.username;
+        person.email = vo.email;
+        person.phone = vo.phone;
+        person.password = vo.password;
         person.type = PersonType.NORMAL;
-        person.edit(personVO);
+        person.edit(vo);
         return person;
     }
     
@@ -91,28 +94,20 @@ public class Person extends BasePerson {
         this.save();
     }
     
-    public void editInfo(String name, String avatar, String intro, Sex sex, List<String> colunms) {
-        if (colunms.contains("name")) {
-            this.name = name;
-        }
-        if (colunms.contains("avatar")) {
-            this.avatar = avatar;
-        }
-        if (colunms.contains("intro")) {
-            this.intro = intro;
-        }
-        if (colunms.contains("sex")) {
-            this.sex = sex;
-        }
+    public void edit(PersonVO vo) {
+        this.name = vo.name != null ? vo.name : name;
+        this.avatar = vo.avatar != null ? vo.avatar : avatar;
+        this.intro = vo.intro != null ? vo.intro : intro;
+        this.sex = vo.sex != null ? Sex.convert(vo.sex) : sex;
         this.save();
-    }
-    
-    public void edit(PersonVO personVO) {
-        this.name = personVO.name != null ? personVO.name : name;
-        this.avatar = personVO.avatar != null ? personVO.avatar : avatar;
-        this.intro = personVO.intro != null ? personVO.intro : intro;
-        this.sex = personVO.sex != null ? Sex.convert(personVO.sex) : sex;
-        this.save();
+        if (vo.roleIds != null) {
+            vo.roleIds.forEach(roleId -> Authorization.add(this, Role.findByID(roleId)));
+            (this.isAdmin() ? this.authorizations() : this.authorizations(Organize.findByID(BaseUtils.getRoot()))).forEach(authorization -> {
+                if (!vo.roleIds.contains(authorization.role.id)) {
+                    authorization.del();
+                }
+            });
+        }
     }
     
     public boolean isAdmin() {
@@ -123,27 +118,27 @@ public class Person extends BasePerson {
         super.del();
     }
     
-    public static List<Person> fetch(PersonVO personVO) {
-        Object[] data = data(personVO);
+    public static List<Person> fetch(PersonVO vo) {
+        Object[] data = data(vo);
         List<String> hqls = (List<String>) data[0];
         List<Object> params = (List<Object>) data[1];
-        return Person.find(defaultSql(StringUtils.join(hqls, " and ")) + personVO.condition, params.toArray())
-                .fetch(personVO.page, personVO.size);
+        return Person.find(defaultSql(StringUtils.join(hqls, " and ")) + vo.condition, params.toArray())
+                .fetch(vo.page, vo.size);
     }
     
-    public static int count(PersonVO personVO) {
-        Object[] data = data(personVO);
+    public static int count(PersonVO vo) {
+        Object[] data = data(vo);
         List<String> hqls = (List<String>) data[0];
         List<Object> params = (List<Object>) data[1];
         return (int) Person.count(defaultSql(StringUtils.join(hqls, " and ")), params.toArray());
     }
     
-    private static Object[] data(PersonVO personVO) {
+    private static Object[] data(PersonVO vo) {
         List<String> hqls = new ArrayList<>();
         List<Object> params = new ArrayList<>();
-        if (StringUtils.isNotBlank(personVO.search)) {
+        if (StringUtils.isNotBlank(vo.search)) {
             hqls.add("concat_ws(',',name,phone,email) like ?");
-            params.add("%" + personVO.search + "%");
+            params.add("%" + vo.search + "%");
         }
         return new Object[]{hqls, params};
     }
