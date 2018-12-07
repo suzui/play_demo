@@ -6,7 +6,7 @@ import org.apache.commons.lang.StringUtils;
 
 @EnumClass(name = "APP类型")
 public enum AppType implements BaseEnum {
-    USER(101, "用户端"), ADMIN(102, "管理端");
+    ADMIN(100, "管理端"), ORGANIZE(101, "机构端"), USER(102, "普通用户端");
     private int code;
     private String intro;
     

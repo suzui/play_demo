@@ -5,7 +5,7 @@ import interfaces.BaseEnum;
 
 @EnumClass(name = "用户类型")
 public enum PersonType implements BaseEnum {
-    ADMIN(100, "管理员"), NORMAL(101, "普通用户");
+    ADMIN(100, "管理员"), ORGANIZE(101, "机构用户"), USER(102, "普通用户");
     private int code;
     private String intro;
     

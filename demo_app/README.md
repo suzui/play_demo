@@ -3,7 +3,7 @@
 ### 名称说明
 ```
 appversion  app版本号,初始为0.0.1
-apptype     app类型 用户端:101 管理端:102 
+apptype     app类型 管理端:100 机构端:101 普通用户端:102
 osversion   运行系统版本(WEB端为浏览器版本)
 clienttype  客户端类型 WEB:100 IOS:101 ANDROID:102
 deviceinfo  设备型号信息
@@ -57,7 +57,13 @@ validation:
 
 ### 接口模块
 
-#### [管理端](/readme/admin) 
+#### [管理端WEB端](/readme/admin) 
+
+#### [机构WEB端](/readme/user)
+
+#### [机构移动端](/readme/userapp)
+
+#### [机构h5端](/readme/userh5)
 
 #### [用户WEB端](/readme/user)
 

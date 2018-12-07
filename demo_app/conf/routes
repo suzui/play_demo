@@ -59,6 +59,9 @@
 GET     /favicon.ico                            	404
 GET		/readme                     				staticFile:README.html
 GET		/readme/admin                     			staticFile:documentation/api/admin.html
+GET		/readme/organize                     		staticFile:documentation/api/organize.html
+GET		/readme/organizeapp                    		staticFile:documentation/api/organizeapp.html
+GET		/readme/organizeh5                   		staticFile:documentation/api/organizeh5.html
 GET		/readme/user                     			staticFile:documentation/api/user.html
 GET		/readme/userapp                    			staticFile:documentation/api/userapp.html
 GET		/readme/userh5                   			staticFile:documentation/api/userh5.html
