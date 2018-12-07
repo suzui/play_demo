@@ -2,6 +2,7 @@ package models.person;
 
 import enums.PersonType;
 import enums.Sex;
+import exceptions.ResultException;
 import models.access.Authorization;
 import models.access.Role;
 import models.area.Area;
@@ -12,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import utils.BaseUtils;
 import utils.CodeUtils;
 import vos.PersonVO;
+import vos.StatusCode;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -24,8 +26,10 @@ public class Person extends BasePerson {
     @ManyToOne
     public Area area;
     
-    
     public static Person add(PersonVO vo) {
+        if (Person.isPhoneAvailable(vo.phone, vo.type)) {
+            throw new ResultException(StatusCode.PERSON_PHONE_EXIST);
+        }
         Person person = new Person();
         person.username = vo.username;
         person.email = vo.email;
@@ -66,6 +70,28 @@ public class Person extends BasePerson {
         }
     }
     
+    public void edit(PersonVO vo) {
+        Person person = findByPhone(vo.phone, this.type);
+        if (person != null && !person.id.equals(this.id)) {
+            throw new ResultException(StatusCode.PERSON_PHONE_EXIST);
+        }
+        this.name = vo.name != null ? vo.name : name;
+        this.phone = vo.phone != null ? vo.phone : phone;
+        this.avatar = vo.avatar != null ? vo.avatar : avatar;
+        this.intro = vo.intro != null ? vo.intro : intro;
+        this.remark = vo.remark != null ? vo.remark : remark;
+        this.sex = vo.sex != null ? Sex.convert(vo.sex) : sex;
+        this.save();
+        if (vo.roleIds != null) {
+            vo.roleIds.forEach(roleId -> Authorization.add(this, Role.findByID(roleId)));
+            (this.isAdmin() ? this.authorizations() : this.authorizations(Organize.findByID(BaseUtils.getRoot()))).forEach(authorization -> {
+                if (!vo.roleIds.contains(authorization.role.id)) {
+                    authorization.del();
+                }
+            });
+        }
+    }
+    
     public void editPassword(String password) {
         this.password = password;
         this.save();
@@ -92,22 +118,6 @@ public class Person extends BasePerson {
             this.password = password.length() < 32 ? CodeUtils.md5(password) : password;
         }
         this.save();
-    }
-    
-    public void edit(PersonVO vo) {
-        this.name = vo.name != null ? vo.name : name;
-        this.avatar = vo.avatar != null ? vo.avatar : avatar;
-        this.intro = vo.intro != null ? vo.intro : intro;
-        this.sex = vo.sex != null ? Sex.convert(vo.sex) : sex;
-        this.save();
-        if (vo.roleIds != null) {
-            vo.roleIds.forEach(roleId -> Authorization.add(this, Role.findByID(roleId)));
-            (this.isAdmin() ? this.authorizations() : this.authorizations(Organize.findByID(BaseUtils.getRoot()))).forEach(authorization -> {
-                if (!vo.roleIds.contains(authorization.role.id)) {
-                    authorization.del();
-                }
-            });
-        }
     }
     
     public boolean isAdmin() {

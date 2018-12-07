@@ -33,6 +33,8 @@ public class PersonVO extends OneData {
     public String avatar;
     @DataField(name = "简介")
     public String intro;
+    @DataField(name = "备注")
+    public String remark;
     @DataField(name = "性别", enums = Sex.class)
     public Integer sex;
     @DataField(name = "类别", enums = PersonType.class)
@@ -72,6 +74,7 @@ public class PersonVO extends OneData {
         this.name = person.name;
         this.avatar = person.avatar;
         this.intro = person.intro;
+        this.remark = person.remark;
         this.sex = person.sex.code();
         this.type = person.type.code();
         this.firstLoginTime = person.firstLoginTime;
