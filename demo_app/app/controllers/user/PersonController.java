@@ -45,7 +45,7 @@ public class PersonController extends ApiController {
             if (captchaType == CaptchaType.EMAIL) {
                 renderJSON(Result.failed());
             }
-            Person person = Person.findByPhone(phone, PersonType.NORMAL);
+            Person person = Person.findByPhone(phone, PersonType.USER);
             
             if (captchaType == CaptchaType.REGIST && person != null) {
                 renderJSON(Result.failed(StatusCode.PERSON_PHONE_EXIST));
@@ -69,7 +69,7 @@ public class PersonController extends ApiController {
             if (captchaType == CaptchaType.PHONE) {
                 renderJSON(Result.failed());
             }
-            Person person = Person.findByEmail(email, PersonType.NORMAL);
+            Person person = Person.findByEmail(email, PersonType.USER);
             if (captchaType == CaptchaType.REGIST && person != null) {
                 renderJSON(Result.failed(StatusCode.PERSON_EMAIL_EXIST));
             }
@@ -108,7 +108,7 @@ public class PersonController extends ApiController {
             if (!CaptchaType.REGIST.validate(phone, captcha)) {
                 renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
             }
-            person = Person.findByPhone(phone, PersonType.NORMAL);
+            person = Person.findByPhone(phone, PersonType.USER);
             if (person != null) {
                 renderJSON(Result.failed(StatusCode.PERSON_PHONE_EXIST));
             }
@@ -116,7 +116,7 @@ public class PersonController extends ApiController {
             if (!CaptchaType.REGIST.validate(email, captcha)) {
                 renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
             }
-            person = Person.findByEmail(email, PersonType.NORMAL);
+            person = Person.findByEmail(email, PersonType.USER);
             if (person != null) {
                 renderJSON(Result.failed(StatusCode.PERSON_EMAIL_EXIST));
             }
@@ -133,7 +133,7 @@ public class PersonController extends ApiController {
     public static void login(@ParamField(name = "用户名") String username,
                              @ParamField(name = "密码", required = false) @As(binder = PasswordBinder.class) String password,
                              @ParamField(name = "验证码", required = false) String captcha) {
-        Person person = Person.findByUsername(username, PersonType.NORMAL);
+        Person person = Person.findByUsername(username, PersonType.USER);
         if (StringUtils.isNotBlank(captcha)) {
             if (!CaptchaType.LOGIN.validate(username, captcha)) {
                 renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
@@ -160,7 +160,7 @@ public class PersonController extends ApiController {
         if (!CaptchaType.PASSWORD.validate(username, captcha)) {
             renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
         }
-        Person person = Person.findByUsername(username, PersonType.NORMAL);
+        Person person = Person.findByUsername(username, PersonType.USER);
         if (person == null) {
             renderJSON(Result.failed(StatusCode.PERSON_ACCOUNT_NOTEXIST));
         }
@@ -179,7 +179,7 @@ public class PersonController extends ApiController {
         if (!CaptchaType.PHONE.validate(phone, captcha)) {
             renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
         }
-        if (!Person.isPhoneAvailable(phone, PersonType.NORMAL)) {
+        if (!Person.isPhoneAvailable(phone, PersonType.USER)) {
             renderJSON(Result.failed(StatusCode.PERSON_PHONE_EXIST));
         }
         Person person = getPersonByToken();
@@ -192,7 +192,7 @@ public class PersonController extends ApiController {
         if (!CaptchaType.EMAIL.validate(email, captcha)) {
             renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
         }
-        if (!Person.isEmailAvailable(email, PersonType.NORMAL)) {
+        if (!Person.isEmailAvailable(email, PersonType.USER)) {
             renderJSON(Result.failed(StatusCode.PERSON_PHONE_EXIST));
         }
         Person person = getPersonByToken();

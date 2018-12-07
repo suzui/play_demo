@@ -35,7 +35,7 @@ public class Person extends BasePerson {
         person.email = vo.email;
         person.phone = vo.phone;
         person.password = vo.password;
-        person.type = PersonType.NORMAL;
+        person.type = PersonType.convert(vo.type);
         person.edit(vo);
         return person;
     }
