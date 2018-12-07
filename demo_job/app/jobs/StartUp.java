@@ -1,5 +1,6 @@
 package jobs;
 
+import models.access.Access;
 import models.person.Person;
 import org.hibernate.Session;
 import play.db.jpa.JPA;
@@ -14,6 +15,7 @@ public class StartUp extends Job {
     @Override
     public void doJob() throws Exception {
         initAdmin();
+        initAccess();
         updateColumn();
     }
     
@@ -22,7 +24,17 @@ public class StartUp extends Job {
         if (!s.getTransaction().isActive()) {
             s.getTransaction().begin();
         }
-        //Person.initAdmin();
+        Person.initAdmin();
+        s.getTransaction().commit();
+    }
+    
+    
+    private static void initAccess() {
+        final Session s = (Session) JPA.em().getDelegate();
+        if (!s.getTransaction().isActive()) {
+            s.getTransaction().begin();
+        }
+        Access.init();
         s.getTransaction().commit();
     }
     
