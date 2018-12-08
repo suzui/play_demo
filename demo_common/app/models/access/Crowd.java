@@ -12,16 +12,16 @@ import java.util.List;
 @Entity
 public class Crowd extends BaseCrowd {
     
-    public static Crowd add(CrowdVO crowdVO) {
+    public static Crowd add(CrowdVO vo) {
         Crowd crowd = new Crowd();
-        crowd.organize = crowdVO.organizeId != null ? Organize.findByID(crowdVO.organizeId) : null;
-        crowd.edit(crowdVO);
+        crowd.organize = vo.organizeId != null ? Organize.findByID(vo.organizeId) : null;
+        crowd.edit(vo);
         return crowd;
     }
     
-    public void edit(CrowdVO crowdVO) {
-        this.name = crowdVO.name != null ? crowdVO.name : name;
-        this.organizeIds = crowdVO.organizeIds != null ? StringUtils.join(crowdVO.organizeIds, ",") : organizeIds;
+    public void edit(CrowdVO vo) {
+        this.name = vo.name != null ? vo.name : name;
+        this.organizeIds = vo.organizeIds != null ? StringUtils.join(vo.organizeIds, ",") : organizeIds;
         this.save();
     }
     
@@ -44,31 +44,35 @@ public class Crowd extends BaseCrowd {
         return Crowd.find(defaultSql()).fetch();
     }
     
-    public static List<Crowd> fetch(CrowdVO crowdVO) {
-        Object[] data = data(crowdVO);
+    public static List<Crowd> fetch(CrowdVO vo) {
+        Object[] data = data(vo);
         List<String> hqls = (List<String>) data[0];
         List<Object> params = (List<Object>) data[1];
-        return Crowd.find(defaultSql(StringUtils.join(hqls, " and ")) + crowdVO.condition, params.toArray())
-                .fetch(crowdVO.page, crowdVO.size);
+        return Crowd.find(defaultSql(StringUtils.join(hqls, " and ")) + vo.condition, params.toArray())
+                .fetch(vo.page, vo.size);
     }
     
-    public static int count(CrowdVO crowdVO) {
-        Object[] data = data(crowdVO);
+    public static int count(CrowdVO vo) {
+        Object[] data = data(vo);
         List<String> hqls = (List<String>) data[0];
         List<Object> params = (List<Object>) data[1];
         return (int) Crowd.count(defaultSql(StringUtils.join(hqls, " and ")), params.toArray());
     }
     
-    private static Object[] data(CrowdVO crowdVO) {
+    private static Object[] data(CrowdVO vo) {
         List<String> hqls = new ArrayList<>();
         List<Object> params = new ArrayList<>();
-        if (StringUtils.isNotBlank(crowdVO.search)) {
+        if (StringUtils.isNotBlank(vo.search)) {
             hqls.add("concat_ws(',',name) like ?");
-            params.add("%" + crowdVO.search + "%");
+            params.add("%" + vo.search + "%");
         }
-        if (crowdVO.organizeId != null) {
+        if (StringUtils.isNotBlank(vo.name)) {
+            hqls.add("name like ?");
+            params.add("%" + vo.name + "%");
+        }
+        if (vo.organizeId != null) {
             hqls.add("organize.id=?");
-            params.add(crowdVO.organizeId);
+            params.add(vo.organizeId);
         }
         return new Object[]{hqls, params};
     }

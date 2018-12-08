@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class RoleController extends ApiController {
     
-    @ActionMethod(name = "角色列表", param = "page,size", clazz = {PageData.class, RoleVO.class})
+    @ActionMethod(name = "角色列表", param = "page,size,-name", clazz = {PageData.class, RoleVO.class})
     public static void list(RoleVO vo) {
         int total = Role.count(vo);
         List<Role> roles = Role.fetch(vo);

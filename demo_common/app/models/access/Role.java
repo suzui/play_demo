@@ -11,16 +11,16 @@ import java.util.List;
 @Entity
 public class Role extends BaseRole {
     
-    public static Role add(RoleVO roleVO) {
+    public static Role add(RoleVO vo) {
         Role permission = new Role();
-        permission.organize = roleVO.organizeId != null ? Organize.findByID(roleVO.organizeId) : null;
-        permission.edit(roleVO);
+        permission.organize = vo.organizeId != null ? Organize.findByID(vo.organizeId) : null;
+        permission.edit(vo);
         return permission;
     }
     
-    public void edit(RoleVO roleVO) {
-        this.name = roleVO.name != null ? roleVO.name : name;
-        this.accessIds = roleVO.accessIds != null ? StringUtils.join(roleVO.accessIds, ",") : accessIds;
+    public void edit(RoleVO vo) {
+        this.name = vo.name != null ? vo.name : name;
+        this.accessIds = vo.accessIds != null ? StringUtils.join(vo.accessIds, ",") : accessIds;
         this.save();
     }
     
@@ -28,31 +28,35 @@ public class Role extends BaseRole {
         super.del();
     }
     
-    public static List<Role> fetch(RoleVO roleVO) {
-        Object[] data = data(roleVO);
+    public static List<Role> fetch(RoleVO vo) {
+        Object[] data = data(vo);
         List<String> hqls = (List<String>) data[0];
         List<Object> params = (List<Object>) data[1];
-        return Role.find(defaultSql(StringUtils.join(hqls, " and ")) + roleVO.condition, params.toArray())
-                .fetch(roleVO.page, roleVO.size);
+        return Role.find(defaultSql(StringUtils.join(hqls, " and ")) + vo.condition, params.toArray())
+                .fetch(vo.page, vo.size);
     }
     
-    public static int count(RoleVO roleVO) {
-        Object[] data = data(roleVO);
+    public static int count(RoleVO vo) {
+        Object[] data = data(vo);
         List<String> hqls = (List<String>) data[0];
         List<Object> params = (List<Object>) data[1];
         return (int) Role.count(defaultSql(StringUtils.join(hqls, " and ")), params.toArray());
     }
     
-    private static Object[] data(RoleVO roleVO) {
+    private static Object[] data(RoleVO vo) {
         List<String> hqls = new ArrayList<>();
         List<Object> params = new ArrayList<>();
-        if (StringUtils.isNotBlank(roleVO.search)) {
+        if (StringUtils.isNotBlank(vo.search)) {
             hqls.add("concat_ws(',',name) like ?");
-            params.add("%" + roleVO.search + "%");
+            params.add("%" + vo.search + "%");
         }
-        if (roleVO.organizeId != null) {
+        if (StringUtils.isNotBlank(vo.name)) {
+            hqls.add(" name like ?");
+            params.add("%" + vo.name + "%");
+        }
+        if (vo.organizeId != null) {
             hqls.add("organize.id=?");
-            params.add(roleVO.organizeId);
+            params.add(vo.organizeId);
         }
         return new Object[]{hqls, params};
     }
