@@ -27,7 +27,7 @@ public class Person extends BasePerson {
     public Area area;
     
     public static Person add(PersonVO vo) {
-        if (Person.isPhoneAvailable(vo.phone, vo.type)) {
+        if (!Person.isPhoneAvailable(vo.phone, vo.type)) {
             throw new ResultException(StatusCode.PERSON_PHONE_EXIST);
         }
         Person person = new Person();
@@ -158,6 +158,7 @@ public class Person extends BasePerson {
             hqls.add("phone like ?");
             params.add("%" + vo.phone + "%");
         }
+        hqls.add("origin = false");
         return new Object[]{hqls, params};
     }
 }

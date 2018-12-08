@@ -33,6 +33,11 @@ public class Organize extends BaseOrganize {
     public void edit(OrganizeVO vo) {
         this.name = vo.name != null ? vo.name : name;
         this.logo = vo.logo != null ? vo.logo : logo;
+        this.industry = vo.industry != null ? vo.industry : industry;
+        this.employee = vo.employee != null ? vo.employee : employee;
+        this.intro = vo.intro != null ? vo.intro : intro;
+        this.startTime = vo.startTime != null ? vo.startTime : startTime;
+        this.endTime = vo.endTime != null ? vo.endTime : endTime;
         this.save();
     }
     

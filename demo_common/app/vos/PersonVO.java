@@ -95,6 +95,7 @@ public class PersonVO extends OneData {
     }
     
     public PersonVO roles(List<Role> roles) {
+        this.roleIds = roles.stream().map(r -> r.id).collect(Collectors.toList());
         this.roles = roles.stream().map(r -> new RoleVO(r)).collect(Collectors.toList());
         return this;
     }

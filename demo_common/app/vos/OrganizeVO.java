@@ -17,6 +17,16 @@ public class OrganizeVO extends OneData {
     public String name;
     @DataField(name = "logo")
     public String logo;
+    @DataField(name = "行业'")
+    public String industry;
+    @DataField(name = "员工规模")
+    public String employee;
+    @DataField(name = "介绍")
+    public String intro;
+    @DataField(name = "开始时间")
+    public Long startTime;
+    @DataField(name = "结束时间")
+    public Long endTime;
     @DataField(name = "上级组织id")
     public Long parentId;
     @DataField(name = "根组织id")
@@ -26,10 +36,8 @@ public class OrganizeVO extends OneData {
     @DataField(name = "组织类型")
     public Integer type;
     
-    @DataField(name = "负责人名称")
-    public String personName;
-    @DataField(name = "负责人手机号")
-    public String personPhone;
+    @DataField(name = "负责人")
+    public PersonVO person;
     
     @DataField(name = "上级组织")
     public OrganizeVO parent;
@@ -44,13 +52,20 @@ public class OrganizeVO extends OneData {
         super(organize);
         this.organizeId = organize.id;
         this.name = organize.name;
+        this.logo = organize.logo;
+        this.industry = organize.industry;
+        this.employee = organize.employee;
+        this.startTime = organize.startTime;
+        this.endTime = organize.endTime;
         this.rank = organize.rank;
+        this.rootId = organize.root.id;
         this.type = organize.type.code();
-        if (organize.isRoot()) {
-            this.logo = organize.logo;
-        } else {
+        if (organize.parent != null) {
             this.parent = new OrganizeVO(organize.parent());
             this.parentId = organize.parent.id;
+        }
+        if (organize.person != null) {
+            this.person = new PersonVO(organize.person());
         }
     }
     

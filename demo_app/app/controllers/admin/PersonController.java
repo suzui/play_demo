@@ -43,7 +43,7 @@ public class PersonController extends ApiController {
     public static void list(PersonVO vo) {
         int total = Person.count(vo);
         List<Person> persons = Person.fetch(vo);
-        List<PersonVO> personVOs = persons.stream().map(p -> new PersonVO(p)).collect(Collectors.toList());
+        List<PersonVO> personVOs = persons.stream().map(p -> new PersonVO(p).roles(p.roles())).collect(Collectors.toList());
         renderJSON(Result.succeed(new PageData(vo.page, vo.size, total, personVOs)));
     }
     
@@ -54,16 +54,17 @@ public class PersonController extends ApiController {
         }
         Person person = Person.findByID(vo.personId);
         PersonVO personVO = new PersonVO(person);
-        renderJSON(Result.succeed(personVO));
+        renderJSON(Result.succeed(personVO.roles(person.roles())));
     }
     
-    @ActionMethod(name = "管理员新增", param = "name,phone,roleIds", clazz = PersonVO.class)
+    @ActionMethod(name = "管理员新增", param = "name,phone,sex,-remark,roleIds", clazz = PersonVO.class)
     public static void add(PersonVO vo) {
+        vo.type = PersonType.ADMIN.code();
         Person person = Person.add(vo);
         renderJSON(Result.succeed(new PersonVO(person)));
     }
     
-    @ActionMethod(name = "管理员编辑", param = "personId,-name,-roleIds")
+    @ActionMethod(name = "管理员编辑", param = "personId,-name,-phone,-sex,-remark,-roleIds")
     public static void edit(PersonVO vo) {
         Person person = Person.findByID(vo.personId);
         person.edit(vo);

@@ -2,6 +2,7 @@ package controllers.admin;
 
 import annotations.ActionMethod;
 import models.organize.Organize;
+import models.person.Person;
 import vos.OrganizeVO;
 import vos.PageData;
 import vos.Result;
@@ -26,16 +27,22 @@ public class OrganizeController extends ApiController {
         renderJSON(Result.succeed(organizeVO));
     }
     
-    @ActionMethod(name = "机构新增", param = "name,personName,personPhone", clazz = OrganizeVO.class)
+    @ActionMethod(name = "机构新增", param = "name,logo,industry,employee,intro,startTime,endTime,person", clazz = OrganizeVO.class)
     public static void add(OrganizeVO vo) {
         Organize organize = Organize.add(vo);
+        Person person = Person.add(vo.person);
+        organize.person(person);
         renderJSON(Result.succeed(new OrganizeVO(organize)));
     }
     
-    @ActionMethod(name = "机构编辑", param = "organizeId,name")
+    @ActionMethod(name = "机构编辑", param = "organizeId,-name,-logo,-industry,-employee,-intro,-startTime,-endTime,-person")
     public static void edit(OrganizeVO vo) {
         Organize organize = Organize.findByID(vo.organizeId);
         organize.edit(vo);
+        if (vo.person != null) {
+            Person person = organize.person();
+            person.edit(vo.person);
+        }
         renderJSON(Result.succeed(new OrganizeVO(organize)));
     }
     
