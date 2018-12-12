@@ -18,7 +18,7 @@ public class RelationVO extends OneData {
     }
     
     public RelationVO(Relation relation) {
-        super(relation);
+        super(relation.id);
         this.relationId = relation.id;
         this.personId = relation.person.id;
         this.organizeId = relation.organize.id;

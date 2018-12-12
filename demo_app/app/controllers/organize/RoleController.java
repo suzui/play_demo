@@ -1,4 +1,4 @@
-package controllers.admin;
+package controllers.organize;
 
 import annotations.ActionMethod;
 import enums.AccessType;
@@ -16,6 +16,7 @@ public class RoleController extends ApiController {
     
     @ActionMethod(name = "角色列表", param = "page,size,-name", clazz = {PageData.class, RoleVO.class})
     public static void list(RoleVO vo) {
+        vo.rootId = getRoot();
         int total = Role.count(vo);
         List<Role> roles = Role.fetch(vo);
         List<RoleVO> roleVOS = roles.stream().map(r -> new RoleVO(r).persons(Authorization.fetchByRole(r))).collect(Collectors.toList());
@@ -33,6 +34,7 @@ public class RoleController extends ApiController {
     
     @ActionMethod(name = "角色新增", param = "name,accessIds", clazz = RoleVO.class)
     public static void add(RoleVO vo) {
+        vo.rootId = getRoot();
         Role role = Role.add(vo);
         renderJSON(Result.succeed(new RoleVO(role)));
     }
@@ -53,7 +55,7 @@ public class RoleController extends ApiController {
     
     @ActionMethod(name = "权限列表", clazz = {PageData.class, AccessVO.class})
     public static void accessList() {
-        renderJSON(Result.succeed(new PageData(AccessVO.list(AccessType.BOS))));
+        renderJSON(Result.succeed(new PageData(AccessVO.list(AccessType.ORGANIZE))));
     }
     
 }

@@ -59,11 +59,11 @@ validation:
 
 #### [管理WEB端](/readme/admin) 
 
-#### [机构WEB端](/readme/user)
+#### [机构WEB端](/readme/organize)
 
-#### [机构移动端](/readme/userapp)
+#### [机构移动端](/readme/organizeapp)
 
-#### [机构h5端](/readme/userh5)
+#### [机构h5端](/readme/organizeh5)
 
 #### [用户WEB端](/readme/user)
 

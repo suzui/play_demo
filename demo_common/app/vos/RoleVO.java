@@ -16,27 +16,27 @@ public class RoleVO extends OneData {
     public Long roleId;
     @DataField(name = "角色名称")
     public String name;
-    @DataField(name = "机构id")
-    public Long organizeId;
     @DataField(name = "权限ids", demo = "[1,2,3]")
     public List<Long> accessIds;
-    
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     @DataField(name = "权限列表")
     public List<AccessVO> accesses;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     @DataField(name = "人员列表")
-    public List<PersonVO> persons;
+    public List<SimplePersonVO> persons;
+    
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @DataField(name = "根机构id")
+    public Long rootId;
     
     public RoleVO() {
         this.condition = " order by id";
     }
     
     public RoleVO(Role role) {
+        super(role.id);
         this.roleId = role.id;
         this.name = role.name;
-        if (role.organize != null) {
-            this.organizeId = role.organize.id;
+        if (role.root != null) {
+            this.rootId = role.root.id;
         }
         this.accessIds = BaseUtils.idsToList(role.accessIds);
     }
@@ -47,7 +47,7 @@ public class RoleVO extends OneData {
     }
     
     public RoleVO persons(List<Authorization> authorizations) {
-        this.persons = authorizations.stream().map(a -> new PersonVO(a.person())).collect(Collectors.toList());
+        this.persons = authorizations.stream().map(a -> new SimplePersonVO(a.person())).collect(Collectors.toList());
         return this;
     }
     

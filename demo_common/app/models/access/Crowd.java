@@ -6,7 +6,6 @@ import vos.CrowdVO;
 
 import javax.persistence.Entity;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -14,7 +13,7 @@ public class Crowd extends BaseCrowd {
     
     public static Crowd add(CrowdVO vo) {
         Crowd crowd = new Crowd();
-        crowd.organize = vo.organizeId != null ? Organize.findByID(vo.organizeId) : null;
+        crowd.root = vo.rootId != null ? Organize.findByID(vo.rootId) : null;
         crowd.edit(vo);
         return crowd;
     }
@@ -27,21 +26,6 @@ public class Crowd extends BaseCrowd {
     
     public void del() {
         super.del();
-    }
-    
-    public static List<Crowd> fetchByIds(List<Long> ids) {
-        if (ids == null || ids.isEmpty()) {
-            return Collections.EMPTY_LIST;
-        }
-        return Crowd.find(defaultSql("id in (:ids)")).bind("ids", ids.toArray()).fetch();
-    }
-    
-    public static List<Crowd> fetchByOrganize(Organize organize) {
-        return Crowd.find(defaultSql("organize = ?"), organize).fetch();
-    }
-    
-    public static List<Crowd> fetchAll() {
-        return Crowd.find(defaultSql()).fetch();
     }
     
     public static List<Crowd> fetch(CrowdVO vo) {
@@ -70,9 +54,9 @@ public class Crowd extends BaseCrowd {
             hqls.add("name like ?");
             params.add("%" + vo.name + "%");
         }
-        if (vo.organizeId != null) {
-            hqls.add("organize.id=?");
-            params.add(vo.organizeId);
+        if (vo.rootId != null) {
+            hqls.add("root.id=?");
+            params.add(vo.rootId);
         }
         return new Object[]{hqls, params};
     }

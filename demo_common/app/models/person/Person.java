@@ -7,6 +7,7 @@ import models.access.Authorization;
 import models.access.Role;
 import models.area.Area;
 import models.organize.Organize;
+import models.organize.Relation;
 import models.token.BasePerson;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -34,7 +35,7 @@ public class Person extends BasePerson {
         person.username = vo.username;
         person.email = vo.email;
         person.phone = vo.phone;
-        person.password = vo.password;
+        person.password = BaseUtils.initPassword();
         person.type = PersonType.convert(vo.type);
         person.edit(vo);
         return person;
@@ -71,12 +72,15 @@ public class Person extends BasePerson {
     }
     
     public void edit(PersonVO vo) {
-        Person person = findByPhone(vo.phone, this.type);
-        if (person != null && !person.id.equals(this.id)) {
-            throw new ResultException(StatusCode.PERSON_PHONE_EXIST);
+        if (!StringUtils.equals(this.phone, vo.phone)) {
+            if (!isPhoneAvailable(vo.phone, this.type)) {
+                throw new ResultException(StatusCode.PERSON_PHONE_EXIST);
+            }
         }
         this.name = vo.name != null ? vo.name : name;
         this.phone = vo.phone != null ? vo.phone : phone;
+        this.idcard = vo.idcard != null ? vo.idcard : idcard;
+        this.number = vo.number != null ? vo.number : number;
         this.avatar = vo.avatar != null ? vo.avatar : avatar;
         this.intro = vo.intro != null ? vo.intro : intro;
         this.remark = vo.remark != null ? vo.remark : remark;
@@ -84,11 +88,11 @@ public class Person extends BasePerson {
         this.save();
         if (vo.roleIds != null) {
             vo.roleIds.forEach(roleId -> Authorization.add(this, Role.findByID(roleId)));
-            (this.isAdmin() ? this.authorizations() : this.authorizations(Organize.findByID(BaseUtils.getRoot()))).forEach(authorization -> {
-                if (!vo.roleIds.contains(authorization.role.id)) {
-                    authorization.del();
-                }
-            });
+            (this.isAdmin() ? this.authorizations() : this.authorizations(Organize.findByID(vo.rootId))).stream().filter(authorization -> !vo.roleIds.contains(authorization.role.id)).forEach(authorization -> authorization.del());
+        }
+        if (vo.organizeIds != null) {
+            vo.organizeIds.forEach(organizeId -> Relation.add(Organize.findByID(organizeId), this));
+            this.relations(Organize.findByID(vo.rootId)).stream().filter(relation -> !vo.organizeIds.contains(relation.organize.id)).forEach(relation -> relation.del());
         }
     }
     
@@ -124,6 +128,10 @@ public class Person extends BasePerson {
         return PersonType.ADMIN == this.type;
     }
     
+    public boolean isOrganize() {
+        return PersonType.ORGANIZE == this.type;
+    }
+    
     public void del() {
         super.del();
     }
@@ -157,6 +165,10 @@ public class Person extends BasePerson {
         if (StringUtils.isNotBlank(vo.phone)) {
             hqls.add("phone like ?");
             params.add("%" + vo.phone + "%");
+        }
+        if (vo.type != null) {
+            hqls.add("type = ?");
+            params.add(PersonType.convert(vo.type));
         }
         hqls.add("origin = false");
         return new Object[]{hqls, params};

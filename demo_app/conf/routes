@@ -10,11 +10,36 @@
 *		/admin/areaData							    admin.Application.areaData
 *		/admin/qiniu/uptoken						admin.Application.qiniuUptoken
 *		/admin/qiniu/uptoken/simple					admin.Application.qiniuUptokenSimple
+*		/admin/person/phone/bind					admin.PersonController.bindPhone
+*		/admin/person/email/bind					admin.PersonController.bindEmail
+*		/admin/person/password/forget				admin.PersonController.forgetPassword
+*		/admin/person/password/validate				admin.PersonController.validatePassword
+*		/admin/person/password/reset				admin.PersonController.resetPassword
 *		/admin/person/{action}						admin.PersonController.{action}
 *		/admin/role/access/list				        admin.RoleController.accessList
 *		/admin/role/{action}					    admin.RoleController.{action}
 *		/admin/crowd/{action}					    admin.CrowdController.{action}
 *		/admin/organize/{action}					admin.OrganizeController.{action}
+
+# ORGANIZE 机构端
+*		/organize									organize.Application.index
+*		/organize/version							organize.Application.version
+*		/organize/configData						organize.Application.configData
+*		/organize/incrementData						organize.Application.incrementData
+*		/organize/areaData							organize.Application.areaData
+*		/organize/qiniu/uptoken						organize.Application.qiniuUptoken
+*		/organize/qiniu/uptoken/simple				organize.Application.qiniuUptokenSimple
+*		/organize/person/phone/bind					organize.PersonController.bindPhone
+*		/organize/person/email/bind					organize.PersonController.bindEmail
+*		/organize/person/password/forget			organize.PersonController.forgetPassword
+*		/organize/person/password/validate			organize.PersonController.validatePassword
+*		/organize/person/password/reset				organize.PersonController.resetPassword
+*		/organize/person/{action}					organize.PersonController.{action}
+*		/organize/role/access/list				    organize.RoleController.accessList
+*		/organize/role/{action}					    organize.RoleController.{action}
+*		/organize/crowd/{action}					organize.CrowdController.{action}
+*		/organize/organize/{action}					organize.OrganizeController.{action}
+*		/organize/relation/{action}					organize.RelationController.{action}
 
 # USER 用户WEB端
 *		/user										user.Application.index

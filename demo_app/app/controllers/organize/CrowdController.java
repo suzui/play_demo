@@ -1,4 +1,4 @@
-package controllers.admin;
+package controllers.organize;
 
 import annotations.ActionMethod;
 import models.access.Crowd;
@@ -29,6 +29,7 @@ public class CrowdController extends ApiController {
     
     @ActionMethod(name = "范围新增", param = "name,organizeIds", clazz = CrowdVO.class)
     public static void add(CrowdVO vo) {
+        vo.rootId = getRoot();
         Crowd crowd = Crowd.add(vo);
         renderJSON(Result.succeed(new CrowdVO(crowd)));
     }

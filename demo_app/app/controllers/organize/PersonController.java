@@ -1,4 +1,4 @@
-package controllers.admin;
+package controllers.organize;
 
 import annotations.ActionMethod;
 import annotations.ParamField;
@@ -13,13 +13,9 @@ import play.Logger;
 import play.data.binding.As;
 import utils.CacheUtils;
 import utils.SMSUtils;
-import vos.PageData;
 import vos.PersonVO;
 import vos.Result;
 import vos.Result.StatusCode;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class PersonController extends ApiController {
     
@@ -35,7 +31,7 @@ public class PersonController extends ApiController {
         if (!Person.isPhoneLegal(phone)) {
             renderJSON(Result.failed(StatusCode.PERSON_PHONE_UNVALID));
         }
-        Person person = Person.findByPhone(phone, PersonType.ADMIN);
+        Person person = Person.findByPhone(phone, PersonType.ORGANIZE);
         if (captchaType == CaptchaType.REGIST && person != null) {
             renderJSON(Result.failed(StatusCode.PERSON_PHONE_EXIST));
         }
@@ -57,16 +53,17 @@ public class PersonController extends ApiController {
     @ActionMethod(name = "登录", clazz = PersonVO.class)
     public static void login(@ParamField(name = "用户名") String username,
                              @ParamField(name = "密码") @As(binder = PasswordBinder.class) String password) {
-        Person person = Person.findByUsername(username, PersonType.ADMIN);
+        Person person = Person.findByUsername(username, PersonType.ORGANIZE);
         if (person == null) {
             renderJSON(Result.failed(StatusCode.PERSON_ACCOUNT_NOTEXIST));
         }
         if (!person.isPasswordRight(password)) {
             renderJSON(Result.failed(StatusCode.PERSON_PASSWORD_ERROR));
         }
-        if (!person.isAdmin()) {
+        if (!person.isOrganize() || person.roots().isEmpty()) {
             renderJSON(Result.failed(StatusCode.SYSTEM_ACCESS_FOBIDDEN));
         }
+        setHeader("root", person.roots().get(0).id + "");
         AccessToken accessToken = AccessToken.add(person);
         renderJSON(Result.succeed(new PersonVO(accessToken)));
     }
@@ -83,7 +80,7 @@ public class PersonController extends ApiController {
         if (!CaptchaType.PASSWORD.validate(username, captcha)) {
             renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
         }
-        Person person = Person.findByUsername(username, PersonType.ADMIN);
+        Person person = Person.findByUsername(username, PersonType.ORGANIZE);
         if (person == null) {
             renderJSON(Result.failed(StatusCode.PERSON_ACCOUNT_NOTEXIST));
         }
@@ -102,7 +99,7 @@ public class PersonController extends ApiController {
         if (!CaptchaType.PHONE.validate(phone, captcha)) {
             renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
         }
-        if (!Person.isPhoneAvailable(phone, PersonType.ADMIN)) {
+        if (!Person.isPhoneAvailable(phone, PersonType.ORGANIZE)) {
             renderJSON(Result.failed(StatusCode.PERSON_PHONE_EXIST));
         }
         Person person = getPersonByToken();
@@ -115,7 +112,7 @@ public class PersonController extends ApiController {
         if (!CaptchaType.EMAIL.validate(email, captcha)) {
             renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
         }
-        if (!Person.isEmailAvailable(email, PersonType.ADMIN)) {
+        if (!Person.isEmailAvailable(email, PersonType.ORGANIZE)) {
             renderJSON(Result.failed(StatusCode.PERSON_EMAIL_EXIST));
         }
         Person person = getPersonByToken();
@@ -142,44 +139,16 @@ public class PersonController extends ApiController {
         renderJSON(Result.succeed());
     }
     
-    @ActionMethod(name = "人员列表", param = "page,size,-name,-phone", clazz = {PageData.class, PersonVO.class})
-    public static void list(PersonVO vo) {
-        vo.type = PersonType.ADMIN.code();
-        int total = Person.count(vo);
-        List<Person> persons = Person.fetch(vo);
-        List<PersonVO> personVOs = persons.stream().map(p -> new PersonVO(p).roles(p.roles())).collect(Collectors.toList());
-        renderJSON(Result.succeed(new PageData(vo.page, vo.size, total, personVOs)));
-    }
-    
-    @ActionMethod(name = "人员详情", param = "-personId", clazz = PersonVO.class)
+    @ActionMethod(name = "详情", clazz = PersonVO.class)
     public static void info(PersonVO vo) {
-        if (vo.personId == null) {
-            renderJSON(Result.succeed(new PersonVO(getAccessTokenByToken())));
-        }
-        Person person = Person.findByID(vo.personId);
-        PersonVO personVO = new PersonVO(person);
-        renderJSON(Result.succeed(personVO.roles(person.roles())));
+        renderJSON(Result.succeed(new PersonVO(getAccessTokenByToken())));
     }
     
-    @ActionMethod(name = "人员新增", param = "name,phone,sex,-remark,roleIds", clazz = PersonVO.class)
-    public static void add(PersonVO vo) {
-        vo.type = PersonType.ADMIN.code();
-        Person person = Person.add(vo);
-        renderJSON(Result.succeed(new PersonVO(person)));
-    }
-    
-    @ActionMethod(name = "人员编辑", param = "-personId,-name,-phone,-sex,-remark,-roleIds")
+    @ActionMethod(name = "编辑", param = "-name,-sex,-remark")
     public static void edit(PersonVO vo) {
-        Person person = vo.personId == null ? getPersonByToken() : Person.findByID(vo.personId);
+        Person person = Person.findByID(vo.personId);
         person.edit(vo);
         renderJSON(Result.succeed(new PersonVO(person)));
-    }
-    
-    @ActionMethod(name = "人员删除", param = "personId")
-    public static void delete(PersonVO vo) {
-        Person person = Person.findByID(vo.personId);
-        person.del();
-        renderJSON(Result.succeed());
     }
     
 }

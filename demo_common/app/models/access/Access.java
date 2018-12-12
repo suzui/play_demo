@@ -35,5 +35,17 @@ public class Access extends BaseAccess {
                 add(array[0], array[1], array[2], AccessType.BOS);
             }
         }
+        for (int i = 1; i < 100; i++) {
+            String access = Play.configuration.getProperty("access.organize." + i);
+            if (StringUtils.isBlank(access)) {
+                break;
+            }
+            String[] array = StringUtils.split(access, ",");
+            if (array.length == 2) {
+                add(array[0], array[1], null, AccessType.ORGANIZE);
+            } else if (array.length == 3) {
+                add(array[0], array[1], array[2], AccessType.ORGANIZE);
+            }
+        }
     }
 }

@@ -1,7 +1,9 @@
 package controllers.admin;
 
 import annotations.ActionMethod;
+import enums.PersonType;
 import models.organize.Organize;
+import models.organize.Relation;
 import models.person.Person;
 import vos.OrganizeVO;
 import vos.PageData;
@@ -12,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class OrganizeController extends ApiController {
     
-    @ActionMethod(name = "机构列表", param = "page,size", clazz = {PageData.class, OrganizeVO.class})
+    @ActionMethod(name = "机构列表", param = "page,size,-name,-personName,-personPhone", clazz = {PageData.class, OrganizeVO.class})
     public static void list(OrganizeVO vo) {
         int total = Organize.count(vo);
         List<Organize> organizes = Organize.fetch(vo);
@@ -29,8 +31,10 @@ public class OrganizeController extends ApiController {
     
     @ActionMethod(name = "机构新增", param = "name,logo,industry,employee,intro,startTime,endTime,person", clazz = OrganizeVO.class)
     public static void add(OrganizeVO vo) {
-        Organize organize = Organize.add(vo);
+        Organize organize = Organize.init(vo);
+        vo.person.type = PersonType.ORGANIZE.code();
         Person person = Person.add(vo.person);
+        Relation.add(organize, person);
         organize.person(person);
         renderJSON(Result.succeed(new OrganizeVO(organize)));
     }

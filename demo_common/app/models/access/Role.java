@@ -12,10 +12,10 @@ import java.util.List;
 public class Role extends BaseRole {
     
     public static Role add(RoleVO vo) {
-        Role permission = new Role();
-        permission.organize = vo.organizeId != null ? Organize.findByID(vo.organizeId) : null;
-        permission.edit(vo);
-        return permission;
+        Role root = new Role();
+        root.root = vo.rootId != null ? Organize.findByID(vo.rootId) : null;
+        root.edit(vo);
+        return root;
     }
     
     public void edit(RoleVO vo) {
@@ -54,9 +54,9 @@ public class Role extends BaseRole {
             hqls.add(" name like ?");
             params.add("%" + vo.name + "%");
         }
-        if (vo.organizeId != null) {
-            hqls.add("organize.id=?");
-            params.add(vo.organizeId);
+        if (vo.rootId != null) {
+            hqls.add("root.id=?");
+            params.add(vo.rootId);
         }
         return new Object[]{hqls, params};
     }
