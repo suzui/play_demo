@@ -25,8 +25,7 @@ public class PersonController extends ApiController {
     
     @ActionMethod(name = "验证码获取")
     public static void captcha(@ParamField(name = "验证码类型") Integer type,
-                               @ParamField(name = "手机号", required = false) String phone,
-                               @ParamField(name = "邮箱", required = false) String email) {
+                               @ParamField(name = "手机号") String phone) {
         CaptchaType captchaType = CaptchaType.convert(type);
         if (captchaType == null) {
             renderJSON(Result.failed());
@@ -52,6 +51,19 @@ public class PersonController extends ApiController {
         SMSUtils.send(captchaType, captcha, phone);
         CacheUtils.set(captchaType.key(phone), captcha, "10mn");
         renderJSON(Result.succeed(captcha));
+    }
+    
+    @ActionMethod(name = "验证码校验")
+    public static void validate(@ParamField(name = "验证码类型") Integer type,
+                                @ParamField(name = "手机号") String phone, @ParamField(name = "验证码") String captcha) {
+        CaptchaType captchaType = CaptchaType.convert(type);
+        if (captchaType == null) {
+            renderJSON(Result.failed());
+        }
+        if (!captchaType.validate(phone, captcha)) {
+            renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
+        }
+        renderJSON(Result.succeed());
     }
     
     @ActionMethod(name = "登录", clazz = PersonVO.class)

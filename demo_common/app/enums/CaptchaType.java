@@ -53,4 +53,13 @@ public enum CaptchaType implements BaseEnum {
         return true;
     }
     
+    public boolean validateOnly(String key, String captcha) {
+        String _key = key(key);
+        String cachecaptcha = (String) CacheUtils.get(_key);
+        if (!StringUtils.equals(cachecaptcha, captcha)) {
+            return false;
+        }
+        return true;
+    }
+    
 }
