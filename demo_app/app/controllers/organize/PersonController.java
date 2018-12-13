@@ -156,9 +156,9 @@ public class PersonController extends ApiController {
         renderJSON(Result.succeed(new PersonVO(getAccessTokenByToken())));
     }
     
-    @ActionMethod(name = "编辑", param = "-name,-sex,-remark")
+    @ActionMethod(name = "编辑", param = "-name,-avatar,-sex,-remark")
     public static void edit(PersonVO vo) {
-        Person person = Person.findByID(vo.personId);
+        Person person = getPersonByToken();
         person.edit(vo);
         renderJSON(Result.succeed(new PersonVO(person)));
     }
