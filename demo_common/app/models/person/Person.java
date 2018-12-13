@@ -78,6 +78,7 @@ public class Person extends BasePerson {
             }
         }
         this.name = vo.name != null ? vo.name : name;
+        this.avatar = vo.avatar != null ? vo.avatar : avatar;
         this.phone = vo.phone != null ? vo.phone : phone;
         this.idcard = vo.idcard != null ? vo.idcard : idcard;
         this.number = vo.number != null ? vo.number : number;

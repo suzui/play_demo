@@ -19,8 +19,8 @@ public class RoleController extends ApiController {
         vo.rootId = getRoot();
         int total = Role.count(vo);
         List<Role> roles = Role.fetch(vo);
-        List<RoleVO> roleVOS = roles.stream().map(r -> new RoleVO(r).persons(Authorization.fetchByRole(r))).collect(Collectors.toList());
-        renderJSON(Result.succeed(new PageData(vo.page, vo.size, total, roleVOS)));
+        List<RoleVO> roleVOs = roles.stream().map(r -> new RoleVO(r).persons(Authorization.fetchByRole(r))).collect(Collectors.toList());
+        renderJSON(Result.succeed(new PageData(vo.page, vo.size, total, roleVOs)));
     }
     
     @ActionMethod(name = "角色详情", param = "roleId", clazz = RoleVO.class)
