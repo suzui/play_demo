@@ -60,7 +60,7 @@ public class PersonController extends ApiController {
         if (captchaType == null) {
             renderJSON(Result.failed());
         }
-        if (!captchaType.validate(phone, captcha)) {
+        if (!captchaType.validateOnly(phone, captcha)) {
             renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
         }
         renderJSON(Result.succeed());
