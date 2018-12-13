@@ -31,22 +31,18 @@ public class OrganizeController extends ApiController {
     
     @ActionMethod(name = "机构新增", param = "name,logo,industry,employee,intro,startTime,endTime,person", clazz = OrganizeVO.class)
     public static void add(OrganizeVO vo) {
-        Organize organize = Organize.init(vo);
         vo.person.type = PersonType.ORGANIZE.code();
-        Person person = Person.add(vo.person);
-        Relation.add(organize, person);
-        organize.person(person);
+        Organize organize = Organize.init(vo);
         renderJSON(Result.succeed(new OrganizeVO(organize)));
     }
     
     @ActionMethod(name = "机构编辑", param = "organizeId,-name,-logo,-industry,-employee,-intro,-startTime,-endTime,-person")
     public static void edit(OrganizeVO vo) {
         Organize organize = Organize.findByID(vo.organizeId);
-        organize.edit(vo);
         if (vo.person != null) {
-            Person person = organize.person();
-            person.edit(vo.person);
+            vo.person.type = PersonType.ORGANIZE.code();
         }
+        organize.edit(vo);
         renderJSON(Result.succeed(new OrganizeVO(organize)));
     }
     

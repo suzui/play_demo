@@ -1,11 +1,8 @@
 package controllers.organize;
 
 import annotations.ActionMethod;
-import enums.OrganizeType;
 import enums.PersonType;
 import models.organize.Organize;
-import models.organize.Relation;
-import models.person.Person;
 import vos.OrganizeVO;
 import vos.PageData;
 import vos.Result;
@@ -43,35 +40,19 @@ public class OrganizeController extends ApiController {
     @ActionMethod(name = "组织新增", param = "parentId,type,name,-unit,-number,-startTime,-endTime,-image,-address,-intro,person", clazz = OrganizeVO.class)
     public static void add(OrganizeVO vo) {
         vo.rootId = getRoot();
-        Organize organize = Organize.add(vo);
         vo.person.type = PersonType.ORGANIZE.code();
-        Person person = Person.findByPhone(vo.person.phone, vo.person.type);
-        if (person == null) {
-            person = Person.add(vo.person);
-        } else {
-            person.edit(vo.person);
-        }
-        Relation.add(organize.root(), person);
-        Relation.add(organize, person);
-        organize.person(person);
+        Organize organize = Organize.add(vo);
         renderJSON(Result.succeed(new OrganizeVO(organize)));
     }
     
     @ActionMethod(name = "组织编辑", param = "organizeId,-parentId,-name,-unit,-number,-startTime,-endTime,-image,-address,-intro,-person")
     public static void edit(OrganizeVO vo) {
+        if (vo.person != null) {
+            vo.person.type = PersonType.ORGANIZE.code();
+        }
         Organize organize = Organize.findByID(vo.organizeId);
         organize.edit(vo);
         organize.move(vo.parentId);
-        vo.person.type = PersonType.ORGANIZE.code();
-        Person person = Person.findByPhone(vo.person.phone, vo.person.type);
-        if (person == null) {
-            person = Person.add(vo.person);
-        } else {
-            person.edit(vo.person);
-        }
-        Relation.add(organize.root(), person);
-        Relation.add(organize, person);
-        organize.person(person);
         renderJSON(Result.succeed(new OrganizeVO(organize)));
     }
     

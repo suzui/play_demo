@@ -2,6 +2,7 @@ package models.organize;
 
 import enums.OrganizeStatus;
 import enums.OrganizeType;
+import models.person.Person;
 import models.token.BaseOrganize;
 import org.apache.commons.lang.StringUtils;
 import utils.DateUtils;
@@ -26,9 +27,10 @@ public class Organize extends BaseOrganize {
         Organize organize = new Organize();
         organize.type = OrganizeType.ORGANIZE;
         organize.rank = 0d;
-        organize.edit(vo);
+        organize.save();
         organize.root = organize;
-        return organize.save();
+        organize.edit(vo);
+        return organize;
     }
     
     public static Organize add(OrganizeVO vo) {
@@ -55,8 +57,22 @@ public class Organize extends BaseOrganize {
         this.remark = vo.remark != null ? vo.remark : remark;
         this.startTime = vo.startTime != null ? vo.startTime : startTime;
         this.endTime = vo.endTime != null ? vo.endTime : endTime;
-        this.save();
         this.freshStatus();
+        if (vo.person != null && vo.person.phone != null) {
+            Person person = Person.findByPhone(vo.person.phone, vo.person.type);
+            if (person == null) {
+                person = Person.add(vo.person);
+            } else {
+                person.edit(vo.person);
+            }
+            if (this.isRoot()) {
+                Relation.add(this, person);
+            } else {
+                Relation.add(this.root(), person);
+                Relation.add(this, person);
+            }
+            this.person(person);
+        }
     }
     
     public boolean available() {
