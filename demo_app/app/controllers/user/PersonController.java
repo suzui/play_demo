@@ -61,7 +61,7 @@ public class PersonController extends ApiController {
             }
             Logger.info("[captcha] %s,%s,%s", type, phone, captcha);
             SMSUtils.send(captchaType, captcha, phone);
-            CacheUtils.set(captchaType.key(phone), captcha, "10mn");
+            captchaType.cache(phone, captcha);
         } else {
             if (!Person.isEmailLegal(email)) {
                 renderJSON(Result.failed(StatusCode.PERSON_EMAIL_UNVALID));
@@ -84,7 +84,7 @@ public class PersonController extends ApiController {
             }
             Mails.captcha(email, captcha);
             Logger.info("[captcha] %s,%s,%s", type, email, captcha);
-            CacheUtils.set(captchaType.key(email), captcha, "10mn");
+            captchaType.cache(email, captcha);
         }
         renderJSON(Result.succeed(captcha));
     }

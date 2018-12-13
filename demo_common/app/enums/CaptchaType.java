@@ -43,6 +43,11 @@ public enum CaptchaType implements BaseEnum {
         return this.code + "_" + key;
     }
     
+    public void cache(String key, String captcha) {
+        String _key = key(key);
+        CacheUtils.set(_key, captcha, "10mn");
+    }
+    
     public boolean validate(String key, String captcha) {
         String _key = key(key);
         String cachecaptcha = (String) CacheUtils.get(_key);
