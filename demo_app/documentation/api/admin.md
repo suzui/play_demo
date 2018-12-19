@@ -34,6 +34,7 @@
 * [角色编辑](/admin/role/edit?doc)
 * [角色删除](/admin/role/delete?doc)
 * [权限列表](/admin/role/access/list?doc)
+* [人员列表](/admin/role/person/list?doc)
 
 ##### 范围模块
 * [范围列表](/admin/crowd/list?doc)

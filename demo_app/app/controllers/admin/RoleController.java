@@ -4,10 +4,8 @@ import annotations.ActionMethod;
 import enums.AccessType;
 import models.access.Authorization;
 import models.access.Role;
-import vos.AccessVO;
-import vos.PageData;
-import vos.Result;
-import vos.RoleVO;
+import utils.BaseUtils;
+import vos.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,6 +52,15 @@ public class RoleController extends ApiController {
     @ActionMethod(name = "权限列表", clazz = {PageData.class, AccessVO.class})
     public static void accessList() {
         renderJSON(Result.succeed(new PageData(AccessVO.list(AccessType.BOS))));
+    }
+    
+    @ActionMethod(name = "人员列表", param = "page,size,roleId", clazz = {PageData.class, PersonVO.class})
+    public static void personList(RoleVO vo) {
+        Role role = Role.findByID(vo.roleId);
+        List<Authorization> total = Authorization.fetchByRole(role);
+        List<Authorization> authorizations = BaseUtils.page(total, vo.page, vo.size);
+        List<PersonVO> personVOs = authorizations.stream().map(a -> new PersonVO(a.person())).collect(Collectors.toList());
+        renderJSON(Result.succeed(new PageData(vo.page, vo.size, total.size(), personVOs)));
     }
     
 }

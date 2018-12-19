@@ -17,6 +17,7 @@
 *		/admin/person/password/reset				admin.PersonController.resetPassword
 *		/admin/person/{action}						admin.PersonController.{action}
 *		/admin/role/access/list				        admin.RoleController.accessList
+*		/admin/role/person/list				        admin.RoleController.personList
 *		/admin/role/{action}					    admin.RoleController.{action}
 *		/admin/crowd/{action}					    admin.CrowdController.{action}
 *		/admin/organize/{action}					admin.OrganizeController.{action}
@@ -36,6 +37,7 @@
 *		/organize/person/password/reset				organize.PersonController.resetPassword
 *		/organize/person/{action}					organize.PersonController.{action}
 *		/organize/role/access/list				    organize.RoleController.accessList
+*		/organize/role/person/list				    organize.RoleController.personList
 *		/organize/role/{action}					    organize.RoleController.{action}
 *		/organize/crowd/{action}					organize.CrowdController.{action}
 *		/organize/organize/{action}					organize.OrganizeController.{action}

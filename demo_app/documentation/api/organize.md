@@ -27,6 +27,7 @@
 * [角色编辑](/organize/role/edit?doc)
 * [角色删除](/organize/role/delete?doc)
 * [权限列表](/organize/role/access/list?doc)
+* [人员列表](/organize/role/person/list?doc)
 
 ##### 范围模块
 * [范围列表](/organize/crowd/list?doc)
