@@ -13,7 +13,7 @@ public class Crowd extends BaseCrowd {
     
     public static Crowd add(CrowdVO vo) {
         Crowd crowd = new Crowd();
-        crowd.root = vo.rootId != null ? Organize.findByID(vo.rootId) : null;
+        crowd.organize = vo.organizeId != null ? Organize.findByID(vo.organizeId) : null;
         crowd.edit(vo);
         return crowd;
     }
@@ -54,9 +54,9 @@ public class Crowd extends BaseCrowd {
             hqls.add("name like ?");
             params.add("%" + vo.name + "%");
         }
-        if (vo.rootId != null) {
-            hqls.add("root.id=?");
-            params.add(vo.rootId);
+        if (vo.organizeId != null) {
+            hqls.add("organize.id=?");
+            params.add(vo.organizeId);
         }
         return new Object[]{hqls, params};
     }

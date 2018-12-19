@@ -13,6 +13,7 @@ public class CrowdController extends ApiController {
     
     @ActionMethod(name = "范围列表", param = "page,size", clazz = {PageData.class, CrowdVO.class})
     public static void list(CrowdVO vo) {
+        vo.organizeId = getRoot();
         int total = Crowd.count(vo);
         List<Crowd> crowds = Crowd.fetch(vo);
         List<CrowdVO> crowdVOs = crowds.stream().map(o -> new CrowdVO(o)).collect(Collectors.toList());
@@ -29,7 +30,7 @@ public class CrowdController extends ApiController {
     
     @ActionMethod(name = "范围新增", param = "name,organizeIds", clazz = CrowdVO.class)
     public static void add(CrowdVO vo) {
-        vo.rootId = getRoot();
+        vo.organizeId = getRoot();
         Crowd crowd = Crowd.add(vo);
         renderJSON(Result.succeed(new CrowdVO(crowd)));
     }

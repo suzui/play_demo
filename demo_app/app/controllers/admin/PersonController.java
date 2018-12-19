@@ -11,7 +11,6 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.binding.As;
-import utils.CacheUtils;
 import utils.SMSUtils;
 import vos.PageData;
 import vos.PersonVO;
@@ -173,18 +172,18 @@ public class PersonController extends ApiController {
         renderJSON(Result.succeed(personVO.roles(person.roles())));
     }
     
-    @ActionMethod(name = "人员新增", param = "name,phone,sex,-remark,roleIds", clazz = PersonVO.class)
+    @ActionMethod(name = "人员新增", param = "name,phone,sex,-remark,roleIds")
     public static void add(PersonVO vo) {
         vo.type = PersonType.ADMIN.code();
         Person person = Person.add(vo);
-        renderJSON(Result.succeed(new PersonVO(person)));
+        renderJSON(Result.succeed());
     }
     
     @ActionMethod(name = "人员编辑", param = "-personId,-name,-phone,-sex,-remark,-roleIds")
     public static void edit(PersonVO vo) {
         Person person = vo.personId == null ? getPersonByToken() : Person.findByID(vo.personId);
         person.edit(vo);
-        renderJSON(Result.succeed(new PersonVO(person)));
+        renderJSON(Result.succeed());
     }
     
     @ActionMethod(name = "人员删除", param = "personId")

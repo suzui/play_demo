@@ -24,8 +24,8 @@ public class CrowdVO extends OneData {
     public List<SimplePersonVO> persons;
     
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @DataField(name = "根机构id")
-    public Long rootId;
+    @DataField(name = "机构id")
+    public Long organizeId;
     
     public CrowdVO() {
         this.condition = " order by id";
@@ -35,8 +35,8 @@ public class CrowdVO extends OneData {
         super(crowd.id);
         this.crowdId = crowd.id;
         this.name = crowd.name;
-        if (crowd.root != null) {
-            this.rootId = crowd.root.id;
+        if (crowd.organize != null) {
+            this.organizeId = crowd.organize.id;
         }
         this.organizeIds = BaseUtils.idsToList(crowd.organizeIds);
     }

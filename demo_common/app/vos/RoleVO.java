@@ -24,8 +24,8 @@ public class RoleVO extends OneData {
     public List<SimplePersonVO> persons;
     
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @DataField(name = "根机构id")
-    public Long rootId;
+    @DataField(name = "机构id")
+    public Long organizeId;
     
     public RoleVO() {
         this.condition = " order by id";
@@ -35,8 +35,8 @@ public class RoleVO extends OneData {
         super(role.id);
         this.roleId = role.id;
         this.name = role.name;
-        if (role.root != null) {
-            this.rootId = role.root.id;
+        if (role.organize != null) {
+            this.organizeId = role.organize.id;
         }
         this.accessIds = BaseUtils.idsToList(role.accessIds);
     }
