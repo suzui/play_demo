@@ -1,5 +1,6 @@
 package models.organize;
 
+import enums.PersonType;
 import models.person.Person;
 import models.token.BaseRelation;
 import org.apache.commons.lang.StringUtils;
@@ -70,6 +71,14 @@ public class Relation extends BaseRelation {
         if (vo.organizeId != null) {
             hqls.add("organize.id = ?");
             params.add(vo.organizeId);
+        }
+        if (vo.rootId != null) {
+            hqls.add("organize.root.id = ?");
+            params.add(vo.roleId);
+        }
+        if (vo.type != null) {
+            hqls.add("person.type = ?");
+            params.add(PersonType.convert(vo.type));
         }
         return new Object[]{hqls, params};
     }
