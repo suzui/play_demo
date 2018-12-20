@@ -11,7 +11,7 @@
 ##### 用户模块
 * [验证码获取](/user/app/person/captcha?doc)
 * [用户注册](/user/app/person/regist?doc)
-* [用户登录](/user/app/person/login?doc)
+* [用户登陆](/user/app/person/login?doc)
 * [用户登出](/user/app/person/logout?doc)
 * [用户详情](/user/app/person/info?doc)
 * [信息编辑](/user/app/person/edit?doc)

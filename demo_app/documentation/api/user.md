@@ -10,7 +10,7 @@
 ##### 用户模块
 * [验证码获取](/user/person/captcha?doc)
 * [用户注册](/user/person/regist?doc)
-* [用户登录](/user/person/login?doc)
+* [用户登陆](/user/person/login?doc)
 * [用户登出](/user/person/logout?doc)
 * [用户详情](/user/person/info?doc)
 * [信息编辑](/user/person/edit?doc)

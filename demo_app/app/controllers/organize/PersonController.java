@@ -62,7 +62,7 @@ public class PersonController extends ApiController {
         renderJSON(Result.succeed());
     }
     
-    @ActionMethod(name = "登录", clazz = PersonVO.class)
+    @ActionMethod(name = "登陆", clazz = PersonVO.class)
     public static void login(@ParamField(name = "用户名") String username,
                              @ParamField(name = "密码") @As(binder = PasswordBinder.class) String password) {
         Person person = Person.findByUsername(username, PersonType.ORGANIZE);

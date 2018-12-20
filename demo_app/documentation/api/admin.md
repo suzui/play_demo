@@ -10,7 +10,7 @@
 ##### 账号模块
 * [验证码](/admin/person/captcha?doc)
 * [验证码校验](/admin/person/validate?doc)
-* [登录](/admin/person/login?doc)
+* [登陆](/admin/person/login?doc)
 * [登出](/admin/person/logout?doc)
 * [详情](/admin/person/info?doc)
 * [编辑](/admin/person/edit?doc)

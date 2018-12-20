@@ -129,7 +129,7 @@ public class PersonController extends ApiController {
         renderJSON(Result.succeed(new PersonVO(accessToken)));
     }
     
-    @ActionMethod(name = "用户登录", clazz = PersonVO.class)
+    @ActionMethod(name = "用户登陆", clazz = PersonVO.class)
     public static void login(@ParamField(name = "用户名") String username,
                              @ParamField(name = "密码", required = false) @As(binder = PasswordBinder.class) String password,
                              @ParamField(name = "验证码", required = false) String captcha) {

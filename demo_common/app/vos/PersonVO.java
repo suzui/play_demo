@@ -47,11 +47,11 @@ public class PersonVO extends OneData {
     @JsonInclude(Include.NON_NULL)
     @DataField(name = "密码")
     public String password;
-    @DataField(name = "首次登录时间")
+    @DataField(name = "首次登陆时间")
     public Long firstLoginTime;
-    @DataField(name = "最后登录时间")
+    @DataField(name = "最后登陆时间")
     public Long lastLoginTime;
-    @DataField(name = "登录次数")
+    @DataField(name = "登陆次数")
     public Integer loginAmount;
     
     @DataField(name = "权限code列表")

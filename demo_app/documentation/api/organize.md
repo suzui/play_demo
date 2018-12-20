@@ -10,7 +10,7 @@
 ##### 账号模块
 * [验证码](/organize/person/captcha?doc)
 * [验证码校验](/organize/person/validate?doc)
-* [登录](/organize/person/login?doc)
+* [登陆](/organize/person/login?doc)
 * [登出](/organize/person/logout?doc)
 * [详情](/organize/person/info?doc) 
 * [编辑](/organize/person/edit?doc)
