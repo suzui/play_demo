@@ -67,16 +67,19 @@ public class PersonController extends ApiController {
     
     @ActionMethod(name = "登陆", clazz = PersonVO.class)
     public static void login(@ParamField(name = "用户名") String username,
-                             @ParamField(name = "密码") @As(binder = PasswordBinder.class) String password) {
+                             @ParamField(name = "密码") @As(binder = PasswordBinder.class) String password, @ParamField(name = "验证码") String captcha) {
         Person person = Person.findByUsername(username, PersonType.ADMIN);
         if (person == null) {
             renderJSON(Result.failed(StatusCode.PERSON_ACCOUNT_NOTEXIST));
         }
-        if (!person.isPasswordRight(password)) {
-            renderJSON(Result.failed(StatusCode.PERSON_PASSWORD_ERROR));
-        }
-        if (!person.isAdmin()) {
-            renderJSON(Result.failed(StatusCode.SYSTEM_ACCESS_FOBIDDEN));
+        if (StringUtils.isNotBlank(captcha)) {
+            if (!CaptchaType.LOGIN.validate(username, captcha)) {
+                renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
+            }
+        } else {
+            if (!person.isPasswordRight(password)) {
+                renderJSON(Result.failed(StatusCode.PERSON_PASSWORD_ERROR));
+            }
         }
         AccessToken accessToken = AccessToken.add(person);
         renderJSON(Result.succeed(new PersonVO(accessToken)));
@@ -91,19 +94,17 @@ public class PersonController extends ApiController {
     public static void forgetPassword(@ParamField(name = "用户名") String username,
                                       @ParamField(name = "密码") @As(binder = PasswordBinder.class) String password,
                                       @ParamField(name = "验证码") String captcha) {
-        if (!CaptchaType.PASSWORD.validate(username, captcha)) {
-            renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
-        }
         Person person = Person.findByUsername(username, PersonType.ADMIN);
         if (person == null) {
             renderJSON(Result.failed(StatusCode.PERSON_ACCOUNT_NOTEXIST));
         }
-        if (StringUtils.isNotBlank(password)) {
-            if (!Person.isPasswordLegal(password)) {
-                renderJSON(Result.failed(StatusCode.PERSON_PASSWORD_UNVALID));
-            }
-            person.editPassword(password);
+        if (!CaptchaType.PASSWORD.validate(username, captcha)) {
+            renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
         }
+        if (!Person.isPasswordLegal(password)) {
+            renderJSON(Result.failed(StatusCode.PERSON_PASSWORD_UNVALID));
+        }
+        person.editPassword(password);
         AccessToken accessToken = AccessToken.add(person);
         renderJSON(Result.succeed(new PersonVO(accessToken)));
     }

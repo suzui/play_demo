@@ -11,7 +11,6 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.binding.As;
-import utils.CacheUtils;
 import utils.SMSUtils;
 import vos.PersonVO;
 import vos.Result;
@@ -64,16 +63,22 @@ public class PersonController extends ApiController {
     
     @ActionMethod(name = "登陆", clazz = PersonVO.class)
     public static void login(@ParamField(name = "用户名") String username,
-                             @ParamField(name = "密码") @As(binder = PasswordBinder.class) String password) {
+                             @ParamField(name = "密码") @As(binder = PasswordBinder.class) String password, @ParamField(name = "验证码") String captcha) {
         Person person = Person.findByUsername(username, PersonType.ORGANIZE);
         if (person == null) {
             renderJSON(Result.failed(StatusCode.PERSON_ACCOUNT_NOTEXIST));
         }
-        if (!person.isPasswordRight(password)) {
-            renderJSON(Result.failed(StatusCode.PERSON_PASSWORD_ERROR));
-        }
-        if (!person.isOrganize() || person.roots().isEmpty()) {
-            renderJSON(Result.failed(StatusCode.SYSTEM_ACCESS_FOBIDDEN));
+        if (StringUtils.isNotBlank(captcha)) {
+            if (!CaptchaType.LOGIN.validate(username, captcha)) {
+                renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
+            }
+        } else {
+            if (!person.isPasswordRight(password)) {
+                renderJSON(Result.failed(StatusCode.PERSON_PASSWORD_ERROR));
+            }
+            if (person.roots().isEmpty()) {
+                renderJSON(Result.failed(StatusCode.SYSTEM_ACCESS_FOBIDDEN));
+            }
         }
         setHeader("root", person.roots().get(0).id + "");
         AccessToken accessToken = AccessToken.add(person);
@@ -89,19 +94,17 @@ public class PersonController extends ApiController {
     public static void forgetPassword(@ParamField(name = "用户名") String username,
                                       @ParamField(name = "密码") @As(binder = PasswordBinder.class) String password,
                                       @ParamField(name = "验证码") String captcha) {
-        if (!CaptchaType.PASSWORD.validate(username, captcha)) {
-            renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
-        }
         Person person = Person.findByUsername(username, PersonType.ORGANIZE);
         if (person == null) {
             renderJSON(Result.failed(StatusCode.PERSON_ACCOUNT_NOTEXIST));
         }
-        if (StringUtils.isNotBlank(password)) {
-            if (!Person.isPasswordLegal(password)) {
-                renderJSON(Result.failed(StatusCode.PERSON_PASSWORD_UNVALID));
-            }
-            person.editPassword(password);
+        if (!CaptchaType.PASSWORD.validate(username, captcha)) {
+            renderJSON(Result.failed(StatusCode.PERSON_CAPTCHA_ERROR));
         }
+        if (!Person.isPasswordLegal(password)) {
+            renderJSON(Result.failed(StatusCode.PERSON_PASSWORD_UNVALID));
+        }
+        person.editPassword(password);
         AccessToken accessToken = AccessToken.add(person);
         renderJSON(Result.succeed(new PersonVO(accessToken)));
     }
