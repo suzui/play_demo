@@ -5,6 +5,7 @@ import annotations.ParamField;
 import binders.PasswordBinder;
 import enums.CaptchaType;
 import enums.PersonType;
+import models.organize.Organize;
 import models.person.Person;
 import models.token.AccessToken;
 import org.apache.commons.lang.RandomStringUtils;
@@ -15,6 +16,8 @@ import utils.SMSUtils;
 import vos.PersonVO;
 import vos.Result;
 import vos.Result.StatusCode;
+
+import java.util.List;
 
 public class PersonController extends ApiController {
     
@@ -76,11 +79,12 @@ public class PersonController extends ApiController {
             if (!person.isPasswordRight(password)) {
                 renderJSON(Result.failed(StatusCode.PERSON_PASSWORD_ERROR));
             }
-            if (person.roots().isEmpty()) {
-                renderJSON(Result.failed(StatusCode.SYSTEM_ACCESS_FOBIDDEN));
-            }
         }
-        setHeader("root", person.roots().get(0).id + "");
+        List<Organize> roots = person.roots();
+        if (roots.isEmpty()) {
+            renderJSON(Result.failed(StatusCode.SYSTEM_ACCESS_FOBIDDEN));
+        }
+        setHeader("root", roots.get(0).id + "");
         AccessToken accessToken = AccessToken.add(person);
         renderJSON(Result.succeed(new PersonVO(accessToken)));
     }
