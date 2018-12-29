@@ -67,6 +67,7 @@
 *		/user/app/incrementData					    user.app.Application.incrementData
 *		/user/app/areaData					        user.app.Application.areaData
 *		/user/app/qiniu/uptoken					    user.app.Application.qiniuUptoken
+*		/user/app/getui/pushtoken				    user.app.Application.getuiPushtoken
 *		/user/app/person/regist					    user.app.PersonController.regist
 *		/user/app/person/phone/bind				    user.app.PersonController.bindPhone
 *		/user/app/person/email/bind				    user.app.PersonController.bindEmail
