@@ -41,5 +41,6 @@ hibernate.cache.use_second_level_cache=true
 %test.jpa.ddl=create-drop
 %test.db=mem
 
-@include.base=base.conf
-@include.common=common.conf
+@include.base=../../demo_app/conf/base.conf
+@include.common=../../demo_app/conf/common.conf
+@include.version=../../demo_app/conf/version.conf

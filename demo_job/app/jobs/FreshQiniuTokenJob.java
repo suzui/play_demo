@@ -6,7 +6,7 @@ import play.jobs.OnApplicationStart;
 import utils.QiniuUtils;
 
 @Every("1h")
-@OnApplicationStart
+//@OnApplicationStart
 public class FreshQiniuTokenJob extends Job {
     
     @Override
