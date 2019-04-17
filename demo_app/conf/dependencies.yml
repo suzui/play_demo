@@ -24,16 +24,6 @@ require:
     - org.apache.httpcomponents -> httpmime 4.5.3
     - commons-codec -> commons-codec 1.11
     - com.belerweb -> pinyin4j 2.5.0
-repositories:
-    - playBaseModules:
-        type: local
-        artifact: ${play.path}/modules/[module]
-        contains:
-            - baseModules -> *
 
-repositories:
-    - playCustomModules:
-        type: local
-        artifact: ${application.path}/../[module]
-        contains:
-            - customerModules -> *
+include:
+    - ${play.path}/modules/play_base/conf/dependencies.yml
