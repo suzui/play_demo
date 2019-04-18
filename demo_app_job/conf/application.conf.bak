@@ -44,3 +44,4 @@ hibernate.cache.use_second_level_cache=true
 @include.base=../../demo_app/conf/base.conf
 @include.common=../../demo_app/conf/common.conf
 @include.version=../../demo_app/conf/version.conf
+@include.selfcommon=common.conf
